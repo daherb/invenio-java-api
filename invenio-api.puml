@@ -1,0 +1,27 @@
+@startuml
+annotation java.lang.Override
+annotation org.springframework.boot.autoconfigure.SpringBootApplication
+class de.idsmannheim.lza.inveniojavaapi.API
+class de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary
+class de.idsmannheim.lza.inveniojavaapi.InvenioJavaApiApplication
+class de.idsmannheim.lza.inveniojavaapi.Metadata
+class de.idsmannheim.lza.inveniojavaapi.Records
+class java.net.URL
+class java.util.Date
+class java.util.HashMap
+class java.util.List
+class java.util.Optional
+class org.springframework.boot.SpringApplication
+de.idsmannheim.lza.inveniojavaapi.API ..> java.net.URL
+de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary ..> java.lang.Override
+de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary ..> java.util.HashMap
+de.idsmannheim.lza.inveniojavaapi.InvenioJavaApiApplication ..> org.springframework.boot.autoconfigure.SpringBootApplication
+de.idsmannheim.lza.inveniojavaapi.InvenioJavaApiApplication ..> org.springframework.boot.SpringApplication
+de.idsmannheim.lza.inveniojavaapi.Metadata ..> de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary
+de.idsmannheim.lza.inveniojavaapi.Metadata ..> java.util.Date
+de.idsmannheim.lza.inveniojavaapi.Metadata ..> java.util.List
+de.idsmannheim.lza.inveniojavaapi.Metadata ..> java.util.Optional
+de.idsmannheim.lza.inveniojavaapi.Records ..> java.util.Date
+de.idsmannheim.lza.inveniojavaapi.Records ..> java.util.List
+de.idsmannheim.lza.inveniojavaapi.Records ..> java.util.Optional
+@enduml
