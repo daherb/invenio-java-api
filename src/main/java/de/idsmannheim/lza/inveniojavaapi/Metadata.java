@@ -4,12 +4,14 @@
  */
 package de.idsmannheim.lza.inveniojavaapi;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
-// import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  *
@@ -27,7 +29,52 @@ import java.util.Map;
  *
  * The abbreviation CV stands for Controlled Vocabulary.
  */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Metadata {
+    // The mandatory fields are initialized in the constructor
+    @JsonProperty("resource_type")
+    private final ResourceType resourceType;
+    @JsonProperty("creators")
+    private final List<Creator> creators;
+    @JsonProperty("title")
+    private final String title;
+    @JsonProperty("publication_date")
+    private final ExtendedDateTimeFormat0 publicationDate;
+    // The rest is initialized with an empty value
+    @JsonProperty("additional_titles")
+    private final List<AdditionalTitle> additionalTitles = new ArrayList<>();
+    @JsonProperty("description")
+    private Optional<String> description = Optional.empty();
+    @JsonProperty("additional_descriptions")
+    private final List<AdditionalDescription> additionalDescriptions = new ArrayList<>();
+    @JsonProperty("rights")
+    private final List<License> rights = new ArrayList<>();
+    @JsonProperty("contributors")
+    private final List<Contributor> contributors = new ArrayList<>();
+    @JsonProperty("subjects")
+    private final List<Subject> subjects = new ArrayList<>();
+    @JsonProperty("languages")
+    private final List<Language> languages = new ArrayList<>();
+    @JsonProperty("dates")
+    private final List<RecordDate> dates = new ArrayList<>();
+    @JsonProperty("version")
+    private Optional<String> version = Optional.empty();
+    @JsonProperty("publisher")
+    private Optional<String> publisher = Optional.empty();
+    @JsonProperty("alternative_identifiers")
+    private final List<AlternateIdentifier> alternativeIdentifiers = new ArrayList<>();
+    @JsonProperty("related_identifiers")
+    private final List<RelatedIdentifier> relatedIdentifiers = new ArrayList<>();
+    @JsonProperty("sizes")
+    private final List<String> sizes = new ArrayList<>();
+    @JsonProperty("formats")
+    private final List<String> formats = new ArrayList<>();
+    @JsonProperty("locations")
+    private final List<Location> locations = new ArrayList<>();
+    @JsonProperty("funding")
+    private final List<FundingReference> fundingReferences = new ArrayList<>();
+    @JsonProperty("references")
+    private final List<Reference> references = new ArrayList<>();
     
     /**
      * Resource type (1)¶
@@ -56,11 +103,25 @@ public class Metadata {
      *  ----------------------------------------------------
      */
     public static class ResourceType {
+        @JsonProperty("id")
+        ControlledVocabulary.ResourceType id;
         
-        ControlledVocabulary.ResouceType.EResourceType id;
-        public ResourceType(ControlledVocabulary.ResouceType.EResourceType id) {
+        @JsonCreator
+        public ResourceType(ControlledVocabulary.ResourceType id) {
             this. id = id;
         }
+
+        public ControlledVocabulary.ResourceType getId() {
+            return id;
+        }
+
+        
+        @Override
+        public String toString() {
+            return "ResourceType{" + "id=" + id + '}';
+        }
+        
+        
     }
     
     /**
@@ -90,10 +151,14 @@ public class Metadata {
      * |               |             | is personal.                       |
      *  ------------------------------------------------------------------
      */
-    private static class Creator {
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    public static class Creator {
         
+        @JsonProperty("person_or_org")
         PersonOrOrg personOrOrg;
+        @JsonProperty("roles")
         Optional<ControlledVocabulary.Role> role = Optional.empty();
+        @JsonProperty("affiliations")
         ArrayList<Affiliation> affiliations = new ArrayList<>();
         
         public Creator(PersonOrOrg personOrOrg, Optional<ControlledVocabulary.Role> role, List<Affiliation> affiliations) {
@@ -126,6 +191,7 @@ public class Metadata {
      * |             |                 | identifiers.                      |
      *  -------------------------------------------------------------------
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     public static class PersonOrOrg {
         public enum Type { Personal, Organizational };
 
@@ -139,21 +205,43 @@ public class Metadata {
          *  ------------------------------------------------------------
          */
         public static class Identifier {
+            @JsonProperty("scheme")
             ControlledVocabulary.PersonOrOrgIdentifierScheme scheme;
+            @JsonProperty("id")
             String identifier;
+
+            public Identifier(ControlledVocabulary.PersonOrOrgIdentifierScheme scheme, String identifier) {
+                this.scheme = scheme;
+                this.identifier = identifier;
+            }
+            
+            
         }
         
         PersonOrOrg.Type type;
+        @JsonProperty("given_name")
         String givenName;
+        @JsonProperty("family_name")
         String familyName;
+        @JsonProperty("name")
         String name;
+        @JsonProperty("identifiers")
         ArrayList<Identifier> identifiers = new ArrayList<>();
         
-        public PersonOrOrg(PersonOrOrg.Type type, String givenName, 
-                String familyName, String name, List<Identifier> identifiers) {
-            this.type = type;
-            if (type.equals(PersonOrOrg.Type.Personal)) {
-                if (givenName == null || givenName.isBlank() || 
+        @JsonProperty("type")
+        public String getType() {
+            return type.toString().toLowerCase();
+        }
+        /**
+         * Constructor for a person, automatically sets the type to personal and concatenates names in name field
+         * @param givenName given name of the person
+         * @param familyName family name of the person
+         * @param identifiers list of identifiers
+         */
+        public PersonOrOrg(String givenName, 
+                String familyName, List<Identifier> identifiers) {
+            this.type = Type.Personal;
+            if (givenName == null || givenName.isBlank() || 
                         familyName == null || familyName.isBlank()) {
                     // That's a bad idea but we didn't make the rules
                     throw new IllegalArgumentException
@@ -161,20 +249,29 @@ public class Metadata {
                 }
                 this.givenName = givenName;
                 this.familyName = familyName;
-                this.name = givenName + " " + familyName;
+                this.name = familyName + ", " + givenName;
+                this.identifiers.addAll(identifiers);
             }
-            else {
+        /**
+         * Constructor for a person with an explicit name parameter
+         * @param givenName given name of the person
+         * @param familyName family name of the person
+         * @param name complete name of the person
+         * @param identifiers list of identifiers
+         */
+        public PersonOrOrg(String givenName, 
+                String familyName, String name, List<Identifier> identifiers) {
+            this(givenName, familyName, identifiers);
+            this.name = name;
+        }
+        
+        public PersonOrOrg(String name, List<Identifier> identifiers){
                 if (name == null || name.isBlank()) {
                     throw new IllegalArgumentException
                             ("Name has to be present for an organization");
                 }
-                this.givenName = givenName;
-                this.familyName = familyName;
-            }
-            if (!identifiers.isEmpty())
-                this.identifiers.addAll(identifiers);
-            else
-                throw new IllegalArgumentException("At least one identifier required");
+            this.name = name;
+            this.identifiers.addAll(identifiers);
         }
         
     }
@@ -193,7 +290,9 @@ public class Metadata {
      * is no matching id in the controlled vocabulary.
      */
     public static class Affiliation {
+        @JsonProperty("id")
         Optional<ControlledVocabulary.OrganizationalOrInstitutionalId> id = Optional.empty();
+        @JsonProperty("name")
         Optional<String> name = Optional.empty();
 
         public Affiliation(Optional<ControlledVocabulary.OrganizationalOrInstitutionalId> id, Optional<String> name) {
@@ -270,29 +369,30 @@ public class Metadata {
             return this;
         }
 
+        @JsonValue
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append(startYear);
             if (startMonth.isPresent()) {
                 sb.append("-");
-                sb.append(startMonth);
+                sb.append(startMonth.get());
             }
             if (startDay.isPresent()) {
                 sb.append("-");
-                sb.append(startDay);
+                sb.append(startDay.get());
             }
             if (endYear.isPresent()) {
                 sb.append("/");
-                sb.append(endYear);
+                sb.append(endYear.get());
             }
             if (endMonth.isPresent()) {
                 sb.append("-");
-                sb.append(endMonth);
+                sb.append(endMonth.get());
             }
             if (endDay.isPresent()) {
                 sb.append("-");
-                sb.append(endDay);
+                sb.append(endDay.get());
             }
             return sb.toString();
         }
@@ -342,7 +442,7 @@ public class Metadata {
      * | lang  | (0-1, CV)   | The language of the title. |
      *  --------------------------------------------------
      */
-    private static class AdditionalTitle {
+    public static class AdditionalTitle {
         
         String title;
 
@@ -490,7 +590,7 @@ public class Metadata {
      * 
      * Either id or title must be passed, but not both.
      */
-    private static class License {
+    public static class License {
         Optional<String> id = Optional.empty();
         Optional<LocalizedString> title = Optional.empty();
         Optional<LocalizedString> description = Optional.empty();
@@ -545,7 +645,7 @@ public class Metadata {
     * Note that Creators and Contributors may use different controlled
     * vocabularies for the role field.
      */
-    private static class Contributor {
+    public static class Contributor {
         
         PersonOrOrg personOrOrg;
         ControlledVocabulary.Role role;
@@ -578,7 +678,7 @@ public class Metadata {
      * 
      * Either id or subject must be passed.
      */
-    private static class Subject {
+    public static class Subject {
         Optional<URL> id = Optional.empty();
         Optional<String> subject = Optional.empty();
 
@@ -870,7 +970,7 @@ public class Metadata {
      *   landing page. This is primarily due to need for a user-friendly field.
 
      */
-    private static class Location {
+    public static class Location {
         
         public static class LocationIdentifier {
             String identifier; // This should be a controlled vocabulary but it is not defined
@@ -961,7 +1061,7 @@ public class Metadata {
      * One of id OR (title and number) must be given. It's recommended to use
      * title and number if there is no matching id in the controlled vocabulary.
      */
-    private static class FundingReference {
+    public static class FundingReference {
         
         public FundingReference() {
         }
@@ -992,7 +1092,7 @@ public class Metadata {
      * Note that those are passed lowercased with spaces removed e.g., 
      * CrossRef Funder ID is crossreffunderid.
      */
-    private static class Reference {
+    public static class Reference {
         
         String reference;
         Optional<ControlledVocabulary.ReferenceScheme> schema = Optional.empty();
@@ -1008,19 +1108,26 @@ public class Metadata {
         
     }
     
+    /**
+     * Constructor for all mandatory fields
+     * @param resourceType the resource type
+     * @param creators the list of creators
+     * @param title the title of the resource
+     * @param publicationDate the publication date
+     */
     public Metadata(
             /**
              * Resource type (1) (https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1)
-             * 
+             *
              * The type of the resource described by the record. The resource
              * type must be selected from a controlled vocabulary which can be
              * customized by each InvenioRDM instance.
-             * 
+             *
              * When interfacing with Datacite, this field is converted to a
              * format compatible with 10. Resource Type (i.e. type and subtype).
              * DataCite allows free text for the subtype, however InvenioRDM
              * requires this to come from a customizable controlled vocabulary.
-             * 
+             *
              * The resource type vocabulary also defines mappings to other
              * vocabularies than Datacite such as Schema.org, Citation Style
              * Language, BibTeX, and OpenAIRE. These mappings are very important
@@ -1030,65 +1137,72 @@ public class Metadata {
             ResourceType resourceType,
             /**
              * Creators (1-n) (https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n)
-             * 
+             *
              * The creators field registers those persons or organisations that
              * should be credited for the resource described by the record. The
              * list of persons or organisations in the creators field is used
              * for generating citations, while the persons or organisations
              * listed in the contributors field are not included in the
              * generated citations.
-             * 
+             *
              * The field is compatible with 2. Creator in DataCite. In addition
              * we are adding the possiblity of associating a role (like for
-             * contributors). This is specifically for cases where e.g. an 
-             * editor needs to be credited for the work, while authors of 
+             * contributors). This is specifically for cases where e.g. an
+             * editor needs to be credited for the work, while authors of
              * individual articles will be listed under contributors.
              */
             List<Creator> creators,
             /**
              * Title (1) (https://inveniordm.docs.cern.ch/reference/metadata/#title-1)
-             * 
-             * A primary name or primary title by which a resource is known. 
+             *
+             * A primary name or primary title by which a resource is known.
              * May be the title of a dataset or the name of a piece of software.
-             * The primary title is used for display purposes throughout 
+             * The primary title is used for display purposes throughout
              * InvenioRDM.
-             * 
-             * The fields is compatible with 3. Title in DataCite. Compared to 
-             * DataCite, the field does not support specifying the language of 
+             *
+             * The fields is compatible with 3. Title in DataCite. Compared to
+             * DataCite, the field does not support specifying the language of
              * the title.
              */
             String title,
             /**
              * Publication date (1)¶
-             * 
+             *
              * The date when the resource was or will be made publicly available.
-             * 
+             *
              * The field is compatible 5. PublicationYear in DataCite. In case
              * of time intervals, the earliest date is used for DataCite.
-             * 
+             *
              * Format:
-             * 
+             *
              * The string must be be formatted according to Extended Date Time
              * Format (EDTF) Level 0. Only "Date" and "Date Interval" are
              * supported. "Date and Time" is not supported. The following are
              * examples of valid values:
-             * 
+             *
              * Date:
              * - 2020-11-10 - a complete ISO8601 date.
              * - 2020-11 - a date with month precision
              * - 2020 - a date with year precision
-             * 
+             *
              * Date Interval:
              * - 1939/1945 a date interval with year precision, beginning sometime
              *   in 1939 and ending sometime in 1945.
              * - 1939-09-01/1945-09 a date interval with day and month precision,
-             *   beginning September 1st, 1939 and ending sometime in September 
+             *   beginning September 1st, 1939 and ending sometime in September
              *   1945.
-             * 
-             * The localization (L10N) of EDTF dates is based on the skeletons 
+             *
+             * The localization (L10N) of EDTF dates is based on the skeletons
              * defined by the Unicode Common Locale Data Repository (CLDR).
              */
-            ExtendedDateTimeFormat0 publicationDate,
+            ExtendedDateTimeFormat0 publicationDate) {
+        this.resourceType = resourceType;
+        this.creators = creators;
+        this.title = title;
+        this.publicationDate = publicationDate;
+    }
+    
+    public Metadata addAdditionalTitles(
             /**
              * Additional titles (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#additional-titles-0-n)
              * 
@@ -1100,7 +1214,12 @@ public class Metadata {
              * of a record's title throughout the entire software stack for
              * display purposes.
              */
-            List<AdditionalTitle> additionalTitles,
+            List<AdditionalTitle> additionalTitles) {
+        this.additionalTitles.addAll(additionalTitles);
+        return this;
+    }
+    
+    public Metadata setDescription(
             /**
              * Description (0-1) (https://inveniordm.docs.cern.ch/reference/metadata/#description-0-1)
              * 
@@ -1113,7 +1232,12 @@ public class Metadata {
              * The description may use a whitelist of HTML tags and attributes 
              * to style the text.
              */
-            Optional<String> description,
+            String description) {
+        this.description = Optional.of(description);
+        return this;
+    }
+    
+    public Metadata addAdditionalDescriptions(
             /**
              * Additional descriptions (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#additional-descriptions-0-n)
              * 
@@ -1122,7 +1246,12 @@ public class Metadata {
              * 
              * The field is compatible with 17. Description in DataCite.
              */
-            List<AdditionalDescription> additionalDescriptions,
+            List<AdditionalDescription> additionalDescriptions) {
+        this.additionalDescriptions.addAll(additionalDescriptions);
+        return this;
+    }
+    
+    public Metadata addRights(
             /**
              * Rights (Licenses) (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n)
              * 
@@ -1138,7 +1267,11 @@ public class Metadata {
              * The rights statements does not have any impact on access control
              * to the resource.
              */
-            List<License> rights,
+            List<License> rights) {
+        this.rights.addAll(rights);
+        return this;
+    }
+    public Metadata addContributors(
             /**
              * Contributors (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#contributors-0-n)
              * 
@@ -1155,7 +1288,12 @@ public class Metadata {
              * persons or organisations that have contributed, but which should
              * not be credited for citation purposes.
              */
-            List<Contributor> contributors,
+            List<Contributor> contributors) {
+        this.contributors.addAll(contributors);
+        return this;
+    }
+    
+    public Metadata addSubjects(
             /**
              * Subjects (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#subjects-0-n)
              * 
@@ -1163,7 +1301,12 @@ public class Metadata {
              * 
              * This field is compatible with 6. Subject in DataCite.
              */
-            List<Subject> subject,
+            List<Subject> subjects) {
+        this.subjects.addAll(subjects);
+        return this;
+    }
+    
+    public Metadata addLanguages(
             /**
              * Languages (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#languages-0-n)
              * 
@@ -1173,7 +1316,12 @@ public class Metadata {
              * however only supports one primary language, while this field
              * supports multiple languages.
              */
-            List<Language> languages,
+            List<Language> languages) {
+        this.languages.addAll(languages);
+        return this;
+    }
+    
+    public Metadata addDates(
             /**
              * Dates (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#dates-0-n)
              * 
@@ -1181,7 +1329,12 @@ public class Metadata {
              * 
              * The field is compatible with 8. Date in DataCite.
              */
-            List<RecordDate> dates,
+            List<RecordDate> dates) {
+        this.dates.addAll(dates);
+        return this;
+    }
+    
+    public Metadata setVersion(
             /**
              * Version (0-1) (https://inveniordm.docs.cern.ch/reference/metadata/#version-0-1)
              * 
@@ -1191,7 +1344,12 @@ public class Metadata {
              * 
              * This field is compatible with 15. Version in DataCite.
              */
-            Optional<String> version,
+            String version) {
+        this.version = Optional.of(version);
+        return this;
+    }
+    
+    public Metadata setPublisher(
             /**
              * Publisher (0-1) (https://inveniordm.docs.cern.ch/reference/metadata/#publisher-0-1)
              * 
@@ -1206,7 +1364,12 @@ public class Metadata {
              * 
              * Defaults to the name of the repository.
              */
-            Optional<String> publisher,
+            String publisher) {
+        this.publisher = Optional.of(publisher);
+        return this;
+    }
+    
+    public Metadata addAlternativeIdentifiers(
             /**
              * Alternate identifiers (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#alternate-identifiers-0-n)
              * 
@@ -1225,7 +1388,13 @@ public class Metadata {
              * another record with the same DOI from being created. A DOI
              * included in this field, will not prevent another record from
              * including the same DOI in this field.
-            List<AlternateIdentifier> alternateIdentifiers,
+             */
+            List<AlternateIdentifier> alternateIdentifiers) {
+        this.alternativeIdentifiers.addAll(alternateIdentifiers);
+        return this;
+    }
+    
+    public Metadata addRelatedIdentifiers(
             /**
             * Related identifiers/works (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n)
             * 
@@ -1236,7 +1405,12 @@ public class Metadata {
             * 12.c relatedMetadataScheme, 12.d schemeURI and 12.e schemeType 
             * used for linking to additional metadata.
             */
-            List<RelatedIdentifier> relatedIdentifiers,
+            List<RelatedIdentifier> relatedIdentifiers) {
+        this.relatedIdentifiers.addAll(relatedIdentifiers);
+        return this;
+    }
+    
+    public Metadata addSizes(
             /**
              * Sizes (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#sizes-0-n)
              * 
@@ -1249,7 +1423,12 @@ public class Metadata {
              * 
              * This field is compatible with 13. Size in DataCite.
              */
-            List<String> sizes,
+            List<String> sizes) {
+        this.sizes.addAll(sizes);
+        return this;
+    }
+    
+    public Metadata addFormats(
             /**
              * Formats (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#formats-0-n)
              *
@@ -1260,7 +1439,12 @@ public class Metadata {
              * 
              * This field is compatible with 14. Format in Datacite.
              */
-            List<String> formats,
+            List<String> formats) {
+        this.formats.addAll(formats);
+        return this;
+    }
+    
+    public Metadata addLocations(
             /**
              * Locations (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#locations-0-n)
              *
@@ -1286,7 +1470,12 @@ public class Metadata {
              * will include the type information as well as "properties": null in order
              * to make it valid GeoJSON.
              */
-            List<Location> locations,
+            List<Location> locations) {
+        this.locations.addAll(locations);
+        return this;
+    }
+    
+    public Metadata addFundingReferences(
             /**
              * Funding references (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#funding-references-0-n)
              *
@@ -1301,7 +1490,12 @@ public class Metadata {
              * the OpenAIRE grant database, or specified explicitly to allow linking
              * to grants not provided by the grant database.
              */
-            List<FundingReference> fundingReferences,
+            List<FundingReference> fundingReferences) {
+        this.fundingReferences.addAll(fundingReferences);
+        return this;
+    }
+    
+    public Metadata addReferences(
             /**
              * References (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#references-0-n)
              * ⚠️ Not part of the deposit page yet:
@@ -1311,7 +1505,9 @@ public class Metadata {
              * A list of reference strings
              *
              */
-            List<Reference> references
-    ) {
+            List<Reference> references) {
+        this.references.addAll(references);
+        return this;
     }
+    
 }

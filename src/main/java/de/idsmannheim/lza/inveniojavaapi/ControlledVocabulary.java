@@ -4,13 +4,17 @@
  */
 package de.idsmannheim.lza.inveniojavaapi;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 /**
  *
@@ -21,7 +25,7 @@ public class ControlledVocabulary {
     /**
      * See https://raw.githubusercontent.com/inveniosoftware/invenio-rdm-records/bc1c38991e602cd3a495f50cba7b1d4f868df07f/invenio_rdm_records/fixtures/data/vocabularies/resource_types.yaml
      */
-    public static class ResouceType {
+    public static class ResourceType {
         
         public static enum EResourceType {
             Publication, PublicationAnnotationCollection, PublicationBook, 
@@ -38,47 +42,71 @@ public class ControlledVocabulary {
             Video, Software, Lesson, Other
             
         }; 
-        HashMap<ResouceType.EResourceType,String> types;
+        HashMap<ResourceType.EResourceType,String> types = null;
         
-        ResouceType.EResourceType resourceType;
-        public ResouceType(ResouceType.EResourceType resourceType) {
+        List typeList = 
+                List.of(
+        new ImmutablePair<>(EResourceType.Publication, "publication"),
+        new ImmutablePair<>(EResourceType.PublicationAnnotationCollection, "publication-annotationcollection"),
+        new ImmutablePair<>(EResourceType.PublicationBook,"publication-book"),
+        new ImmutablePair<>(EResourceType.PublicationSection, "publication-section"),
+        new ImmutablePair<>(EResourceType.PublicationConferencePaper, "publication-conferencepaper"),
+        new ImmutablePair<>(EResourceType.PublicationDataManagementPlan, "publication-datamanagementplan"),
+        new ImmutablePair<>(EResourceType.PublicationArticle, "publication-article"),
+        new ImmutablePair<>(EResourceType.PublicationPatent, "publication-patent"),
+        new ImmutablePair<>(EResourceType.PublicationPreprint, "publication-preprint"),
+        new ImmutablePair<>(EResourceType.PublicationDeliverable, "publication-deliverable"),
+        new ImmutablePair<>(EResourceType.PublicationMilestone, "publication-milestone"),
+        new ImmutablePair<>(EResourceType.PublicationProposal, "publication-proposal"),
+        new ImmutablePair<>(EResourceType.PublicationReport, "publication-report"),
+        new ImmutablePair<>(EResourceType.PublicationSoftwareDocumentation, "publication-softwaredocumentation"),
+        new ImmutablePair<>(EResourceType.PublicationTaxonomicTreatment, "publication-taxonomictreatment"),
+        new ImmutablePair<>(EResourceType.PublicationTechnicalNote, "publication-technicalnote"),
+        new ImmutablePair<>(EResourceType.PublicationThesis, "publication-thesis"),
+        new ImmutablePair<>(EResourceType.PublicationWorkingPaper, "publication-workingpaper"),
+        new ImmutablePair<>(EResourceType.PublicationOther, "publication-other"),
+        new ImmutablePair<>(EResourceType.Poster, "poster"),
+        new ImmutablePair<>(EResourceType.Presentation, "presentation"),
+        new ImmutablePair<>(EResourceType.Dataset, "dataset"),
+        new ImmutablePair<>(EResourceType.Image, "image"),
+        new ImmutablePair<>(EResourceType.ImageFigure, "image-figure"),
+        new ImmutablePair<>(EResourceType.ImagePlot, "image-plot"),
+        new ImmutablePair<>(EResourceType.ImageDrawing, "image-drawing"),
+        new ImmutablePair<>(EResourceType.ImageDiagram, "image-diagram"),
+        new ImmutablePair<>(EResourceType.ImagePhoto, "image-photo"),
+        new ImmutablePair<>(EResourceType.ImageOther, "image-other"),
+        new ImmutablePair<>(EResourceType.Video, "video"),
+        new ImmutablePair<>(EResourceType.Software, "software"),
+        new ImmutablePair<>(EResourceType.Lesson, "lesson"),
+        new ImmutablePair<>(EResourceType.Other, "other")
+                );
+        
+        ResourceType.EResourceType resourceType = null;
+        
+        @JsonCreator
+        public ResourceType(String resourceTypeString) {
             this.types = new HashMap();
-            types.put(EResourceType.Publication, "publication");
-            types.put(EResourceType.PublicationAnnotationCollection, "publication-annotationcollection");
-            types.put(EResourceType.PublicationBook,"publication-book");
-            types.put(EResourceType.PublicationSection, "publication-section");
-            types.put(EResourceType.PublicationConferencePaper, "publication-conferencepaper");
-            types.put(EResourceType.PublicationDataManagementPlan, "publication-datamanagementplan");
-            types.put(EResourceType.PublicationArticle, "publication-article");
-            types.put(EResourceType.PublicationPatent, "publication-patent");
-            types.put(EResourceType.PublicationPreprint, "publication-preprint");
-            types.put(EResourceType.PublicationDeliverable, "publication-deliverable");
-            types.put(EResourceType.PublicationMilestone, "publication-milestone");
-            types.put(EResourceType.PublicationProposal, "publication-proposal");
-            types.put(EResourceType.PublicationReport, "publication-report");
-            types.put(EResourceType.PublicationSoftwareDocumentation, "publication-softwaredocumentation");
-            types.put(EResourceType.PublicationTaxonomicTreatment, "publication-taxonomictreatment");
-            types.put(EResourceType.PublicationTechnicalNote, "publication-technicalnote");
-            types.put(EResourceType.PublicationThesis, "publication-thesis");
-            types.put(EResourceType.PublicationWorkingPaper, "publication-workingpaper");
-            types.put(EResourceType.PublicationOther, "publication-other");
-            types.put(EResourceType.Poster, "poster");
-            types.put(EResourceType.Presentation, "presentation");
-            types.put(EResourceType.Dataset, "dataset");
-            types.put(EResourceType.Image, "image");
-            types.put(EResourceType.ImageFigure, "image-figure");
-            types.put(EResourceType.ImagePlot, "image-plot");
-            types.put(EResourceType.ImageDrawing, "image-drawing");
-            types.put(EResourceType.ImageDiagram, "image-diagram");
-            types.put(EResourceType.ImagePhoto, "image-photo");
-            types.put(EResourceType.ImageOther, "image-other");
-            types.put(EResourceType.Video, "video");
-            types.put(EResourceType.Software, "software");
-            types.put(EResourceType.Lesson, "lesson");
-            types.put(EResourceType.Other, "other");
+            for (ImmutablePair<ResourceType.EResourceType, String> type : 
+                    (List<ImmutablePair<ResourceType.EResourceType,String>>) typeList) {
+                if (type.getValue().equals(resourceTypeString)) {
+                    resourceType=type.getKey();
+                }
+                types.put(type.getKey(),type.getValue());
+            }
+            if (resourceType == null)
+                throw new IllegalArgumentException("Invalid resource type");
+        }
+        
+        public ResourceType(ResourceType.EResourceType resourceType) {
+            this.types = new HashMap();
+            for (ImmutablePair<ResourceType.EResourceType, String> type : 
+                    (List<ImmutablePair<ResourceType.EResourceType,String>>) typeList) {
+                types.put(type.getKey(),type.getValue());
+            }
             this.resourceType = resourceType;
         }
-
+        
+        @JsonValue
         @Override
         public String toString() {
             return types.get(resourceType);
@@ -117,6 +145,7 @@ public class ControlledVocabulary {
             this.scheme = scheme;
         }
 
+        @JsonValue
         @Override
         public String toString() {
             return scheme.toString().toLowerCase();
@@ -186,7 +215,7 @@ public class ControlledVocabulary {
             CIT                         // California Institute of Technology
         }
         
-        HashMap<EOrganization,String> organizations;
+        HashMap<EOrganization,String> organizations = new HashMap<>();
         OrganizationalOrInstitutionalId.EOrganization organization;
         public OrganizationalOrInstitutionalId(OrganizationalOrInstitutionalId.EOrganization organization) {
             organizations.put(EOrganization.CERN, "01ggx4157");      //European Organization for Nuclear Research
@@ -208,6 +237,7 @@ public class ControlledVocabulary {
             this.organization = organization;
         }
         
+        @JsonValue
         @Override
         public String toString() {
             return organizations.get(organization);
