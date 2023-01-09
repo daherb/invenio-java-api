@@ -11,8 +11,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -94,7 +96,7 @@ public class ControlledVocabulary {
                 types.put(type.getKey(),type.getValue());
             }
             if (resourceType == null)
-                throw new IllegalArgumentException("Invalid resource type");
+                throw new IllegalArgumentException("Invalid resource type: " + resourceTypeString);
         }
         
         public ResourceType(ResourceType.EResourceType resourceType) {
@@ -110,6 +112,45 @@ public class ControlledVocabulary {
         @Override
         public String toString() {
             return types.get(resourceType);
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 23 * hash + Objects.hashCode(this.resourceType);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final ResourceType other = (ResourceType) obj;
+            return this.resourceType == other.resourceType;
+        }
+        
+        
+    }
+    
+    /**
+     * See https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n
+     */
+    public static class RelatedResourceType extends ResourceType {
+
+        // Currently simply the same as ResourceType
+        public RelatedResourceType(String resourceTypeString) {
+            super(resourceTypeString);
+        }
+
+        public RelatedResourceType(EResourceType resourceType) {
+            super(resourceType);
         }
         
         
@@ -145,11 +186,39 @@ public class ControlledVocabulary {
             this.scheme = scheme;
         }
 
+        public PersonOrOrgIdentifierScheme(String scheme) {
+            this.scheme =EScheme.valueOf(scheme.toUpperCase());
+        }
+        
         @JsonValue
         @Override
         public String toString() {
             return scheme.toString().toLowerCase();
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 97 * hash + Objects.hashCode(this.scheme);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final PersonOrOrgIdentifierScheme other = (PersonOrOrgIdentifierScheme) obj;
+            return this.scheme == other.scheme;
+        }
+        
+        
     }
     
     /**
@@ -186,10 +255,45 @@ public class ControlledVocabulary {
             this.role = role;
         }
         
+        public Role(String role) {
+            for (ERole e : ERole.values()) {
+                if (e.toString().toLowerCase().equals(role)) {
+                    this.role = e;
+                }
+            }
+            if (this.role == null) {
+                throw new IllegalArgumentException("Invalid role: " + role);
+            }
+        }
         @Override
+        @JsonValue
         public String toString() {
             return role.toString().toLowerCase();
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 59 * hash + Objects.hashCode(this.role);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Role other = (Role) obj;
+            return this.role == other.role;
+        }
+        
+        
     }
 
     /**
@@ -215,26 +319,44 @@ public class ControlledVocabulary {
             CIT                         // California Institute of Technology
         }
         
+        List<ImmutablePair<EOrganization,String>> organizationsList = new ArrayList<>(
+                List.of(
+                        new ImmutablePair<>(EOrganization.CERN, "01ggx4157"),      //European Organization for Nuclear Research
+                        new ImmutablePair<>(EOrganization.BNL, "02ex6cf31"),       //Brookhaven National Laboratory
+                        new ImmutablePair<>(EOrganization.EkoKonnect, "047h63042"), // Eko-Konnect
+                        new ImmutablePair<>(EOrganization.HZDR, "01zy2cs03"),      // Helmholtz-Zentrum Dresden-Rossendorf
+                        new ImmutablePair<>(EOrganization.INFN, "005ta0471"),      // National Institute for Nuclear Physics
+                        new ImmutablePair<>(EOrganization.JRC, "04j5wtv36"),       // Directorate-General Joint Research Centre
+                        new ImmutablePair<>(EOrganization.NU, "000e0be47"),        // Northwestern University
+                        new ImmutablePair<>(EOrganization.Tind, "04mcehe57"),      // Tind Technologies (Norway)
+                        new ImmutablePair<>(EOrganization.ULAKBIM, "017k52s24"),   // Turkish Academic Network and Information Center
+                        new ImmutablePair<>(EOrganization.GrazUniversityOfTechnology, "00d7xrm67"), // Graz University of Technology
+                        new ImmutablePair<>(EOrganization.TUW, "04d836q62"),       // TU Wien
+                        new ImmutablePair<>(EOrganization.UHH, "00g30e956"),       // Universität Hamburg
+                        new ImmutablePair<>(EOrganization.WWU, "00pd74e08"),       // University of Münster
+                        new ImmutablePair<>(EOrganization.WACREN, "006rqpt26"),    // West and Central African Research and Education Network
+                        new ImmutablePair<>(EOrganization.CIT, "05dxps055")        // California Institute of Technology
+            ));
         HashMap<EOrganization,String> organizations = new HashMap<>();
         OrganizationalOrInstitutionalId.EOrganization organization;
+        
         public OrganizationalOrInstitutionalId(OrganizationalOrInstitutionalId.EOrganization organization) {
-            organizations.put(EOrganization.CERN, "01ggx4157");      //European Organization for Nuclear Research
-            organizations.put(EOrganization.BNL, "02ex6cf31");       //Brookhaven National Laboratory
-            organizations.put(EOrganization.EkoKonnect, "047h63042"); // Eko-Konnect
-            organizations.put(EOrganization.HZDR, "01zy2cs03");      // Helmholtz-Zentrum Dresden-Rossendorf
-            organizations.put(EOrganization.INFN, "005ta0471");      // National Institute for Nuclear Physics
-            organizations.put(EOrganization.JRC, "04j5wtv36");       // Directorate-General Joint Research Centre
-            organizations.put(EOrganization.NU, "000e0be47");        // Northwestern University
-            organizations.put(EOrganization.Tind, "04mcehe57");      // Tind Technologies (Norway)
-            organizations.put(EOrganization.ULAKBIM, "017k52s24");   // Turkish Academic Network and Information Center
-            organizations.put(EOrganization.GrazUniversityOfTechnology, "00d7xrm67"); // Graz University of Technology
-            organizations.put(EOrganization.TUW, "04d836q62");       // TU Wien
-            organizations.put(EOrganization.UHH, "00g30e956");       // Universität Hamburg
-            organizations.put(EOrganization.WWU, "00pd74e08");       // University of Münster
-            organizations.put(EOrganization.WACREN, "006rqpt26");    // West and Central African Research and Education Network
-            organizations.put(EOrganization.CIT, "05dxps055");       // California Institute of Technology
-            
+            for (ImmutablePair<EOrganization,String> pair : organizationsList) {
+                organizations.put(pair.getKey(), pair.getValue());
+            }
             this.organization = organization;
+        }
+        
+        
+        public OrganizationalOrInstitutionalId(String organization) {
+            for (ImmutablePair<EOrganization,String> pair : organizationsList) {
+                organizations.put(pair.getKey(), pair.getValue());
+                if (pair.getValue().equals(organization)) {
+                    this.organization = pair.getKey();
+                }
+            }
+            if (this.organization == null)
+                throw new IllegalArgumentException("Invalid organization: " + organization);
         }
         
         @JsonValue
@@ -242,6 +364,30 @@ public class ControlledVocabulary {
         public String toString() {
             return organizations.get(organization);
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 11 * hash + Objects.hashCode(this.organization);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final OrganizationalOrInstitutionalId other = (OrganizationalOrInstitutionalId) obj;
+            return this.organization == other.organization;
+        }
+        
+        
     }
 
     /**
@@ -249,7 +395,7 @@ public class ControlledVocabulary {
      * 
      * Both ISO-639-2 and ISO-639-3 language codes loaded from a resource
      */
-    public static class Language {
+    public static class LanguageId {
 
         public static class LanguageInfo {
             String id3;
@@ -261,11 +407,12 @@ public class ControlledVocabulary {
                 this.id2 = id2;
                 this.name = name;
             }
-
+            
             @Override
             public String toString() {
-                return id3;
+                return "LanguageInfo{" + "id3=" + id3 + ", id2=" + id2 + ", name=" + name + '}';
             }
+            
         }
         
         ArrayList<LanguageInfo> languages = new ArrayList<>();
@@ -273,26 +420,26 @@ public class ControlledVocabulary {
         Optional<String> id2 = Optional.empty();
         Optional<String> id3 = Optional.empty();
         
-        public Language() throws IOException {
+        private LanguageId() throws IOException {
             ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
             
             TreeNode tree = objectMapper.createParser(this.getClass().getClassLoader()
                     .getResourceAsStream("languages.yaml"))
                     .readValueAsTree();
             for (int ct = 0 ; ct < tree.size(); ct++) {
-                Optional<String> id2 = 
+                Optional<String> id = 
                         tree.get(ct).get("props").get("alpha_2").toString().isBlank() 
                         ? Optional.empty() 
-                        : Optional.of(tree.get(ct).get("props").get("alpha_2").toString());
-                LanguageInfo langInfo = new LanguageInfo(tree.get(ct).get("id").toString(),
-                        id2,
-                        tree.get(ct).get("title").get("en").toString());
+                        : Optional.of(tree.get(ct).get("props").get("alpha_2").toString().replace("\"", ""));
+                LanguageInfo langInfo = new LanguageInfo(tree.get(ct).get("id").toString().replace("\"", ""),
+                        id,
+                        tree.get(ct).get("title").get("en").toString().replace("\"", ""));
                 languages.add(langInfo);
             }
             
         }
         
-        public Language setId2(String id2) throws IllegalArgumentException {
+        public LanguageId setId2(String id2) throws IllegalArgumentException {
             if (languages.stream().anyMatch(info -> info.id2.isPresent() && 
                     info.id2.get().equals(id2))) {
                 this.id2 = Optional.of(id2);
@@ -303,7 +450,7 @@ public class ControlledVocabulary {
             }
         }
         
-        public Language setId3(String id3) throws IllegalArgumentException{
+        public LanguageId setId3(String id3) throws IllegalArgumentException{
             if (languages.stream().anyMatch(info -> info.id3.equals(id3))) {
                 this.id3 = Optional.of(id3);
                 return this;
@@ -312,12 +459,60 @@ public class ControlledVocabulary {
                 throw new IllegalArgumentException("No such ISO-639-3 language code");
             }
         }
+
+        @Override
+        public String toString() {
+            if (id2.isPresent() && !id2.isEmpty())
+                return id2.get();
+            else if (id3.isPresent() && !id3.isEmpty())
+                return id3.get();
+            else
+                return "";
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 97 * hash + Objects.hashCode(this.id2);
+            hash = 97 * hash + Objects.hashCode(this.id3);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final LanguageId other = (LanguageId) obj;
+            if (!Objects.equals(this.id2, other.id2)) {
+                return false;
+            }
+            return Objects.equals(this.id3, other.id3);
+        }
+        
+        
     }
 
+    public static class LanguageIdFactory {
+        public static LanguageId usingId2(String id2) throws IOException {
+            return new LanguageId().setId2(id2);
+        }
+        
+        public static LanguageId usingId3(String id3) throws IOException {
+            return new LanguageId().setId3(id3);
+        }
+    }
+    
     /**
      * See https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/title_types.yaml
      */
-    static class TitleTypeId {
+    public static class TitleTypeId {
         
         public static enum ETitleType {
             AlternativeTitle,
@@ -325,19 +520,56 @@ public class ControlledVocabulary {
             TranslatedTitle,
             Other 
         };
-        HashMap<TitleTypeId.ETitleType, String> titleTypes = new HashMap<>();
+        HashMap<TitleTypeId.ETitleType, String> titleTypeMap = new HashMap<>();
+        List<ImmutablePair<ETitleType, String>> titleTypes = List.of(
+                new ImmutablePair<>(ETitleType.AlternativeTitle, "alternative-title"),
+                new ImmutablePair<>(ETitleType.Subtitle, "subtitle"),
+                new ImmutablePair<>(ETitleType.TranslatedTitle, "translated-title"),
+                new ImmutablePair<>(ETitleType.Other, "other")
+        );
         TitleTypeId.ETitleType type;
         public TitleTypeId(TitleTypeId.ETitleType type) {
-            titleTypes.put(ETitleType.AlternativeTitle, "alternative-title");
-            titleTypes.put(ETitleType.Subtitle, "subtitle");
-            titleTypes.put(ETitleType.TranslatedTitle, "translated-title");
-            titleTypes.put(ETitleType.Other, "other");
+            for (ImmutablePair<ETitleType,String> pair : titleTypes) {
+                titleTypeMap.put(pair.getKey(), pair.getValue());
+            }
             this.type = type;
         }
 
+        public TitleTypeId(String type) {
+            for (ImmutablePair<ETitleType,String> pair : titleTypes) {
+                titleTypeMap.put(pair.getKey(), pair.getValue());
+                if (pair.getValue().equals(type))
+                    this.type = pair.getKey();
+            }
+            if (this.type == null)
+                throw new IllegalArgumentException("Invalid type: " + type);
+        }
         @Override
+        @JsonValue
         public String toString() {
-            return titleTypes.get(type);
+            return titleTypeMap.get(type);
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 59 * hash + Objects.hashCode(this.type);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final TitleTypeId other = (TitleTypeId) obj;
+            return this.type == other.type;
         }
         
         
@@ -346,7 +578,7 @@ public class ControlledVocabulary {
     /**
      * See https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/description_types.yaml
      */
-    static class DescriptionTypeId {
+    public static class DescriptionTypeId {
         
         public static enum EDescriptionType {
             Abstract,
@@ -356,21 +588,60 @@ public class ControlledVocabulary {
             TechnicalInfo,
             Other 
         };
-        HashMap<DescriptionTypeId.EDescriptionType, String> descriptionTypes = new HashMap<>();
+        HashMap<DescriptionTypeId.EDescriptionType, String> descriptionTypeMap = new HashMap<>();
         DescriptionTypeId.EDescriptionType type;
+        
+        List<ImmutablePair<EDescriptionType, String>> descriptionTypes = List.of(
+                new ImmutablePair<>(EDescriptionType.Abstract, "abstract"),
+                new ImmutablePair<>(EDescriptionType.Methods, "methods"),
+                new ImmutablePair<>(EDescriptionType.SeriesInformation, "series-information"),
+                new ImmutablePair<>(EDescriptionType.TableOfContents, "table-of-contents"),
+                new ImmutablePair<>(EDescriptionType.TechnicalInfo, "technical-info"),
+                new ImmutablePair<>(EDescriptionType.Other, "other")
+        );
         public DescriptionTypeId(DescriptionTypeId.EDescriptionType type) {
-            descriptionTypes.put(EDescriptionType.Abstract, "abstract");
-            descriptionTypes.put(EDescriptionType.Methods, "methods");
-            descriptionTypes.put(EDescriptionType.SeriesInformation, "series-information");
-            descriptionTypes.put(EDescriptionType.TableOfContents, "table-of-contents");
-            descriptionTypes.put(EDescriptionType.TechnicalInfo, "technical-info");
-            descriptionTypes.put(EDescriptionType.Other, "other");
+            for (ImmutablePair<EDescriptionType,String> pair : descriptionTypes) {
+                descriptionTypeMap.put(pair.getKey(), pair.getValue());
+            }
             this.type = type;
         }
 
+        public DescriptionTypeId(String type) {
+            for (ImmutablePair<EDescriptionType,String> pair : descriptionTypes) {
+                descriptionTypeMap.put(pair.getKey(), pair.getValue());
+                if (pair.getValue().equals(type))
+                    this.type = pair.getKey();
+            }
+            if (this.type == null)
+                throw new IllegalArgumentException("Invalid type: " + type);
+        }
+        
         @Override
+        @JsonValue
         public String toString() {
-            return descriptionTypes.get(type);
+            return descriptionTypeMap.get(type);
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 83 * hash + Objects.hashCode(this.type);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final DescriptionTypeId other = (DescriptionTypeId) obj;
+            return this.type == other.type;
         }
         
         
@@ -379,7 +650,7 @@ public class ControlledVocabulary {
     /**
      * See https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/date_types.yaml
      */
-    static class DateTypeId {
+    public static class DateTypeId {
 
         public static enum EDateType {
             Accepted,
@@ -402,37 +673,105 @@ public class ControlledVocabulary {
             this.dateType = dateType;
         }
 
+        public DateTypeId(String dateType) {
+            Optional<EDateType> candidate = Arrays.asList(EDateType.values())
+                    .stream().filter(v -> v.toString().equalsIgnoreCase(dateType)).findFirst();
+            if (candidate.isPresent())
+                this.dateType = candidate.get();
+            else
+                throw new IllegalArgumentException("Invalid DateTypId: " + dateType);
+        }
+        
         @Override
+        @JsonValue
         public String toString() {
             return dateType.toString().toLowerCase();
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 53 * hash + Objects.hashCode(this.dateType);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final DateTypeId other = (DateTypeId) obj;
+            return this.dateType == other.dateType;
+        }
+        
+        
     }
 
     /** 
      * See https://github.com/inveniosoftware/invenio-rdm-records/blob/3af080dd1c25f8dc08f33d8540858c5b97e3851e/invenio_rdm_records/config.py#L59
      */
-    static class RecordIdentifierScheme {
+    public static class RecordIdentifierScheme {
         public static enum ERecordItentifierScheme {
             ARK, ArXiv, Bibcode, DOI, EAN13, EISSN, Handle, IGSN, ISBN, ISSN,
             ISTC, LISSN, LSID, PMID, PURL, UPC, URL, URN, W3ID
         }
         
-        ERecordItentifierScheme schema;
+        ERecordItentifierScheme scheme;
 
-        public RecordIdentifierScheme(ERecordItentifierScheme schema) {
-            this.schema = schema;
+        public RecordIdentifierScheme(ERecordItentifierScheme scheme) {
+            this.scheme = scheme;
+        }
+        
+        public RecordIdentifierScheme(String scheme) {
+            Optional<ERecordItentifierScheme> candidate = Arrays.asList(ERecordItentifierScheme.values())
+                    .stream().filter(v -> v.toString().equalsIgnoreCase(scheme)).findFirst();
+            if (candidate.isPresent())
+                this.scheme = candidate.get();
+            else
+                throw new IllegalArgumentException("Invalid RecordIdentifierScheme: " + scheme);
         }
         
         @Override
+        @JsonValue
         public String toString() {
-            return schema.toString().toLowerCase();
+            return scheme.toString().toLowerCase();
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 71 * hash + Objects.hashCode(this.scheme);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final RecordIdentifierScheme other = (RecordIdentifierScheme) obj;
+            return this.scheme == other.scheme;
+        }
+        
+        
     }
 
     /**
      * See https://raw.githubusercontent.com/inveniosoftware/invenio-rdm-records/master/invenio_rdm_records/fixtures/data/vocabularies/relation_types.yaml
      */
-    static class RelationTypeId {
+    public static class RelationTypeId {
         public static enum ERelationTypeId {
             IsCitedBy, Cites, IsSupplementTo, IsSupplementedBy, IsContinuedBy,
             Continues, IsDescribedBy, Describes, HasVersion, IsVersionOf,
@@ -444,20 +783,55 @@ public class ControlledVocabulary {
         }
         
         ERelationTypeId relation;
+        
         public RelationTypeId(ERelationTypeId relation) {
             this.relation = relation;
         }
         
+        public RelationTypeId(String relation) {
+            Optional<ERelationTypeId> candidate = Arrays.asList(ERelationTypeId.values())
+                    .stream().filter(v -> v.toString().equalsIgnoreCase(relation)).findFirst();
+            if (candidate.isPresent())
+                this.relation = candidate.get();
+            else
+                throw new IllegalArgumentException("Invalid RelationTypeId: " + relation);
+        }
+        
         @Override
+        @JsonValue
         public String toString() {
             return relation.toString().toLowerCase();
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 13 * hash + Objects.hashCode(this.relation);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final RelationTypeId other = (RelationTypeId) obj;
+            return this.relation == other.relation;
+        }
+        
+        
     }
 
     /**
      * See https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n
      */
-    static class RelatedRecordIdentifierScheme {
+    public static class RelatedRecordIdentifierScheme {
 
         public static enum ERelatedRecordIdentifierScheme {
             ISBN10, ISBN13, ISSN, ISTC, DOI, Handle, EAN8, EAN13, ISNI, ORCID,
@@ -465,35 +839,267 @@ public class ControlledVocabulary {
             GND, SRA, BioProject, BioSample, Ensembl, UniProt, RefSeq, 
             GenomeAssembly
         }
-        ERelatedRecordIdentifierScheme schema;
-        public RelatedRecordIdentifierScheme(ERelatedRecordIdentifierScheme schema) {
-            this.schema = schema;
+        
+        ERelatedRecordIdentifierScheme scheme;
+        
+        public RelatedRecordIdentifierScheme(ERelatedRecordIdentifierScheme scheme) {
+            this.scheme = scheme;
+        }
+        
+        public RelatedRecordIdentifierScheme(String scheme) {
+            Optional<ERelatedRecordIdentifierScheme> candidate = Arrays.asList(ERelatedRecordIdentifierScheme.values())
+                    .stream().filter(v -> v.toString().equalsIgnoreCase(scheme)).findFirst();
+            if (candidate.isPresent())
+                this.scheme = candidate.get();
+            else
+                throw new IllegalArgumentException("Invalid RelatedRecordIdentifierScheme: " + scheme);
         }
         
         @Override
+        @JsonValue
         public String toString() {
-            return schema.toString().toLowerCase();
+            return scheme.toString().toLowerCase();
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            hash = 37 * hash + Objects.hashCode(this.scheme);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final RelatedRecordIdentifierScheme other = (RelatedRecordIdentifierScheme) obj;
+            return this.scheme == other.scheme;
+        }
+        
+        
     }
 
     /**
      * See https://inveniordm.docs.cern.ch/reference/metadata/#references-0-n
      */
-    static class ReferenceScheme {
+    public static class ReferenceScheme {
 
-        public static enum EReferenceSchema {
+        public static enum EReferenceScheme {
             CrossRefFunderID, GRID, ISNI, Other
         }
-        EReferenceSchema schema;
+        EReferenceScheme scheme;
 
-        public ReferenceScheme(EReferenceSchema schema) {
-            this.schema = schema;
+        public ReferenceScheme(EReferenceScheme scheme) {
+            this.scheme = scheme;
+        }
+        
+        public ReferenceScheme(String scheme) {
+            Optional<EReferenceScheme> candidate = Arrays.asList(EReferenceScheme.values())
+                    .stream().filter(v -> v.toString().equalsIgnoreCase(scheme)).findFirst();
+            if (candidate.isPresent())
+                this.scheme = candidate.get();
+            else
+                throw new IllegalArgumentException("Invalid EReferenceScheme: " + scheme);
         }
         
         @Override
+        @JsonValue
         public String toString() {
-            return schema.toString().toLowerCase();
+            return scheme.toString().toLowerCase();
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 79 * hash + Objects.hashCode(this.scheme);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final ReferenceScheme other = (ReferenceScheme) obj;
+            return this.scheme == other.scheme;
+        }
+        
+        
     }
     
+    /**
+     * See https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/funders.yaml
+     */
+    public static class FunderId {
+        
+        String id;
+        
+        class FunderInfo {
+            String id;
+            Optional<String> name;
+
+            public FunderInfo(String id, Optional<String> name) {
+                this.id = id;
+                this.name = name;
+            }
+
+            @Override
+            public String toString() {
+                return "FunderInfo{" + "id=" + id + ", name=" + name + '}';
+            }
+
+            @Override
+            public int hashCode() {
+                int hash = 3;
+                hash = 23 * hash + Objects.hashCode(this.id);
+                hash = 23 * hash + Objects.hashCode(this.name);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final FunderInfo other = (FunderInfo) obj;
+                if (!Objects.equals(this.id, other.id)) {
+                    return false;
+                }
+                return Objects.equals(this.name, other.name);
+            }
+            
+            
+        }
+        ArrayList<FunderInfo> funders = new ArrayList<>();
+        private FunderId() throws IOException {
+            ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
+            
+            TreeNode tree = objectMapper.createParser(this.getClass().getClassLoader()
+                    .getResourceAsStream("funders.yaml"))
+                    .readValueAsTree();
+            for (int ct = 0 ; ct < tree.size(); ct++) {
+                Optional<String> name = 
+                        tree.get(ct).get("name").toString().isBlank() 
+                        ? Optional.empty() 
+                        : Optional.of(tree.get(ct).get("name").toString().replace("\"", ""));
+                funders.add(new FunderInfo(tree.get(ct).get("id").toString(), name));
+            }
+        }
+        
+        public FunderId setId(String id) {
+            this.id = id;
+            return this;
+        }
+        
+        public FunderId setName(String id) {
+            // this.id = 
+            // TODO
+            return this;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 89 * hash + Objects.hashCode(this.id);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final FunderId other = (FunderId) obj;
+            return Objects.equals(this.id, other.id);
+        }
+
+        @Override
+        @JsonValue
+        public String toString() {
+            return id;
+        }
+        
+        
+    }
+    
+    
+    /**
+     * See https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/awards.yaml
+     * Currently empty -> use a simple string instead of a controlled vocabulary
+     */
+    public static class AwardId {
+
+        String id;
+        
+        public AwardId(String id) {
+            this.id = id;
+        }
+
+        @Override
+        @JsonValue
+        public String toString() {
+            return id;
+        }
+
+        
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            hash = 73 * hash + Objects.hashCode(this.id);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final AwardId other = (AwardId) obj;
+            return Objects.equals(this.id, other.id);
+        }
+        
+        
+        
+    }
+    
+    public static class FunderIdFactory {
+        public static FunderId usingId(String id) throws IOException {
+            return new FunderId().setId(id);
+        }
+        
+        public static FunderId usingName(String name) throws IOException {
+            return new FunderId().setName(name);
+        }
+    }
 }
