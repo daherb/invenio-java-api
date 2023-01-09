@@ -2,7 +2,6 @@ package de.idsmannheim.lza.inveniojavaapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import de.idsmannheim.lza.inveniojavaapi.Metadata.ResourceType;
-import java.util.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.databind.*;
@@ -20,6 +19,12 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
+/**
+ * 
+ * @author Herbert Lange <lange@ids-mannheim.de>
+ * 
+ * Tests for Metadata class
+ */
 @SpringBootTest
 class MetadataTests {
 
@@ -388,12 +393,9 @@ class MetadataTests {
                 "      \"description\": \"Invenio birth place.\"\n" +
                 "    }]\n" +
                 "  }";
-        ArrayList<Metadata.Location> l2 = new ArrayList<>(List.of(
-                om.readValue(locationsText,Metadata.Location.class)
-        ));
-        ArrayList<Metadata.Location> l3 = 
-                om.readerForListOf(Metadata.Location.class)
-                .readValue(om.writeValueAsString(locations));
+        Metadata.Location l2 = om.readValue(locationsText,Metadata.Location.class);
+        Metadata.Location l3 = 
+                om.readValue(om.writeValueAsString(locations),Metadata.Location.class);
         Assertions.assertEquals(locations, l2);
         Assertions.assertEquals(locations, l3);
     }
