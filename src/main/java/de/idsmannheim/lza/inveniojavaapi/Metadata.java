@@ -8,10 +8,32 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.AdditionalDescriptionDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.AdditionalTitleDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.AffiliationDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.AlternateIdentifierDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.ContributorDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.CreatorDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.DateDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.ExtendedDateTimeFormat0Deserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.FundingReferenceDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.LanguageDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.LocalizedStringsDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.LocationDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.MetadataDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.PersonOrOrgDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.ReferenceDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.RelatedIdentifierDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.ResourceTypeDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.RightsDeserializer;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.SubjectDeserializer;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 /**
  *
@@ -30,6 +52,7 @@ import java.util.ArrayList;
  * The abbreviation CV stands for Controlled Vocabulary.
  */
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(using = MetadataDeserializer.class)
 public class Metadata {
     // The mandatory fields are initialized in the constructor
     @JsonProperty("resource_type")
@@ -56,7 +79,7 @@ public class Metadata {
     @JsonProperty("languages")
     private final List<Language> languages = new ArrayList<>();
     @JsonProperty("dates")
-    private final List<RecordDate> dates = new ArrayList<>();
+    private final List<Date> dates = new ArrayList<>();
     @JsonProperty("version")
     private Optional<String> version = Optional.empty();
     @JsonProperty("publisher")
@@ -70,7 +93,7 @@ public class Metadata {
     @JsonProperty("formats")
     private final List<String> formats = new ArrayList<>();
     @JsonProperty("locations")
-    private final List<Location> locations = new ArrayList<>();
+    private Location locations;
     @JsonProperty("funding")
     private final List<FundingReference> fundingReferences = new ArrayList<>();
     @JsonProperty("references")
@@ -102,6 +125,8 @@ public class Metadata {
      * |      |             | controlled vocabulary.        |
      *  ----------------------------------------------------
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = ResourceTypeDeserializer.class)
     public static class ResourceType {
         @JsonProperty("id")
         ControlledVocabulary.ResourceType id;
@@ -119,6 +144,28 @@ public class Metadata {
         @Override
         public String toString() {
             return "ResourceType{" + "id=" + id + '}';
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            hash = 83 * hash + Objects.hashCode(this.id);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final ResourceType other = (ResourceType) obj;
+            return Objects.equals(this.id, other.id);
         }
         
         
@@ -152,20 +199,64 @@ public class Metadata {
      *  ------------------------------------------------------------------
      */
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = CreatorDeserializer.class)
     public static class Creator {
         
         @JsonProperty("person_or_org")
         PersonOrOrg personOrOrg;
-        @JsonProperty("roles")
+        @JsonProperty("role")
         Optional<ControlledVocabulary.Role> role = Optional.empty();
         @JsonProperty("affiliations")
         ArrayList<Affiliation> affiliations = new ArrayList<>();
         
-        public Creator(PersonOrOrg personOrOrg, Optional<ControlledVocabulary.Role> role, List<Affiliation> affiliations) {
+        @JsonCreator
+        public Creator(PersonOrOrg personOrOrg) {
             this.personOrOrg = personOrOrg;
-            this.role = role;
-            this.affiliations.addAll(affiliations);
         }
+        
+        public Creator setRole(ControlledVocabulary.Role role) {
+            this.role = Optional.of(role);
+            return this;
+        }
+        
+        public Creator addAffiliations(List<Affiliation> affiliations) {
+            this.affiliations.addAll(affiliations);
+            return this;
+        }
+
+        @Override
+        public String toString() {
+            return "Creator{" + "personOrOrg=" + personOrOrg + ", role=" + role + ", affiliations=" + affiliations + '}';
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Creator other = (Creator) obj;
+            if (!Objects.equals(this.personOrOrg, other.personOrOrg)) {
+                return false;
+            }
+            if (!Objects.equals(this.role, other.role)) {
+                return false;
+            }
+            return Objects.equals(this.affiliations, other.affiliations);
+        }
+        
+        
     }
     
     /**
@@ -192,6 +283,7 @@ public class Metadata {
      *  -------------------------------------------------------------------
      */
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = PersonOrOrgDeserializer.class)
     public static class PersonOrOrg {
         public enum Type { Personal, Organizational };
 
@@ -204,15 +296,46 @@ public class Metadata {
          * | identifier | (1)         | Actual value of the identifier. |
          *  ------------------------------------------------------------
          */
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = PersonOrOrgDeserializer.IdentifierDeserializer.class)
         public static class Identifier {
             @JsonProperty("scheme")
             ControlledVocabulary.PersonOrOrgIdentifierScheme scheme;
-            @JsonProperty("id")
+            @JsonProperty("identifier")
             String identifier;
 
             public Identifier(ControlledVocabulary.PersonOrOrgIdentifierScheme scheme, String identifier) {
                 this.scheme = scheme;
                 this.identifier = identifier;
+            }
+
+            @Override
+            public String toString() {
+                return "Identifier{" + "scheme=" + scheme + ", identifier=" + identifier + '}';
+            }
+
+            @Override
+            public int hashCode() {
+                int hash = 7;
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final Identifier other = (Identifier) obj;
+                if (!Objects.equals(this.identifier, other.identifier)) {
+                    return false;
+                }
+                return Objects.equals(this.scheme, other.scheme);
             }
             
             
@@ -273,6 +396,45 @@ public class Metadata {
             this.name = name;
             this.identifiers.addAll(identifiers);
         }
+
+        @Override
+        public String toString() {
+            return "PersonOrOrg{" + "type=" + type + ", givenName=" + givenName + ", familyName=" + familyName + ", name=" + name + ", identifiers=" + identifiers + '}';
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final PersonOrOrg other = (PersonOrOrg) obj;
+            if (!Objects.equals(this.givenName, other.givenName)) {
+                return false;
+            }
+            if (!Objects.equals(this.familyName, other.familyName)) {
+                return false;
+            }
+            if (!Objects.equals(this.name, other.name)) {
+                return false;
+            }
+            if (this.type != other.type) {
+                return false;
+            }
+            return Objects.equals(this.identifiers, other.identifiers);
+        }
+        
         
     }
     
@@ -289,6 +451,8 @@ public class Metadata {
      * One of id or name must be given. It's recommended to use name if there 
      * is no matching id in the controlled vocabulary.
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = AffiliationDeserializer.class)
     public static class Affiliation {
         @JsonProperty("id")
         Optional<ControlledVocabulary.OrganizationalOrInstitutionalId> id = Optional.empty();
@@ -303,6 +467,37 @@ public class Metadata {
             this.id = id;
             this.name = name;
         }
+
+        @Override
+        public String toString() {
+            return "Affiliation{" + "id=" + id + ", name=" + name + '}';
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Affiliation other = (Affiliation) obj;
+            if (!Objects.equals(this.id, other.id)) {
+                return false;
+            }
+            return Objects.equals(this.name, other.name);
+        }
+        
+        
     }
     /**
      * The string must be be formatted according to Extended Date Time Format
@@ -320,6 +515,8 @@ public class Metadata {
     * The localization (L10N) of EDTF dates is based on the skeletons defined by
     * the Unicode Common Locale Data Repository (CLDR).
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = ExtendedDateTimeFormat0Deserializer.class)
     public static class ExtendedDateTimeFormat0 {
         String startYear;
         Optional<String> startMonth = Optional.empty();
@@ -329,10 +526,14 @@ public class Metadata {
         Optional<String> endDay = Optional.empty();
 
         public ExtendedDateTimeFormat0(String startYear) {
+            if (!startYear.matches("\\d{4}"))
+                throw new IllegalArgumentException("Illegal year: " + startYear);
             this.startYear = startYear;
         }
 
         public ExtendedDateTimeFormat0 addStartMonth(String startMonth) {
+            if (!startMonth.matches("\\d{2}"))
+                throw new IllegalArgumentException("Illegal month: " + startMonth);
             this.startMonth = Optional.of(startMonth);
             return this;
         }
@@ -341,11 +542,15 @@ public class Metadata {
             if (startMonth.isEmpty())
                 throw new IllegalArgumentException
                     ("Start month has to be present before adding start day");
+            if (!startDay.matches("\\d{2}"))
+                throw new IllegalArgumentException("Illegal day: " + startDay);
             this.startDay = Optional.of(startDay);
             return this;
         }
         
         public ExtendedDateTimeFormat0 addEndYear(String endYear) {
+            if (!endYear.matches("\\d{4}"))
+                throw new IllegalArgumentException("Illegal year: " + endYear);
             this.endYear = Optional.of(endYear);
             return this;
         }
@@ -354,6 +559,8 @@ public class Metadata {
             if (endYear.isEmpty())
                 throw new IllegalArgumentException
                     ("End year has to be present before adding end month");
+            if (!endMonth.matches("\\d{2}"))
+                throw new IllegalArgumentException("Illegal month: " + endMonth);
             this.endMonth = Optional.of(endMonth);
             return this;
         }
@@ -396,6 +603,50 @@ public class Metadata {
             }
             return sb.toString();
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 89 * hash + Objects.hashCode(this.startYear);
+            hash = 89 * hash + Objects.hashCode(this.startMonth);
+            hash = 89 * hash + Objects.hashCode(this.startDay);
+            hash = 89 * hash + Objects.hashCode(this.endYear);
+            hash = 89 * hash + Objects.hashCode(this.endMonth);
+            hash = 89 * hash + Objects.hashCode(this.endDay);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final ExtendedDateTimeFormat0 other = (ExtendedDateTimeFormat0) obj;
+            if (!Objects.equals(this.startYear, other.startYear)) {
+                return false;
+            }
+            if (!Objects.equals(this.startMonth, other.startMonth)) {
+                return false;
+            }
+            if (!Objects.equals(this.startDay, other.startDay)) {
+                return false;
+            }
+            if (!Objects.equals(this.endYear, other.endYear)) {
+                return false;
+            }
+            if (!Objects.equals(this.endMonth, other.endMonth)) {
+                return false;
+            }
+            return Objects.equals(this.endDay, other.endDay);
+        }
+        
+        
     }
     
         
@@ -407,23 +658,107 @@ public class Metadata {
      * | id    | (1, CV)     | The ISO-639-3 language code. |
      *  ----------------------------------------------------
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = LanguageDeserializer.class)
     public static class Language {
         
-        ControlledVocabulary.Language id;
+        ControlledVocabulary.LanguageId id;
 
-        public Language(ControlledVocabulary.Language id) {
+        public Language(ControlledVocabulary.LanguageId id) {
             this.id = id;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 43 * hash + Objects.hashCode(this.id);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Language other = (Language) obj;
+            return Objects.equals(this.id, other.id);
+        }
+
+        @Override
+        public String toString() {
+            return id.toString();
+            // return "Language{" + "id=" + id + '}';
+        }
+        
+        @JsonProperty("id")
+        public String getId() {
+            // TODO find a better solution
+            return this.id.id2.orElse(this.id.id3.orElse("MISSING_LANG"));
         }
     }
     
-    public static class LocalizedString {
-        Language lang;
-        String string;
-
-        public LocalizedString(Language lang, String string) {
-            this.lang = lang;
-            this.string = string;
+    @JsonDeserialize(using = LocalizedStringsDeserializer.class)
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    public static class LocalizedStrings {
+        
+        HashMap<Language, String> localizedStrings = new HashMap<>();
+        
+        public LocalizedStrings() {
         }
+
+        public LocalizedStrings add(Language lang, String string) {
+            this.localizedStrings.put(lang,string);
+            return this;
+        }
+        
+        public LocalizedStrings addAll(LocalizedStrings strings) {
+            this.localizedStrings.putAll(strings.localizedStrings);
+            return this;
+        }
+        
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 13 * hash + Objects.hashCode(this.localizedStrings);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final LocalizedStrings other = (LocalizedStrings) obj;
+            return Objects.equals(this.localizedStrings, other.localizedStrings);
+        }
+
+        @Override
+        public String toString() {
+            return "LocalizedStrings{" + "localizedStrings=" + localizedStrings + '}';
+        }
+
+        public boolean isEmpty() {
+            return this.localizedStrings.isEmpty();
+        }
+
+        //@JsonAnyGetter
+        @JsonValue
+        public HashMap<Language, String> getMap() {
+            return localizedStrings;
+        }
+        
         
     }
     /**
@@ -442,8 +777,10 @@ public class Metadata {
      * | lang  | (0-1, CV)   | The language of the title. |
      *  --------------------------------------------------
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = AdditionalTitleDeserializer.class)
     public static class AdditionalTitle {
-        
+        @JsonProperty("title")
         String title;
 
         /**
@@ -464,19 +801,67 @@ public class Metadata {
          * (2 letter locales) as keys. Only id needs to be passed on the REST
          * API.
          */
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = AdditionalTitleDeserializer.TitleTypeDeserializer.class)
         public static class TitleType {
-            ControlledVocabulary.TitleTypeId id;
-            List<LocalizedString> title = new ArrayList<>();
             
-            public TitleType(ControlledVocabulary.TitleTypeId id, List<LocalizedString> titles) throws IllegalAccessException {
+            ControlledVocabulary.TitleTypeId id;
+            
+            LocalizedStrings title = new LocalizedStrings();
+            
+            public TitleType(ControlledVocabulary.TitleTypeId id, LocalizedStrings titles) {
                 this.id = id;
                 if (!titles.isEmpty())
                     this.title.addAll(titles);
                 else
-                    throw new IllegalAccessException("At least one title required");
+                    throw new IllegalArgumentException("At least one title required");
             }
+
+            @Override
+            public int hashCode() {
+                int hash = 7;
+                hash = 37 * hash + Objects.hashCode(this.id);
+                hash = 37 * hash + Objects.hashCode(this.title);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final TitleType other = (TitleType) obj;
+                if (!Objects.equals(this.id, other.id)) {
+                    return false;
+                }
+                return Objects.equals(this.title, other.title);
+            }
+
+            @Override
+            public String toString() {
+                return "TitleType{" + "id=" + id + ", title=" + title + '}';
+            }
+
+            @JsonProperty("id")
+            public ControlledVocabulary.TitleTypeId getId() {
+                return id;
+            }
+
+            @JsonProperty("title")
+            public LocalizedStrings getTitle() {
+                return title;
+            }
+
+            
         }
         
+        @JsonProperty("type")
         TitleType type;
         /**
          * The lang field is as follows:
@@ -486,13 +871,52 @@ public class Metadata {
          * | id    | (1, CV)     | The ISO-639-3 language code. |
          *  ----------------------------------------------------
          */
+        @JsonProperty("lang")
         Optional<Language> lang = Optional.empty();
 
+        @JsonCreator
         public AdditionalTitle(String title, TitleType type, Optional<Language> lang) {
             this.title = title;
             this.type = type;
             this.lang = lang;
         }
+
+        @Override
+        public String toString() {
+            return "AdditionalTitle{" + "title=" + title + ", type=" + type + ", lang=" + lang + '}';
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 97 * hash + Objects.hashCode(this.title);
+            hash = 97 * hash + Objects.hashCode(this.type);
+            hash = 97 * hash + Objects.hashCode(this.lang);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final AdditionalTitle other = (AdditionalTitle) obj;
+            if (!Objects.equals(this.title, other.title)) {
+                return false;
+            }
+            if (!Objects.equals(this.type, other.type)) {
+                return false;
+            }
+            return Objects.equals(this.lang, other.lang);
+        }
+        
+        
     }
     
     /**
@@ -512,7 +936,10 @@ public class Metadata {
      * | lang        | (0-1)       | The language of the description. |
      *  --------------------------------------------------------------
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = AdditionalDescriptionDeserializer.class)
     public static class AdditionalDescription {
+        @JsonProperty("description")
         String description;
         /**
          * The type field is as follows:
@@ -532,20 +959,56 @@ public class Metadata {
          * Use ISO 639-1 codes (2 letter locales) as keys. Only id needs to be
          * passed on the REST API.
          */
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = AdditionalDescriptionDeserializer.DescriptionTypeDeserializer.class)
         public static class DescriptionType {
+            @JsonProperty("id")
             ControlledVocabulary.DescriptionTypeId id;
-            List<LocalizedString> title = new ArrayList<>();
+            @JsonProperty("title")
+            LocalizedStrings title = new LocalizedStrings();
 
-            public DescriptionType(ControlledVocabulary.DescriptionTypeId id, List<LocalizedString> title) {
+            public DescriptionType(ControlledVocabulary.DescriptionTypeId id, LocalizedStrings title) {
                 this.id = id;
                 if (!title.isEmpty())
                     this.title.addAll(title);
                 else
                     throw new IllegalArgumentException("At least one title required");
             }
+
+            @Override
+            public int hashCode() {
+                int hash = 7;
+                hash = 89 * hash + Objects.hashCode(this.id);
+                hash = 89 * hash + Objects.hashCode(this.title);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final DescriptionType other = (DescriptionType) obj;
+                if (!Objects.equals(this.id, other.id)) {
+                    return false;
+                }
+                return Objects.equals(this.title, other.title);
+            }
+
+            @Override
+            public String toString() {
+                return "DescriptionType{" + "id=" + id + ", title=" + title + '}';
+            }
             
             
         }
+        @JsonProperty("type")
         DescriptionType type;
         /**
          * The lang field is as follows:
@@ -555,7 +1018,51 @@ public class Metadata {
          * | id    | (1, CV)     | The ISO-639-3 language code. |
          *  ----------------------------------------------------
          */
-        Language lang;
+        @JsonProperty("lang")
+        Optional<Language> lang;
+
+        public AdditionalDescription(String description, DescriptionType type, Optional<Language> lang) {
+            this.description = description;
+            this.type = type;
+            this.lang = lang;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            hash = 59 * hash + Objects.hashCode(this.description);
+            hash = 59 * hash + Objects.hashCode(this.type);
+            hash = 59 * hash + Objects.hashCode(this.lang);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final AdditionalDescription other = (AdditionalDescription) obj;
+            if (!Objects.equals(this.description, other.description)) {
+                return false;
+            }
+            if (!Objects.equals(this.type, other.type)) {
+                return false;
+            }
+            return Objects.equals(this.lang, other.lang);
+        }
+
+        @Override
+        public String toString() {
+            return "AdditionalDescription{" + "description=" + description + ", type=" + type + ", lang=" + lang + '}';
+        }
+        
+        
     }
     
     /**
@@ -590,27 +1097,76 @@ public class Metadata {
      * 
      * Either id or title must be passed, but not both.
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = RightsDeserializer.class)
     public static class License {
+        @JsonProperty("id")
         Optional<String> id = Optional.empty();
-        Optional<LocalizedString> title = Optional.empty();
-        Optional<LocalizedString> description = Optional.empty();
+        @JsonProperty("title")
+        LocalizedStrings title = new LocalizedStrings();
+        @JsonProperty("description")
+        LocalizedStrings description = new LocalizedStrings();
+        @JsonProperty("link")
         Optional<URL> link = Optional.empty();
         
-        public License(String id, Optional<LocalizedString> title,
-            Optional<LocalizedString> description, Optional<URL> link) {
+        public License(String id, LocalizedStrings title,
+            LocalizedStrings description, Optional<URL> link) {
             this.id = Optional.of(id);
-            this.title = title;
-            this.description = description;
+            this.title.addAll(title);
+            this.description.addAll(description);
             this.link = link;
         }
         
-        public License(Optional<String> id, LocalizedString title,
-            Optional<LocalizedString> description, Optional<URL> link) {
+        public License(Optional<String> id, LocalizedStrings title,
+            LocalizedStrings description, Optional<URL> link) {
+            if (id.isEmpty() && title.isEmpty())
+                throw new IllegalArgumentException("Either id or title have to be given");
             this.id = id;
-            this.title = Optional.of(title);
-            this.description = description;
+            this.title.addAll(title);
+            this.description.addAll(description);
             this.link = link;
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            hash = 67 * hash + Objects.hashCode(this.id);
+            hash = 67 * hash + Objects.hashCode(this.title);
+            hash = 67 * hash + Objects.hashCode(this.description);
+            hash = 67 * hash + Objects.hashCode(this.link);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final License other = (License) obj;
+            if (!Objects.equals(this.id, other.id)) {
+                return false;
+            }
+            if (!Objects.equals(this.title, other.title)) {
+                return false;
+            }
+            if (!Objects.equals(this.description, other.description)) {
+                return false;
+            }
+            return Objects.equals(this.link, other.link);
+        }
+
+        @Override
+        public String toString() {
+            return "License{" + "id=" + id + ", title=" + title + ", description=" + description + ", link=" + link + '}';
+        }
+        
+        
     }
     
     /**
@@ -645,19 +1201,60 @@ public class Metadata {
     * Note that Creators and Contributors may use different controlled
     * vocabularies for the role field.
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = ContributorDeserializer.class)
     public static class Contributor {
         
+        @JsonProperty("person_or_org")
         PersonOrOrg personOrOrg;
+        @JsonProperty("role")
         ControlledVocabulary.Role role;
+        @JsonProperty("affiliations")
         List<Affiliation> affiliations = new ArrayList<>();
 
         public Contributor(PersonOrOrg personOrOrg, ControlledVocabulary.Role role, List<Affiliation> affiliations) {
             this.personOrOrg = personOrOrg;
             this.role = role;
-            if (personOrOrg.type == personOrOrg.type.Personal) {
+            if (personOrOrg.type == PersonOrOrg.Type.Personal) {
                 this.affiliations.addAll(affiliations);
             }
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 97 * hash + Objects.hashCode(this.personOrOrg);
+            hash = 97 * hash + Objects.hashCode(this.role);
+            hash = 97 * hash + Objects.hashCode(this.affiliations);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Contributor other = (Contributor) obj;
+            if (!Objects.equals(this.personOrOrg, other.personOrOrg)) {
+                return false;
+            }
+            if (!Objects.equals(this.role, other.role)) {
+                return false;
+            }
+            return Objects.equals(this.affiliations, other.affiliations);
+        }
+
+        @Override
+        public String toString() {
+            return "Contributor{" + "personOrOrg=" + personOrOrg + ", role=" + role + ", affiliations=" + affiliations + '}';
+        }
+        
         
     }
     
@@ -678,8 +1275,13 @@ public class Metadata {
      * 
      * Either id or subject must be passed.
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = SubjectDeserializer.class)
     public static class Subject {
+        
+        @JsonProperty("id")
         Optional<URL> id = Optional.empty();
+        @JsonProperty("subject")
         Optional<String> subject = Optional.empty();
 
         public Subject(URL id) {
@@ -689,6 +1291,39 @@ public class Metadata {
         public Subject(String subject) {
             this.subject = Optional.of(subject);
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 97 * hash + Objects.hashCode(this.id);
+            hash = 97 * hash + Objects.hashCode(this.subject);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Subject other = (Subject) obj;
+            if (!Objects.equals(this.id, other.id)) {
+                return false;
+            }
+            return Objects.equals(this.subject, other.subject);
+        }
+
+        @Override
+        public String toString() {
+            return "Subject{" + "id=" + id + ", subject=" + subject + '}';
+        }
+        
+        
     }
     /**
      * Dates (0-n)¶
@@ -723,7 +1358,9 @@ public class Metadata {
      * }
      */
     
-    public static class RecordDate {
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = DateDeserializer.class)
+    public static class Date {
         /**
         * The type field is as follows:
         *  _______________________________________________________________________
@@ -741,67 +1378,146 @@ public class Metadata {
         * locales) as keys. Only id needs to be passed on the REST API.
         * 
         */
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = DateDeserializer.DateTypeDeserializer.class)
         public static class DateType {
-          ControlledVocabulary.DateTypeId id;
-          List<LocalizedString> title = new ArrayList<>();
+            @JsonProperty("id")
+            ControlledVocabulary.DateTypeId id;
+            @JsonProperty("title")
+            LocalizedStrings title = new LocalizedStrings();
 
-            public DateType(ControlledVocabulary.DateTypeId id, List<LocalizedString> title) {
+            public DateType(ControlledVocabulary.DateTypeId id, LocalizedStrings title) {
                 this.id = id;
                 if (!title.isEmpty())
                     this.title.addAll(title);
                 else 
                     throw new IllegalArgumentException("At least one title required");
             }
-          
+
+            @Override
+            public int hashCode() {
+                int hash = 5;
+                hash = 89 * hash + Objects.hashCode(this.id);
+                hash = 89 * hash + Objects.hashCode(this.title);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final DateType other = (DateType) obj;
+                if (!Objects.equals(this.id, other.id)) {
+                    return false;
+                }
+                return Objects.equals(this.title, other.title);
+            }
+
+            @Override
+            public String toString() {
+                return "DateType{" + "id=" + id + ", title=" + title + '}';
+            }
+            
+            
         }
+        @JsonProperty("date")
         ExtendedDateTimeFormat0 date;
+        @JsonProperty("type")
         DateType type;
+        @JsonProperty("description")
         Optional<String> description = Optional.empty();
 
-        public RecordDate(ExtendedDateTimeFormat0 date, DateType type, Optional<String> description) {
+        public Date(ExtendedDateTimeFormat0 date, DateType type, Optional<String> description) {
             this.date = date;
             this.type = type;
             this.description = description;
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 79 * hash + Objects.hashCode(this.date);
+            hash = 79 * hash + Objects.hashCode(this.type);
+            hash = 79 * hash + Objects.hashCode(this.description);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Date other = (Date) obj;
+            if (!Objects.equals(this.date, other.date)) {
+                return false;
+            }
+            if (!Objects.equals(this.type, other.type)) {
+                return false;
+            }
+            return Objects.equals(this.description, other.description);
+        }
+
+        @Override
+        public String toString() {
+            return "Date{" + "date=" + date + ", type=" + type + ", description=" + description + '}';
+        }
+        
+        
     }
     /**
-             * Alternate identifiers (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#alternate-identifiers-0-n)
-             * 
-             * Persistent identifiers for the resource other than the ones 
-             * registered as system-managed internal or external persistent 
-             * identifiers.
-             * 
-             * This field is compatible with 11. Alternate Identifiers in 
-             * DataCite.
-             * 
-             * The main difference between the system-managed identifiers and 
-             * this field, is that system-managed identifiers are fully 
-             * controlled and managed by InvenioRDM, while identifiers listed
-             * here are used solely for display purposes. For instance, a DOI
-             * registered in the system-managed identifiers will prevent
-             * another record with the same DOI from being created. A DOI
-             * included in this field, will not prevent another record from
-             * including the same DOI in this field.
-             * 
-             * Subfields:
-             *  ________________________________________________________
-             * |Field      | Cardinality | Description                  |
-             * |-----------+-------------+------------------------------|
-             * |identifier | (1)         | identifier value             |
-             * |scheme     |(1, CV)      | The scheme of the identifier |
-             *  --------------------------------------------------------
-             * 
-             * Supported identifier schemes:
-             * 
-             * ARK, arXiv, Bibcode, DOI, EAN13, EISSN, Handle, IGSN, ISBN, ISSN,
-             * ISTC, LISSN, LSID, PubMed ID, PURL, UPC, URL, URN, W3ID. 
-             * See RDM_RECORDS_IDENTIFIERS_SCHEMES in invenio-rdm-records.
-             * 
-             * Note that those are passed lowercased e.g., arXiv is arxiv.
-             */
+     * Alternate identifiers (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#alternate-identifiers-0-n)
+     *
+     * Persistent identifiers for the resource other than the ones
+     * registered as system-managed internal or external persistent
+     * identifiers.
+     *
+     * This field is compatible with 11. Alternate Identifiers in
+     * DataCite.
+     *
+     * The main difference between the system-managed identifiers and
+     * this field, is that system-managed identifiers are fully
+     * controlled and managed by InvenioRDM, while identifiers listed
+     * here are used solely for display purposes. For instance, a DOI
+     * registered in the system-managed identifiers will prevent
+     * another record with the same DOI from being created. A DOI
+     * included in this field, will not prevent another record from
+     * including the same DOI in this field.
+     *
+     * Subfields:
+     *  ________________________________________________________
+     * |Field      | Cardinality | Description                  |
+     * |-----------+-------------+------------------------------|
+     * |identifier | (1)         | identifier value             |
+     * |scheme     |(1, CV)      | The scheme of the identifier |
+     *  --------------------------------------------------------
+     *
+     * Supported identifier schemes:
+     *
+     * ARK, arXiv, Bibcode, DOI, EAN13, EISSN, Handle, IGSN, ISBN, ISSN,
+     * ISTC, LISSN, LSID, PubMed ID, PURL, UPC, URL, URN, W3ID.
+     * See RDM_RECORDS_IDENTIFIERS_SCHEMES in invenio-rdm-records.
+     *
+     * Note that those are passed lowercased e.g., arXiv is arxiv.
+     */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = AlternateIdentifierDeserializer.class)
     public static class AlternateIdentifier {
-        
+        @JsonProperty("identifier")
         String identifier;
+        @JsonProperty("scheme")
         ControlledVocabulary.RecordIdentifierScheme scheme;
 
         public AlternateIdentifier(String identifier, 
@@ -809,6 +1525,39 @@ public class Metadata {
             this.identifier = identifier;
             this.scheme = scheme;
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 53 * hash + Objects.hashCode(this.identifier);
+            hash = 53 * hash + Objects.hashCode(this.scheme);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final AlternateIdentifier other = (AlternateIdentifier) obj;
+            if (!Objects.equals(this.identifier, other.identifier)) {
+                return false;
+            }
+            return Objects.equals(this.scheme, other.scheme);
+        }
+
+        @Override
+        public String toString() {
+            return "AlternateIdentifier{" + "identifier=" + identifier + ", scheme=" + scheme + '}';
+        }
+        
+        
     }
     
     /**
@@ -866,36 +1615,168 @@ public class Metadata {
      * codes (2 letter locales) as keys. In both cases, only id needs to be 
      * passed on the REST API.
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = RelatedIdentifierDeserializer.class)
     public static class RelatedIdentifier {
         
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = RelatedIdentifierDeserializer.RelationTypeDeserializer.class)
         public static class RelationType {
+            @JsonProperty("id")
             ControlledVocabulary.RelationTypeId id;
-            List<LocalizedString> title = new ArrayList<>();
+            @JsonProperty("title")
+            LocalizedStrings title = new LocalizedStrings();
             
             public RelationType(ControlledVocabulary.RelationTypeId id, 
-                    List<LocalizedString> titles) {
+                    LocalizedStrings titles) {
                 this.id = id;
-                if (!title.isEmpty())
-                    this.title.addAll(title);
-                else
-                    throw new IllegalArgumentException("At least one title required");
+                if (!titles.isEmpty()) {
+                    this.title.addAll(titles);
+                }
+                else {
+                    throw new IllegalArgumentException("At least one title required: " + titles.toString() + " " + String.valueOf(titles.isEmpty()));
+                }
             }
+
+            @Override
+            public int hashCode() {
+                int hash = 5;
+                hash = 67 * hash + Objects.hashCode(this.id);
+                hash = 67 * hash + Objects.hashCode(this.title);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final RelationType other = (RelationType) obj;
+                if (!Objects.equals(this.id, other.id)) {
+                    return false;
+                }
+                return Objects.equals(this.title, other.title);
+            }
+
+            @Override
+            public String toString() {
+                return "RelationType{" + "id=" + id + ", title=" + title + '}';
+            }
+            
+            
         }
+        
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = RelatedIdentifierDeserializer.RelatedResourceTypeDeserializer.class)
+        public static class RelatedResourceType {
+            @JsonProperty("id")
+            ControlledVocabulary.RelatedResourceType id;
+            
+            @JsonProperty("title")
+            LocalizedStrings title = new LocalizedStrings();
+
+            public RelatedResourceType(ControlledVocabulary.RelatedResourceType id, LocalizedStrings title) {
+                this.id = id;
+                this.title.addAll(title);
+            }
+
+            @Override
+            public int hashCode() {
+                int hash = 5;
+                hash = 89 * hash + Objects.hashCode(this.id);
+                hash = 89 * hash + Objects.hashCode(this.title);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final RelatedResourceType other = (RelatedResourceType) obj;
+                if (!Objects.equals(this.id, other.id)) {
+                    return false;
+                }
+                return Objects.equals(this.title, other.title);
+            }
+
+            @Override
+            public String toString() {
+                return "RelatedResourceType{" + "id=" + id + ", title=" + title + '}';
+            }
+            
+        }
+        
+        @JsonProperty("identifier")
         String identifier;
+        @JsonProperty("scheme")
         ControlledVocabulary.RelatedRecordIdentifierScheme scheme;
+        @JsonProperty("relation_type")
         RelationType relationType;
-        // Currently ignoring that it can this resource type can be different from ResourceType
-        Optional<ResourceType> resourceType = Optional.empty();
+        @JsonProperty("resource_type")
+        Optional<RelatedResourceType> resourceType = Optional.empty();
 
         public RelatedIdentifier(String identifier, 
                 ControlledVocabulary.RelatedRecordIdentifierScheme scheme, 
                 RelationType relationType, 
-                Optional<ResourceType> resourceType) {
+                Optional<RelatedResourceType> resourceType) {
             this.identifier = identifier;
             this.scheme = scheme;
             this.relationType = relationType;
             this.resourceType = resourceType;
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            hash = 29 * hash + Objects.hashCode(this.identifier);
+            hash = 29 * hash + Objects.hashCode(this.scheme);
+            hash = 29 * hash + Objects.hashCode(this.relationType);
+            hash = 29 * hash + Objects.hashCode(this.resourceType);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final RelatedIdentifier other = (RelatedIdentifier) obj;
+            if (!Objects.equals(this.identifier, other.identifier)) {
+                return false;
+            }
+            if (!Objects.equals(this.scheme, other.scheme)) {
+                return false;
+            }
+            if (!Objects.equals(this.relationType, other.relationType)) {
+                return false;
+            }
+            return Objects.equals(this.resourceType, other.resourceType);
+        }
+
+        @Override
+        public String toString() {
+            return "RelatedIdentifier{" + "identifier=" + identifier + ", scheme=" + scheme + ", relationType=" + relationType + ", resourceType=" + resourceType + '}';
+        }
+        
         
     }
     
@@ -968,26 +1849,148 @@ public class Metadata {
      *   supports more specialised queries for points.
      * - Initially only Point objects will be supported in the upload form and
      *   landing page. This is primarily due to need for a user-friendly field.
-
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = LocationDeserializer.class)
     public static class Location {
         
+        /**
+         *  * Identifier object in identifiers:
+         *  _________________________________________________________________
+         * | Field      | Cardinality | Description                          |
+         * | identifier | (1, CV)     | A globally unique identifier for the |
+         * |            |             | location.                            |
+         * | scheme     | (1, CV)     | The scheme of the identifier.        |
+         *  -----------------------------------------------------------------
+         */
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = LocationDeserializer.LocationIdentifierDeserializer.class)
         public static class LocationIdentifier {
+            @JsonProperty("identifier")
             String identifier; // This should be a controlled vocabulary but it is not defined
+            @JsonProperty("scheme")
             String scheme;     // This should be a controlled vocabulary but it is not defined
 
             public LocationIdentifier(String identifier, String scheme) {
                 this.identifier = identifier;
                 this.scheme = scheme;
             }
+
+            @Override
+            public int hashCode() {
+                int hash = 5;
+                hash = 23 * hash + Objects.hashCode(this.identifier);
+                hash = 23 * hash + Objects.hashCode(this.scheme);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final LocationIdentifier other = (LocationIdentifier) obj;
+                if (!Objects.equals(this.identifier, other.identifier)) {
+                    return false;
+                }
+                return Objects.equals(this.scheme, other.scheme);
+            }
+
+            @Override
+            public String toString() {
+                return "LocationIdentifier{" + "identifier=" + identifier + ", scheme=" + scheme + '}';
+            }
+            
+            
         }
+        
+        /**
+         * See https://www.rfc-editor.org/rfc/rfc7946#section-3.1
+         */
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = LocationDeserializer.LocationGeometryDeserializer.class)
+        public static class LocationGeometry {
+            @JsonProperty("type")
+            String type;
+            @JsonProperty("coordinates")
+            ArrayList<Object> coordinates = new ArrayList<>();
+
+            public LocationGeometry(String type, ArrayList<Object> coordinates) {
+                this.type = type;
+                this.coordinates.addAll(coordinates);
+            }
+
+            @Override
+            public int hashCode() {
+                int hash = 7;
+                hash = 17 * hash + Objects.hashCode(this.type);
+                hash = 17 * hash + Objects.hashCode(this.coordinates);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final LocationGeometry other = (LocationGeometry) obj;
+                if (!Objects.equals(this.type, other.type)) {
+                    return false;
+                }
+                return Objects.equals(this.coordinates, other.coordinates);
+            }
+
+            @Override
+            public String toString() {
+                return "LocationGeometry{" + "type=" + type + ", coordinates=" + coordinates + '}';
+            }
+            
+        }
+        
+        /**
+         * Subfields of items in features:
+         *  ________________________________________________________________________
+         * | Field       | Cardinality | Description                                |
+         * |-------------+-------------+--------------------------------------------|
+         * | geometry    | (0-1)       | A GeoJSON Geometry Object according to     |
+         * |             |             | RFC 7946. Note, GeoJSON's coordinate       |
+         * |             |             | reference system is WGS84.                 |
+         * | identifiers | (0-1)       | A list of geographic location identifiers. |
+         * |             |             | This could for instance be from GeoNames   |
+         * |             |             | or Getty Thesaurus of Geographic Names     |
+         * |             |             | (TGN) which would allow linking to         |
+         * |             |             | historic places.                           |
+         * | place       | (0-1)       | Free text, used to describe a geographical |
+         * |             |             | location.                                  |
+         * | description | (0-1)       | Free text, used for any extra information  |
+         * |             |             | related to the location.                   |
+         *  ------------------------------------------------------------------------
+         */
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = LocationDeserializer.LocationFeatureDeserializer.class)
         public static class LocationFeature {
-            Optional<String> geometry = Optional.empty();
+            @JsonProperty("geometry")
+            Optional<LocationGeometry> geometry = Optional.empty();
+            @JsonProperty("identifiers")
             List<LocationIdentifier> identifiers;
+            @JsonProperty("place")
             Optional<String> place = Optional.empty();
+            @JsonProperty("description")
             Optional<String> description = Optional.empty();
 
-            public LocationFeature(Optional<String> geometry, 
+            public LocationFeature(Optional<LocationGeometry> geometry, 
                     List<LocationIdentifier> identifiers, 
                     Optional<String> place,
                     Optional<String> description) {
@@ -1001,9 +2004,50 @@ public class Metadata {
                 else
                     throw new IllegalArgumentException("At least one location feature required");
             }
+
+            @Override
+            public int hashCode() {
+                int hash = 3;
+                hash = 19 * hash + Objects.hashCode(this.geometry);
+                hash = 19 * hash + Objects.hashCode(this.identifiers);
+                hash = 19 * hash + Objects.hashCode(this.place);
+                hash = 19 * hash + Objects.hashCode(this.description);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final LocationFeature other = (LocationFeature) obj;
+                if (!Objects.equals(this.geometry, other.geometry)) {
+                    return false;
+                }
+                if (!Objects.equals(this.identifiers, other.identifiers)) {
+                    return false;
+                }
+                if (!Objects.equals(this.place, other.place)) {
+                    return false;
+                }
+                return Objects.equals(this.description, other.description);
+            }
+
+            @Override
+            public String toString() {
+                return "LocationFeature{" + "geometry=" + geometry + ", identifiers=" + identifiers + ", place=" + place + ", description=" + description + '}';
+            }
             
             
         }
+        
+        @JsonProperty("features")
         List<LocationFeature> features = new ArrayList<>();
 
         public Location(List<LocationFeature> features) {
@@ -1012,6 +2056,34 @@ public class Metadata {
             else
                 throw new IllegalArgumentException("At least one location feature required");
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 41 * hash + Objects.hashCode(this.features);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Location other = (Location) obj;
+            return Objects.equals(this.features, other.features);
+        }
+
+        @Override
+        public String toString() {
+            return "Location{" + "features=" + features + '}';
+        }
+        
         
     }
     
@@ -1061,10 +2133,193 @@ public class Metadata {
      * One of id OR (title and number) must be given. It's recommended to use
      * title and number if there is no matching id in the controlled vocabulary.
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = FundingReferenceDeserializer.class)
     public static class FundingReference {
-        
-        public FundingReference() {
+        /**
+         * The funder subfields:
+         *  _____________________________________________________________________
+         * | Field | Cardinality | Description                                   |
+         * | id    | (0-1, CV)   | The funder id from the controlled vocabulary. |
+         * | name  | (0-1)       | The name of the funder.                       |
+         *  ---------------------------------------------------------------------
+         *
+         * One of id OR name must be given. It's recommended to use name if there
+         * is no matching id in the controlled vocabulary.
+         */
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = FundingReferenceDeserializer.FunderDeserializer.class)
+        public static class Funder {
+            @JsonProperty("id")
+            Optional<ControlledVocabulary.FunderId> id = Optional.empty();
+            @JsonProperty("name")
+            Optional<String> name = Optional.empty();
+
+            public Funder(Optional<ControlledVocabulary.FunderId> id, Optional<String> name) {
+                if (id.isPresent() || name.isPresent()) {
+                    this.id = id;
+                    this.name = name;
+                }
+                else
+                    throw new IllegalArgumentException("Either id or name have to be given");
+            }
+
+            @Override
+            public int hashCode() {
+                int hash = 7;
+                hash = 29 * hash + Objects.hashCode(this.id);
+                hash = 29 * hash + Objects.hashCode(this.name);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final Funder other = (Funder) obj;
+                if (!Objects.equals(this.id, other.id)) {
+                    return false;
+                }
+                return Objects.equals(this.name, other.name);
+            }
+
+            @Override
+            public String toString() {
+                return "Funder{" + "id=" + id + ", name=" + name + '}';
+            }
+            
+            
         }
+        /**
+         * The award subfields:
+         *  _________________________________________________________________________
+         * | Field       |Cardinality |Description                                   |
+         * | id          | (0-1, CV)  | The award id from the controlled vocabulary. |
+         * | title       | (0-1)      | The localized title of the award             |
+         * |             |            | (e.g., {"en": "Nobel Prize in Physics"})     |
+         * | number      | (0-1)      | The code assigned by the funder to a         |
+         * |             |            | sponsored award (grant).                     |
+         * | identifiers | (0-N)      | Identifiers for the award.                   |
+         *  -------------------------------------------------------------------------
+         *
+         * One of id OR (title and number) must be given. It's recommended to use
+         * title and number if there is no matching id in the controlled vocabulary.
+         */
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = FundingReferenceDeserializer.AwardDeserializer.class)
+        public static class Award {
+            @JsonProperty("id")
+            Optional<ControlledVocabulary.AwardId> id = Optional.empty();
+            @JsonProperty("title")
+            LocalizedStrings title = new LocalizedStrings();
+            @JsonProperty("number")
+            Optional<String> number = Optional.empty();
+            @JsonProperty("identifiers")
+            ArrayList<AlternateIdentifier> identifiers = new ArrayList<>();
+
+            public Award(Optional<ControlledVocabulary.AwardId> id, 
+                    LocalizedStrings title, Optional<String> number,
+                    ArrayList<AlternateIdentifier> identifiers) {
+                if (id.isPresent() || (!title.isEmpty()&& number.isPresent())) {
+                    this.id = id;
+                    this.title.addAll(title);
+                    this.number = number;
+                    this.identifiers.addAll(identifiers);
+                }
+                else
+                    throw new IllegalArgumentException("Either id or both title and number have to be given");
+            }
+
+            @Override
+            public int hashCode() {
+                int hash = 5;
+                hash = 19 * hash + Objects.hashCode(this.id);
+                hash = 19 * hash + Objects.hashCode(this.title);
+                hash = 19 * hash + Objects.hashCode(this.number);
+                hash = 19 * hash + Objects.hashCode(this.identifiers);
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final Award other = (Award) obj;
+                if (!Objects.equals(this.id, other.id)) {
+                    return false;
+                }
+                if (!Objects.equals(this.title, other.title)) {
+                    return false;
+                }
+                if (!Objects.equals(this.number, other.number)) {
+                    return false;
+                }
+                return Objects.equals(this.identifiers, other.identifiers);
+            }
+
+            @Override
+            public String toString() {
+                return "Award{" + "id=" + id + ", title=" + title + ", number=" + number + ", identifiers=" + identifiers + '}';
+            }
+            
+            
+        }
+        
+        @JsonProperty("funder")
+        Funder funder;
+        @JsonProperty("award")
+        Award award;
+
+        public FundingReference(Funder funder, Award award) {
+            this.funder = funder;
+            this.award = award;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 41 * hash + Objects.hashCode(this.funder);
+            hash = 41 * hash + Objects.hashCode(this.award);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final FundingReference other = (FundingReference) obj;
+            if (!Objects.equals(this.funder, other.funder)) {
+                return false;
+            }
+            return Objects.equals(this.award, other.award);
+        }
+
+        @Override
+        public String toString() {
+            return "FundingReference{" + "funder=" + funder + ", award=" + award + '}';
+        }
+        
     }
     
     /**
@@ -1092,20 +2347,58 @@ public class Metadata {
      * Note that those are passed lowercased with spaces removed e.g., 
      * CrossRef Funder ID is crossreffunderid.
      */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonDeserialize(using = ReferenceDeserializer.class)
     public static class Reference {
-        
+        @JsonProperty("reference")
         String reference;
-        Optional<ControlledVocabulary.ReferenceScheme> schema = Optional.empty();
+        @JsonProperty("scheme")
+        Optional<ControlledVocabulary.ReferenceScheme> scheme = Optional.empty();
+        @JsonProperty("identifier")
         Optional<String> identifier = Optional.empty();
 
         public Reference(String reference,
                 Optional<ControlledVocabulary.ReferenceScheme> schema,
                 Optional<String> identifier) {
             this.reference = reference;
-            this.schema = schema;
+            this.scheme = schema;
             this.identifier = identifier;
         }
-        
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 23 * hash + Objects.hashCode(this.reference);
+            hash = 23 * hash + Objects.hashCode(this.scheme);
+            hash = 23 * hash + Objects.hashCode(this.identifier);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Reference other = (Reference) obj;
+            if (!Objects.equals(this.reference, other.reference)) {
+                return false;
+            }
+            if (!Objects.equals(this.scheme, other.scheme)) {
+                return false;
+            }
+            return Objects.equals(this.identifier, other.identifier);
+        }
+
+        @Override
+        public String toString() {
+            return "Reference{" + "reference=" + reference + ", schema=" + scheme + ", identifier=" + identifier + '}';
+        }
     }
     
     /**
@@ -1115,6 +2408,7 @@ public class Metadata {
      * @param title the title of the resource
      * @param publicationDate the publication date
      */
+    @JsonCreator
     public Metadata(
             /**
              * Resource type (1) (https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1)
@@ -1329,7 +2623,7 @@ public class Metadata {
              * 
              * The field is compatible with 8. Date in DataCite.
              */
-            List<RecordDate> dates) {
+            List<Date> dates) {
         this.dates.addAll(dates);
         return this;
     }
@@ -1444,7 +2738,7 @@ public class Metadata {
         return this;
     }
     
-    public Metadata addLocations(
+    public Metadata setLocations(
             /**
              * Locations (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#locations-0-n)
              *
@@ -1470,8 +2764,8 @@ public class Metadata {
              * will include the type information as well as "properties": null in order
              * to make it valid GeoJSON.
              */
-            List<Location> locations) {
-        this.locations.addAll(locations);
+            Location locations) {
+        this.locations = locations;
         return this;
     }
     
@@ -1509,5 +2803,113 @@ public class Metadata {
         this.references.addAll(references);
         return this;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.resourceType);
+        hash = 53 * hash + Objects.hashCode(this.creators);
+        hash = 53 * hash + Objects.hashCode(this.title);
+        hash = 53 * hash + Objects.hashCode(this.publicationDate);
+        hash = 53 * hash + Objects.hashCode(this.additionalTitles);
+        hash = 53 * hash + Objects.hashCode(this.description);
+        hash = 53 * hash + Objects.hashCode(this.additionalDescriptions);
+        hash = 53 * hash + Objects.hashCode(this.rights);
+        hash = 53 * hash + Objects.hashCode(this.contributors);
+        hash = 53 * hash + Objects.hashCode(this.subjects);
+        hash = 53 * hash + Objects.hashCode(this.languages);
+        hash = 53 * hash + Objects.hashCode(this.dates);
+        hash = 53 * hash + Objects.hashCode(this.version);
+        hash = 53 * hash + Objects.hashCode(this.publisher);
+        hash = 53 * hash + Objects.hashCode(this.alternativeIdentifiers);
+        hash = 53 * hash + Objects.hashCode(this.relatedIdentifiers);
+        hash = 53 * hash + Objects.hashCode(this.sizes);
+        hash = 53 * hash + Objects.hashCode(this.formats);
+        hash = 53 * hash + Objects.hashCode(this.locations);
+        hash = 53 * hash + Objects.hashCode(this.fundingReferences);
+        hash = 53 * hash + Objects.hashCode(this.references);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Metadata other = (Metadata) obj;
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.resourceType, other.resourceType)) {
+            return false;
+        }
+        if (!Objects.equals(this.creators, other.creators)) {
+            return false;
+        }
+        if (!Objects.equals(this.publicationDate, other.publicationDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.additionalTitles, other.additionalTitles)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.additionalDescriptions, other.additionalDescriptions)) {
+            return false;
+        }
+        if (!Objects.equals(this.rights, other.rights)) {
+            return false;
+        }
+        if (!Objects.equals(this.contributors, other.contributors)) {
+            return false;
+        }
+        if (!Objects.equals(this.subjects, other.subjects)) {
+            return false;
+        }
+        if (!Objects.equals(this.languages, other.languages)) {
+            return false;
+        }
+        if (!Objects.equals(this.dates, other.dates)) {
+            return false;
+        }
+        if (!Objects.equals(this.version, other.version)) {
+            return false;
+        }
+        if (!Objects.equals(this.publisher, other.publisher)) {
+            return false;
+        }
+        if (!Objects.equals(this.alternativeIdentifiers, other.alternativeIdentifiers)) {
+            return false;
+        }
+        if (!Objects.equals(this.relatedIdentifiers, other.relatedIdentifiers)) {
+            return false;
+        }
+        if (!Objects.equals(this.sizes, other.sizes)) {
+            return false;
+        }
+        if (!Objects.equals(this.formats, other.formats)) {
+            return false;
+        }
+        if (!Objects.equals(this.locations, other.locations)) {
+            return false;
+        }
+        if (!Objects.equals(this.fundingReferences, other.fundingReferences)) {
+            return false;
+        }
+        return Objects.equals(this.references, other.references);
+    }
+
+    @Override
+    public String toString() {
+        return "Metadata{" + "resourceType=" + resourceType + ", creators=" + creators + ", title=" + title + ", publicationDate=" + publicationDate + ", additionalTitles=" + additionalTitles + ", description=" + description + ", additionalDescriptions=" + additionalDescriptions + ", rights=" + rights + ", contributors=" + contributors + ", subjects=" + subjects + ", languages=" + languages + ", dates=" + dates + ", version=" + version + ", publisher=" + publisher + ", alternativeIdentifiers=" + alternativeIdentifiers + ", relatedIdentifiers=" + relatedIdentifiers + ", sizes=" + sizes + ", formats=" + formats + ", locations=" + locations + ", fundingReferences=" + fundingReferences + ", references=" + references + '}';
+    }
     
+
 }
