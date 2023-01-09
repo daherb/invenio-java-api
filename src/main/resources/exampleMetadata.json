@@ -1,0 +1,151 @@
+{
+  "resource_type": {
+    "id": "image-photo"
+  },
+  "creators": [{
+    "person_or_org": {
+      "name": "Nielsen, Lars Holm",
+      "type": "personal",
+      "given_name": "Lars Holm",
+      "family_name": "Nielsen",
+      "identifiers": [{
+        "scheme": "orcid",
+        "identifier": "0000-0001-8135-3489"
+      }]
+    },
+    "affiliations": [{
+      "id": "01ggx4157",
+      "name": "CERN"
+    }]
+  }],
+  "title": "InvenioRDM",
+  "publication_date": "2018/2020-09",
+  "additional_titles": [{
+    "title": "A research data management platform",
+    "type": {
+      "id": "alternative-title",
+      "title": {
+        "en": "Alternative Title"
+      }
+    },
+    "lang": {"id": "eng"}
+  }],
+  "description": "<strong>Test</strong>",
+  "additional_descriptions": [{
+    "description": "The description of a research data management platform.",
+    "type": {
+      "id": "methods",
+      "title": {
+        "en": "Methods"
+      }
+    },
+    "lang": {"id": "eng"}
+  }],
+  "rights": [{
+    "id": "cc-by-4.0",
+    "title": {"en": "Creative Commons Attribution 4.0 International"},
+    "description": {"en": "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."},
+    "link": "https://creativecommons.org/licenses/by/4.0/"
+  }],
+  "contributors": [{
+    "person_or_org": {
+      "name": "Nielsen, Lars Holm",
+      "type": "personal",
+      "given_name": "Lars Holm",
+      "family_name": "Nielsen",
+      "identifiers": [{
+        "scheme": "orcid",
+        "identifier": "0000-0001-8135-3489"
+      }]
+    },
+    "role": "editor",
+    "affiliations": [{
+      "id": "01ggx4157",
+      "name": "CERN"
+    }]
+  }],
+  "subjects": [{
+    "id": "https://id.nlm.nih.gov/mesh/D000001"
+  }],
+  "languages": [{"id": "dan"}, {"id": "eng"}],
+  "dates": [{
+    "date": "1939/1945",
+    "type": {
+      "id": "other",
+      "title": {
+        "en": "Other"
+      }
+    },
+    "description": "A date"
+  }],
+  "version": "v1.0.0",
+  "publisher": "InvenioRDM",
+  "identifiers": [{
+    "identifier": "1924MNRAS..84..308E",
+    "scheme": "bibcode"
+  }],
+  "related_identifiers": [{
+    "identifier": "10.1234/foo.bar",
+    "scheme": "doi",
+    "relation_type": {
+      "id": "cites",
+      "title": {
+        "en": "Cites"
+      }
+    },
+    "resource_type": {
+      "id": "dataset",
+      "title": {
+        "en": "Dataset"
+      }
+    }
+  }],
+  "sizes": [
+    "11 pages"
+  ],
+  "formats": [
+    "application/pdf"
+  ],
+  "locations": {
+    "features": [{
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.05, 46.23333]
+      },
+      "identifiers": [{
+        "scheme": "geonames",
+        "identifier": "2661235"
+      }],
+      "place": "CERN",
+      "description": "Invenio birth place."
+    }]
+  },
+  "funding": [{
+      "funder": {
+        "id": "00k4n6c32"
+      },
+      "award": {
+        "id": "00k4n6c32::246686"
+      }
+    }, {
+      "funder": {
+        "id": "00k4n6c32"
+      },
+      "award": {
+        "title": {
+          "en": "Research on Experimental Physics"
+        },
+        "number": "EP-123456",
+        "identifiers": [{
+          "scheme": "url",
+          "identifier": "https://experimental-physics.eu"
+        }]
+      }
+    }
+  ],
+  "references": [{
+      "reference": "Nielsen et al,..",
+      "identifier": "10.1234/foo.bar",
+      "scheme": "other"
+  }]
+}
