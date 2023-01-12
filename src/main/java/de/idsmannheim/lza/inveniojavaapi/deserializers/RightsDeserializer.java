@@ -36,7 +36,6 @@ public class RightsDeserializer extends StdDeserializer<Metadata.License> {
         Optional<String> id = Optional.empty();
         Metadata.LocalizedStrings title = new Metadata.LocalizedStrings();
         Metadata.LocalizedStrings description = new Metadata.LocalizedStrings();
-        Optional<URL> link = Optional.empty();
         JsonNode node = p.getCodec().readTree(p);
         ObjectMapper om = new ObjectMapper()
                 .registerModule(new Jdk8Module());
@@ -49,13 +48,17 @@ public class RightsDeserializer extends StdDeserializer<Metadata.License> {
         if (node.has("description")) {
             description.addAll(om.readValue(node.get("description").toString(), Metadata.LocalizedStrings.class));
         }
+        Metadata.License license = new Metadata.License(id, title, description);
         if (node.has("link")) {
             try {
-                link = Optional.of(new URL(node.get("link").asText()));
+                license.setLink(new URL(node.get("link").asText()));
             }
             catch (MalformedURLException e) {
             }
         }
-        return new Metadata.License(id, title, description, link);
+        if (node.has("props")) {
+            license.addProps(om.readerForMapOf(String.class).readValue(node.get("props").toString()));
+        }
+        return license;
     }
 }

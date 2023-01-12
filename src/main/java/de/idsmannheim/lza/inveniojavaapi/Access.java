@@ -127,24 +127,47 @@ public class Access {
         
         
     }
-    
+    // Use separate getters instead of JsonProperty for record and files
     AccessType record;
     AccessType files;
+    // Status is not in the specification but part of the record list
+    @JsonProperty("status")
+    Optional<String> status = Optional.empty();
     @JsonProperty("embargo")
     Optional<Embargo> embargo;
     
-    public Access(AccessType record, AccessType files, Optional<Embargo> embargo) {
+    public Access(AccessType record, AccessType files) {
         this.record = record;
         this.files = files;
-        this.embargo = embargo;
+    }
+
+    public Access setStatus(String status) {
+        this.status = Optional.of(status);
+        return this;
+    }
+
+    public Access setEmbargo(Embargo embargo) {
+        this.embargo = Optional.of(embargo);
+        return this;
+    }
+    
+    @JsonProperty("record")
+    public String getRecordAccessAsString() {
+        return this.record.toString().toLowerCase();
+    }
+    
+    @JsonProperty("files")
+    public String getFileAccessAsString() {
+        return this.files.toString().toLowerCase();
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.record);
-        hash = 59 * hash + Objects.hashCode(this.files);
-        hash = 59 * hash + Objects.hashCode(this.embargo);
+        hash = 41 * hash + Objects.hashCode(this.record);
+        hash = 41 * hash + Objects.hashCode(this.files);
+        hash = 41 * hash + Objects.hashCode(this.status);
+        hash = 41 * hash + Objects.hashCode(this.embargo);
         return hash;
     }
 
@@ -166,17 +189,17 @@ public class Access {
         if (this.files != other.files) {
             return false;
         }
+        if (!Objects.equals(this.status, other.status)) {
+            return false;
+        }
         return Objects.equals(this.embargo, other.embargo);
     }
-    
-    @JsonProperty("record")
-    public String getRecordAccessAsString() {
-        return this.record.toString().toLowerCase();
+
+    @Override
+    public String toString() {
+        return "Access{" + "record=" + record + ", files=" + files + ", status=" + status + ", embargo=" + embargo + '}';
     }
     
-    @JsonProperty("files")
-    public String getFileAccessAsString() {
-        return this.files.toString().toLowerCase();
-    }
+    
 }
 

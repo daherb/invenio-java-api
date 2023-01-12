@@ -19,10 +19,10 @@ import org.springframework.boot.test.context.SpringBootTest;
  *
  * @author Herbert Lange <lange@ids-mannheim.de>
  * 
- * Tests for Access class
+ * Tests for Tombstone class
  */
 @SpringBootTest
-public class TonbstoneTest {
+public class TombstoneTest {
     
     static ObjectMapper om = new ObjectMapper();
     

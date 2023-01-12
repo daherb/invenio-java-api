@@ -55,7 +55,7 @@ public class PersonOrOrgDeserializer extends StdDeserializer<PersonOrOrg> {
     public PersonOrOrg deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         JsonNode node = p.getCodec().readTree(p);
         String typeStr = node.get("type").asText();
-        ArrayList<Identifier>  identifiers = new ArrayList<>();
+        ArrayList<Identifier> identifiers = new ArrayList<>();
         if (node.has("identifiers")) {
             identifiers.addAll(
                 new ObjectMapper().readerForListOf(Identifier.class).readValue(node.get("identifiers"))
@@ -67,18 +67,18 @@ public class PersonOrOrgDeserializer extends StdDeserializer<PersonOrOrg> {
                     return new PersonOrOrg(
                             node.get("given_name").asText(),
                             node.get("family_name").asText(),
-                            node.get("name").asText(),
-                            identifiers);
+                            node.get("name").asText())
+                            .setIdentifiers(identifiers);
                 else
                     return new PersonOrOrg(
                         node.get("given_name").asText(),
-                        node.get("family_name").asText(),
-                        identifiers);
+                        node.get("family_name").asText())
+                            .setIdentifiers(identifiers);
             }
             case "organizational" -> {
                 return new PersonOrOrg(
-                        node.get("name").asText(),
-                        identifiers);
+                        node.get("name").asText())
+                            .setIdentifiers(identifiers);
             }
             default -> throw new IllegalArgumentException("PersonOrOrg type is invalid: " + typeStr);
         }

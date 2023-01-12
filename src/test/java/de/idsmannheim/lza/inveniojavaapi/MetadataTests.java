@@ -64,7 +64,7 @@ class MetadataTests {
         ArrayList<Affiliation> affiliations = new ArrayList<>();
         affiliations.add(new Affiliation(Optional.of(new ControlledVocabulary.OrganizationalOrInstitutionalId(ControlledVocabulary.OrganizationalOrInstitutionalId.EOrganization.CERN)),
                 Optional.of("CERN")));
-        creators.add(new Creator(new Metadata.PersonOrOrg("Lars Holm","Nielsen",identifiers)).addAffiliations(affiliations));
+        creators.add(new Creator(new Metadata.PersonOrOrg("Lars Holm","Nielsen").setIdentifiers(identifiers)).addAffiliations(affiliations));
         additionalTitles.add(new Metadata.AdditionalTitle("A research data management platform", 
                 new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle), 
                         new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Alternative Title")),
@@ -80,13 +80,13 @@ class MetadataTests {
                 new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), 
                         "Creative Commons Attribution 4.0 International"),
                 new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), 
-                        "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."),
-                Optional.of(new URL("https://creativecommons.org/licenses/by/4.0/"))));
+                        "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."))
+                .setLink(new URL("https://creativecommons.org/licenses/by/4.0/")));
         Metadata.PersonOrOrg personOrOrg = new Metadata.PersonOrOrg(
-                "Lars Holm", "Nielsen", 
-                List.of(new Metadata.PersonOrOrg.Identifier(
+                "Lars Holm", "Nielsen")
+                .setIdentifiers(new ArrayList<>(List.of(new Metadata.PersonOrOrg.Identifier(
                         new ControlledVocabulary.PersonOrOrgIdentifierScheme(ControlledVocabulary.PersonOrOrgIdentifierScheme.EScheme.ORCID), 
-                        "0000-0001-8135-3489")));
+                        "0000-0001-8135-3489"))));
         contributors.add(new Metadata.Contributor(
                 personOrOrg, 
                 new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.Editor), 
@@ -457,10 +457,10 @@ class MetadataTests {
     void draftRequestMetadataTest() throws JsonProcessingException, IOException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         ArrayList<Metadata.Creator> creators = new ArrayList<>();
         creators.add(new Metadata.Creator(
-                new Metadata.PersonOrOrg("Troy","Brown",new ArrayList<>())));
+                new Metadata.PersonOrOrg("Troy","Brown")));
         creators.add(new Metadata.Creator(
-                new Metadata.PersonOrOrg("Thomas", "Collins","Collins, Thomas",
-                    List.of(new Metadata.PersonOrOrg.Identifier(new ControlledVocabulary.PersonOrOrgIdentifierScheme(ControlledVocabulary.PersonOrOrgIdentifierScheme.EScheme.ORCID),"0000-0002-1825-0097"))
+                new Metadata.PersonOrOrg("Thomas", "Collins","Collins, Thomas").setIdentifiers(
+                    new ArrayList<>(List.of(new Metadata.PersonOrOrg.Identifier(new ControlledVocabulary.PersonOrOrgIdentifierScheme(ControlledVocabulary.PersonOrOrgIdentifierScheme.EScheme.ORCID),"0000-0002-1825-0097")))
                 )).addAffiliations(
                 new ArrayList<>(List.of(new Metadata.Affiliation(Optional.of(new ControlledVocabulary.OrganizationalOrInstitutionalId(ControlledVocabulary.OrganizationalOrInstitutionalId.EOrganization.CERN)), Optional.of("Entity One"))))
                 ));
@@ -481,12 +481,13 @@ class MetadataTests {
     void draftReplyMetadataTest() throws JsonProcessingException, IOException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         ArrayList<Metadata.Creator> creators = new ArrayList<>();
         creators.add(new Metadata.Creator(
-                new Metadata.PersonOrOrg("Troy","Brown",new ArrayList<>())));
+                new Metadata.PersonOrOrg("Troy","Brown")));
         creators.add(new Metadata.Creator(
-                new Metadata.PersonOrOrg("Thomas", "Collins","Collins, Thomas",
+                new Metadata.PersonOrOrg("Thomas", "Collins","Collins, Thomas")
+                .setIdentifiers(new ArrayList<>(
                     List.of(new Metadata.PersonOrOrg.Identifier(
                             new ControlledVocabulary.PersonOrOrgIdentifierScheme(ControlledVocabulary.PersonOrOrgIdentifierScheme.EScheme.ORCID),
-                            "0000-0002-1825-0097"))
+                            "0000-0002-1825-0097")))
                 )).addAffiliations(
                 new ArrayList<>(List.of(new Metadata.Affiliation(Optional.of(
                         new ControlledVocabulary.OrganizationalOrInstitutionalId(ControlledVocabulary.OrganizationalOrInstitutionalId.EOrganization.CERN)),

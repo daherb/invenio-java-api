@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.Access;
 import de.idsmannheim.lza.inveniojavaapi.Access.AccessType;
-import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -69,11 +68,14 @@ public class AccessDeserializer extends StdDeserializer<Access> {
         Access.AccessType fileAccess = List.of(AccessType.values()).stream()
                 .filter(t -> t.toString().equalsIgnoreCase(node.get("files").asText()))
                 .findFirst().get();;
-        Optional<Access.Embargo> embargo = Optional.empty();
+        Access access = new Access(recordAccess, fileAccess);
         if (node.has("embargo")) {
-            embargo = Optional.of(om.readValue(node.get("embargo").toString(), Access.Embargo.class));
+            access.setEmbargo(om.readValue(node.get("embargo").toString(), Access.Embargo.class));
         }
-        return new Access(recordAccess, fileAccess, embargo);
+        if (node.has("status")) {
+            access.setStatus(node.get("status").asText());
+        }
+        return access;
     }
     
 }

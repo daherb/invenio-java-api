@@ -359,10 +359,9 @@ public class Metadata {
          * Constructor for a person, automatically sets the type to personal and concatenates names in name field
          * @param givenName given name of the person
          * @param familyName family name of the person
-         * @param identifiers list of identifiers
          */
         public PersonOrOrg(String givenName, 
-                String familyName, List<Identifier> identifiers) {
+                String familyName) {
             this.type = Type.Personal;
             if (givenName == null || givenName.isBlank() || 
                         familyName == null || familyName.isBlank()) {
@@ -373,30 +372,44 @@ public class Metadata {
                 this.givenName = givenName;
                 this.familyName = familyName;
                 this.name = familyName + ", " + givenName;
-                this.identifiers.addAll(identifiers);
             }
         /**
          * Constructor for a person with an explicit name parameter
          * @param givenName given name of the person
          * @param familyName family name of the person
          * @param name complete name of the person
-         * @param identifiers list of identifiers
          */
         public PersonOrOrg(String givenName, 
-                String familyName, String name, List<Identifier> identifiers) {
-            this(givenName, familyName, identifiers);
+                String familyName, String name) {
+            this(givenName, familyName);
             this.name = name;
         }
         
-        public PersonOrOrg(String name, List<Identifier> identifiers){
+        /**
+         * Constructor for an organization, automatically setting the type
+         * @param name name of the organization
+         */
+        public PersonOrOrg(String name){
                 if (name == null || name.isBlank()) {
                     throw new IllegalArgumentException
                             ("Name has to be present for an organization");
                 }
             this.name = name;
-            this.identifiers.addAll(identifiers);
+            this.type = Type.Organizational;
         }
 
+        /**
+         * Adds identifiers
+         * @param identifiers list of identifiers
+         * @return the updated object
+         */
+        public PersonOrOrg setIdentifiers(ArrayList<Identifier> identifiers) {
+            this.identifiers.addAll(identifiers);
+            return this;
+        }
+
+        
+        
         @Override
         public String toString() {
             return "PersonOrOrg{" + "type=" + type + ", givenName=" + givenName + ", familyName=" + familyName + ", name=" + name + ", identifiers=" + identifiers + '}';
@@ -1108,25 +1121,37 @@ public class Metadata {
         LocalizedStrings description = new LocalizedStrings();
         @JsonProperty("link")
         Optional<URL> link = Optional.empty();
+        // Not part of the specs but occurs in the records list
+        @JsonProperty("props")
+        HashMap<String,String> props = new HashMap<>();
         
         public License(String id, LocalizedStrings title,
-            LocalizedStrings description, Optional<URL> link) {
+            LocalizedStrings description) {
             this.id = Optional.of(id);
             this.title.addAll(title);
             this.description.addAll(description);
-            this.link = link;
         }
         
         public License(Optional<String> id, LocalizedStrings title,
-            LocalizedStrings description, Optional<URL> link) {
+            LocalizedStrings description) {
             if (id.isEmpty() && title.isEmpty())
                 throw new IllegalArgumentException("Either id or title have to be given");
             this.id = id;
             this.title.addAll(title);
             this.description.addAll(description);
-            this.link = link;
         }
 
+        public License setLink(URL link) {
+            this.link = Optional.of(link);
+            return this;
+        }
+
+        public License addProps(HashMap<String,String> props) {
+            this.props.putAll(props);
+            return this;
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 5;

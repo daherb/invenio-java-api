@@ -3,7 +3,8 @@ package de.idsmannheim.lza.inveniojavaapi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,10 +19,10 @@ import org.springframework.boot.test.context.SpringBootTest;
  *
  * @author Herbert Lange <lange@ids-mannheim.de>
  * 
- * Tests for Access class
+ * Tests for Parent class
  */
 @SpringBootTest
-public class AccessTest {
+public class ParentTest {
     
     static ObjectMapper om = new ObjectMapper();
     
@@ -34,16 +35,20 @@ public class AccessTest {
     @Test
     public void accessTest() throws JsonProcessingException {
         String accessText = "{\n" +
-                "    \"record\": \"public\",\n" +
-                "    \"files\": \"public\",\n" +
-                "    \"embargo\": {\n" +
-                "      \"active\": false\n" +
+                "    \"id\": \"fghij-12345\",\n" +
+                "    \"access\": {\n" +
+                "      \"owned_by\": [\n" +
+                "        {\n" +
+                "          \"user\": 2\n" +
+                "        }\n" +
+                "      ]\n" +
                 "    }\n" +
                 "  }"; 
-        Access access = new Access(Access.AccessType.Public, Access.AccessType.Public).setEmbargo(new Access.Embargo());
-        Access a2 = om.readValue(accessText, Access.class);
-        Access a3 = om.readValue(om.writeValueAsString(access), Access.class);
-        Assertions.assertEquals(access,a2);
-        Assertions.assertEquals(access,a3);
+        Parent parent = new Parent("fghij-12345", 
+                new Parent.Access(new ArrayList<>(Collections.singletonList(new Parent.Owner(2)))));
+        Parent p2 = om.readValue(accessText, Parent.class);
+        Parent p3 = om.readValue(om.writeValueAsString(parent), Parent.class);
+        Assertions.assertEquals(parent,p2);
+        Assertions.assertEquals(parent,p3);
     }
 }
