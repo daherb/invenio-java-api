@@ -4,13 +4,20 @@
 */
 package de.idsmannheim.lza.inveniojavaapi;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import de.idsmannheim.lza.inveniojavaapi.deserializers.DraftRecordDeserializer;
 import java.util.Objects;
 
 /**
  *
  * @author Herbert Lange <lange@ids-mannheim.de>
+ * 
+ * A class combining Access, FilesOptions and Metadata
  */
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonDeserialize(using = DraftRecordDeserializer.class)
 public class DraftRecord {
     
     @JsonProperty("access")
