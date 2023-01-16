@@ -17,6 +17,8 @@ import java.util.Optional;
 /**
  *
  * @author Herbert Lange <lange@ids-mannheim.de>
+ * 
+ * Class representing list of records as a result of a search operation
  */
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @JsonDeserialize(using = RecordsDeserializer.class)
