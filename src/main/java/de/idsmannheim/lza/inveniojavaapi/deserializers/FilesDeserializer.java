@@ -13,7 +13,9 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.Files;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  *
@@ -73,7 +75,12 @@ public class FilesDeserializer extends StdDeserializer<Files> {
         boolean enabled = node.get("enabled").asBoolean();
         Files files = new Files(enabled);
         if (node.has("entries")) {
-            files.addEntries(om.readerForMapOf(Files.FileEntry.class).readValue(node.get("entries").toString()));
+            if (node.get("entries").isArray()) {
+                files.addEntries((ArrayList < Files.FileEntry >) om.readerForListOf(Files.FileEntry.class).readValue(node.get("entries").toString()));
+            }
+            else {
+                files.addEntries((HashMap < String, Files.FileEntry >) om.readerForMapOf(Files.FileEntry.class).readValue(node.get("entries").toString()));
+            }
         }
         if (node.has("default_preview")) {
             files.setDefaultPreview(node.get("default_preview").asText());

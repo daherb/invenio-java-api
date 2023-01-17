@@ -8,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import de.idsmannheim.lza.inveniojavaapi.deserializers.FilesDeserializer;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
+import io.vavr.control.Either;
 
 /**
  *
@@ -226,8 +228,10 @@ public class Files {
     */
     @JsonProperty("enabled")
     boolean enabled;
-    @JsonProperty("entries")
-    HashMap<String, FileEntry> entries = new HashMap<>();
+    // Antries can either be a list (e.g. when listing draft files) or a map from file name to file entry (e.g. in metadata)
+    // JSON property is defined on the getter
+    Either<ArrayList<FileEntry>,HashMap<String,FileEntry>> entries;
+    // HashMap<String, FileEntry> entries = new HashMap<>();
     @JsonProperty("default_preview")
     Optional<String> defaultPreview = Optional.empty();
 
@@ -236,7 +240,18 @@ public class Files {
     }
     
     public Files addEntries(HashMap<String, FileEntry> entries) {
-        this.entries.putAll(entries);
+        if (this.entries == null)
+            this.entries = Either.right(entries);
+        else
+            this.entries.get().putAll(entries);
+        return this;
+    }
+    
+    public Files addEntries(ArrayList<FileEntry> entries) {
+        if (this.entries == null)
+            this.entries = Either.left(entries);
+        else
+            this.entries.getLeft().addAll(entries);
         return this;
     }
     
@@ -245,6 +260,15 @@ public class Files {
         return this;
     }
 
+    @JsonProperty("entries")
+    public Object getEntries() {
+        if (this.entries.isLeft())
+            return this.entries.getLeft();
+        else
+            return this.entries.get();
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 5;
