@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 import io.vavr.control.Either;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -84,7 +85,6 @@ public class Files {
         String bucketId;
         @JsonProperty("checksum")
         String checksum;
-        @JsonProperty("created")
         Date created;
         @JsonProperty("file_id")
         String fileId;
@@ -104,7 +104,6 @@ public class Files {
         // TODO: Enum?
         @JsonProperty("storage_class")
         String storageClass;
-        @JsonProperty("updated")
         Date updated;
         @JsonProperty("version_id")
         String versionId;
@@ -153,6 +152,22 @@ public class Files {
         public FileEntry addLinks(HashMap<String,String> link) {
             this.links.putAll(link);
             return this;
+        }
+        
+        @JsonProperty("created")
+        public String getCreatedAsString() {
+            if (created != null)
+                return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(created);
+            else
+                return null;
+        }
+        
+        @JsonProperty("updated")
+        public String getUpdatedAsString() {
+            if (updated != null)
+               return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(updated);
+            else
+                return null;
         }
         
         @Override

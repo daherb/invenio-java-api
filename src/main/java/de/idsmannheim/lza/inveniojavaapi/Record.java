@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import de.idsmannheim.lza.inveniojavaapi.deserializers.RecordDeserializer;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -121,7 +122,6 @@ public class Record {
     
         @JsonProperty("access")
         Access access;
-        @JsonProperty("created")
         Date created;
         @JsonProperty("custom_fields")
         HashMap<String,Object> customFields = new HashMap<>();
@@ -145,7 +145,7 @@ public class Record {
         int revisionId;
         @JsonProperty("status")
         String status;
-        @JsonProperty("updated")
+        
         Date updated;
         @JsonProperty("versions")
         Versions versions;
@@ -180,6 +180,22 @@ public class Record {
             return this;
         }
 
+        
+        @JsonProperty("created")
+        public String getCreatedAsString() {
+            if (created != null)
+                return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(created);
+            else
+                return null;
+        }
+        
+        @JsonProperty("updated")
+        public String getUpdatedAsString() {
+            if (updated != null)
+               return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(updated);
+            else
+                return null;
+        }
         
         @Override
         public int hashCode() {
