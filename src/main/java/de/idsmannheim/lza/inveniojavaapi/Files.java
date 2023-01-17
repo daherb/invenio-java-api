@@ -109,6 +109,21 @@ public class Files {
         @JsonProperty("version_id")
         String versionId;
 
+        /**
+         * Default constructor for file entry in metadata
+         * 
+         * @param bucketId The bucket identifier.
+         * @param checksum The checksum of the file in the form <algorithm>:<value>.
+         * @param created Date of creation (init) of the file record.
+         * @param fileId The digital file instance identifier (references a file on storage).
+         * @param key The filepath of the file.
+         * @param mimetype The mimetype of the file.
+         * @param size The size in bytes of the file.
+         * @param status The current status of the file ingestion (completed or pending).
+         * @param storageClass The backend for the file (e.g. local or external storage).
+         * @param updated Date of latest update of the file record metadata or file.
+         * @param versionId The logical object identifier.
+         */
         public FileEntry(String bucketId, String checksum, Date created, String fileId, String key, String mimetype, int size, String status, String storageClass, Date updated, String versionId) {
             this.bucketId = bucketId;
             this.checksum = checksum;
@@ -123,6 +138,13 @@ public class Files {
             this.versionId = versionId;
         }
 
+        /**
+         * Minimal constructor for file entries used in draft file upload
+         * @param key 
+         */
+        public FileEntry(String key) {
+            this.key = key;
+        }
         public FileEntry addMetadata(HashMap<String,Object> metadata) {
             this.metadata.putAll(metadata);
             return this;
