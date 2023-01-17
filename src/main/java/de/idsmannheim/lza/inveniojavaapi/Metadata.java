@@ -56,48 +56,48 @@ import java.util.Objects;
 public class Metadata {
     // The mandatory fields are initialized in the constructor
     @JsonProperty("resource_type")
-    private final ResourceType resourceType;
+    final ResourceType resourceType;
     @JsonProperty("creators")
-    private final List<Creator> creators;
+    final List<Creator> creators;
     @JsonProperty("title")
-    private final String title;
+    final String title;
     @JsonProperty("publication_date")
-    private final ExtendedDateTimeFormat0 publicationDate;
+    final ExtendedDateTimeFormat0 publicationDate;
     // The rest is initialized with an empty value
     @JsonProperty("additional_titles")
-    private final List<AdditionalTitle> additionalTitles = new ArrayList<>();
+    final List<AdditionalTitle> additionalTitles = new ArrayList<>();
     @JsonProperty("description")
-    private Optional<String> description = Optional.empty();
+    Optional<String> description = Optional.empty();
     @JsonProperty("additional_descriptions")
-    private final List<AdditionalDescription> additionalDescriptions = new ArrayList<>();
+    final List<AdditionalDescription> additionalDescriptions = new ArrayList<>();
     @JsonProperty("rights")
-    private final List<License> rights = new ArrayList<>();
+    final List<License> rights = new ArrayList<>();
     @JsonProperty("contributors")
-    private final List<Contributor> contributors = new ArrayList<>();
+    final List<Contributor> contributors = new ArrayList<>();
     @JsonProperty("subjects")
-    private final List<Subject> subjects = new ArrayList<>();
+    final List<Subject> subjects = new ArrayList<>();
     @JsonProperty("languages")
-    private final List<Language> languages = new ArrayList<>();
+    final List<Language> languages = new ArrayList<>();
     @JsonProperty("dates")
-    private final List<Date> dates = new ArrayList<>();
+    final List<Date> dates = new ArrayList<>();
     @JsonProperty("version")
-    private Optional<String> version = Optional.empty();
+    Optional<String> version = Optional.empty();
     @JsonProperty("publisher")
-    private Optional<String> publisher = Optional.empty();
+    Optional<String> publisher = Optional.empty();
     @JsonProperty("alternative_identifiers")
-    private final List<AlternateIdentifier> alternativeIdentifiers = new ArrayList<>();
+    final List<AlternateIdentifier> alternativeIdentifiers = new ArrayList<>();
     @JsonProperty("related_identifiers")
-    private final List<RelatedIdentifier> relatedIdentifiers = new ArrayList<>();
+    final List<RelatedIdentifier> relatedIdentifiers = new ArrayList<>();
     @JsonProperty("sizes")
-    private final List<String> sizes = new ArrayList<>();
+    final List<String> sizes = new ArrayList<>();
     @JsonProperty("formats")
-    private final List<String> formats = new ArrayList<>();
+    final List<String> formats = new ArrayList<>();
     @JsonProperty("locations")
-    private Location locations;
+    Location locations;
     @JsonProperty("funding")
-    private final List<FundingReference> fundingReferences = new ArrayList<>();
+    final List<FundingReference> fundingReferences = new ArrayList<>();
     @JsonProperty("references")
-    private final List<Reference> references = new ArrayList<>();
+    final List<Reference> references = new ArrayList<>();
     
     /**
      * Resource type (1)¶
