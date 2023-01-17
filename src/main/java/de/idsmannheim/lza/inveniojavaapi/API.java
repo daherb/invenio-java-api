@@ -4,17 +4,24 @@
  */
 package de.idsmannheim.lza.inveniojavaapi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  *
@@ -185,6 +192,93 @@ public class API {
         getHttpClient().send(request,BodyHandlers.ofString());
     }
     
+    /**
+     * List a draft's files (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#draft-files)
+     */
+    public static Files listDraftFiles(String id) throws NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException, URISyntaxException, URISyntaxException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files", "");
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .GET()
+                .build();
+        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
+        LOG.info(body);
+        return om.readValue(body, Files.class);
+    }
+    
+    /**
+     * Start draft file upload(s) (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#start-draft-file-uploads)
+     * 
+     * @param id Identifier of the record, e.g. 4d0ns-ntd89
+     * @param entries Array of objects describing the file uploads to be initialized.
+     * @return List of file entries for files to be uploaded
+     */
+    
+    public static Files startDraftFileUpload(String id, ArrayList<Files.FileEntry> entries) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files", "");
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .POST(HttpRequest.BodyPublishers.ofString(om.writeValueAsString(entries)))
+                .build();
+        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
+        return om.readValue(body, Files.class);
+    }
+    
+    /**
+     * Upload a draft file's content (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#upload-a-draft-files-content)
+     * 
+     * @param id Identifier of the record, e.g. 4d0ns-ntd89
+     * @param filename Name of the file.
+     * @param file The file object for the file content
+     * @return The file entry for the uploaded file
+     * @throws java.net.URISyntaxException 
+     * @throws java.security.NoSuchAlgorithmException 
+     * @throws java.security.KeyManagementException 
+     * @throws com.fasterxml.jackson.core.JsonProcessingException 
+     * @throws java.io.FileNotFoundException 
+     * @throws java.lang.InterruptedException 
+     */
+    public static Files.FileEntry uploadDraftFile(String id, String filename, File file) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, FileNotFoundException, IOException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        // URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + URLEncoder.encode(filename,StandardCharsets.UTF_8.toString()) + "/content", "");
+        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + filename + "/content", "");
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .header("Content-Type", "application/octet-stream")
+                .PUT(HttpRequest.BodyPublishers.ofFile(file.toPath()))
+                .build();
+        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
+        return om.readValue(body, Files.FileEntry.class);
+    }
+    
+    /**
+     * Complete a draft file upload (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#complete-a-draft-file-upload)
+     * @param id Identifier of the record, e.g. 4d0ns-ntd89
+     * @param filename Name of the file.
+     * @return The complete file entry
+     * @throws java.io.UnsupportedEncodingException
+     * @throws java.net.URISyntaxException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.KeyManagementException
+     * @throws com.fasterxml.jackson.core.JsonProcessingException
+     * @throws java.lang.InterruptedException
+     */
+    public static Files.FileEntry completeDraftFileUpload(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        // URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + URLEncoder.encode(filename,StandardCharsets.UTF_8.toString()) + "/commit", "");
+        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + filename + "/commit", "");
+        LOG.info(uri.toString());
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
+        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
+        return om.readValue(body, Files.FileEntry.class);
+    }
+    
+    private static final Logger LOG = Logger.getLogger(API.class.getName());
     
     /**
      * Search all records (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#search-records)
@@ -218,7 +312,7 @@ public class API {
      * @throws KeyManagementException 
      */
     // TODO add query parameters
-    public static HttpResponse<String> listUserRecords() throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+    public static Records listUserRecords() throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         URI uri = new URI("https", "//" + HOST + API_USER_RECORDS, "");
@@ -226,7 +320,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        return getHttpClient().send(request,BodyHandlers.ofString());
+        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Records.class);
         
     }
 }
