@@ -25,12 +25,12 @@ public class DraftRecord {
     @JsonProperty("files")
     FilesOptions files;
     @JsonProperty("metadata")
-    Metadata metada;
+    Metadata metadata;
 
-    public DraftRecord(Access access, FilesOptions files, Metadata metada) {
+    public DraftRecord(Access access, FilesOptions files, Metadata metadata) {
         this.access = access;
         this.files = files;
-        this.metada = metada;
+        this.metadata = metadata;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class DraftRecord {
         int hash = 7;
         hash = 17 * hash + Objects.hashCode(this.access);
         hash = 17 * hash + Objects.hashCode(this.files);
-        hash = 17 * hash + Objects.hashCode(this.metada);
+        hash = 17 * hash + Objects.hashCode(this.metadata);
         return hash;
     }
 
@@ -60,12 +60,12 @@ public class DraftRecord {
         if (!Objects.equals(this.files, other.files)) {
             return false;
         }
-        return Objects.equals(this.metada, other.metada);
+        return Objects.equals(this.metadata, other.metadata);
     }
 
     @Override
     public String toString() {
-        return "DraftRecord{" + "access=" + access + ", files=" + files + ", metada=" + metada + '}';
+        return "DraftRecord{" + "access=" + access + ", files=" + files + ", metadata=" + metadata + '}';
     }
     
     
