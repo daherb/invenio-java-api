@@ -38,23 +38,37 @@ public class FilesDeserializer extends StdDeserializer<Files> {
             JsonNode node = p.getCodec().readTree(p);
             ObjectMapper om = new ObjectMapper()
                 .registerModule(new Jdk8Module());
-            String bucketId = node.get("bucket_id").asText();
-            String checksum = node.get("checksum").asText();
+            String bucketId = null;
+            if (node.has("bucket_id") && node.get("bucket_id") != null)
+                bucketId = node.get("bucket_id").asText();
+            String checksum = null;
+            if (node.has("checksum") && node.get("checksum") != null)
+                checksum = node.get("checksum").asText();
             Date created = om.readValue(node.get("created").toString(), Date.class);
-            String fileId = node.get("file_id").asText();
+            String fileId = null;
+            if (node.has("file_id") && node.get("file_id") != null)
+                fileId = node.get("file_id").asText();
             String key = node.get("key").asText();
-            String mimetype = node.get("mimetype").asText();
-            int size = node.get("size").asInt();
+            String mimetype = null;
+            if (node.has("mimetype") && node.get("mimetype") != null)
+                mimetype = node.get("mimetype").asText();
+            int size = 0;
+            if (node.has("size") && node.get("size") != null)
+                size = node.get("size").asInt();
             String status = node.get("status").asText();
-            String storageClass = node.get("storage_class").asText();
+            String storageClass = null;
+            if (node.has("storage_class") && node.get("storage_class") != null)
+                storageClass = node.get("storage_class").asText();
             Date updated = om.readValue(node.get("updated").toString(), Date.class);
-            String versionId = node.get("version_id").asText();
+            String versionId = null;
+            if (node.has("version_id") && node.get("version_id") != null)
+                versionId = node.get("version_id").asText();
             Files.FileEntry entry = new Files.FileEntry(bucketId, checksum, created, fileId, key, mimetype, size, status, storageClass, updated, versionId);
             if (node.has("links")) {
-                entry.addLinks(om.readerForMapOf(String.class).readValue(node.get("links")));
+                entry.addLinks(om.readerForMapOf(String.class).readValue(node.get("links").toString()));
             }
-            if (node.has("metadata")) {
-                entry.addMetadata(om.readerForMapOf(Object.class).readValue(node.get("metadata")));
+            if (node.has("metadata") && node.get("metadata") != null && !node.get("metadata").asText().equals("null")) {
+                entry.addMetadata(om.readerForMapOf(Object.class).readValue(node.get("metadata").toString()));
             }
             return entry;
         }
@@ -82,7 +96,7 @@ public class FilesDeserializer extends StdDeserializer<Files> {
                 files.addEntries((HashMap < String, Files.FileEntry >) om.readerForMapOf(Files.FileEntry.class).readValue(node.get("entries").toString()));
             }
         }
-        if (node.has("default_preview")) {
+        if (node.has("default_preview") && node.get("default_preview") != null) {
             files.setDefaultPreview(node.get("default_preview").asText());
         }
         return files;
