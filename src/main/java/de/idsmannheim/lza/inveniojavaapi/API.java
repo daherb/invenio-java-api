@@ -67,14 +67,14 @@ public class API {
      * @throws NoSuchAlgorithmException
      * @throws KeyManagementException 
      */
-    public static DraftRecord createDraftRecord(DraftRecord draftRecord) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+    public static Record createDraftRecord(DraftRecord draftRecord) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS, "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(om.writeValueAsString(draftRecord)))
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), DraftRecord.class);
+        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Record.class);
         
     }
     
