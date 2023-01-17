@@ -2,21 +2,15 @@ package de.idsmannheim.lza.inveniojavaapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import de.idsmannheim.lza.inveniojavaapi.Records.Aggregation;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.springframework.boot.logging.LogFile;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /*
@@ -175,7 +169,7 @@ public class RecordsTest {
             Collections.singletonList(new Records.Bucket(1, false, "other", "Other").setInner(new Aggregation()))
         );
         aggregations.put("resource_type", new Aggregation().setLabel("Resource types").addBuckets(resourceBuckets));
-        ArrayList<Records.Hit> hitList = new ArrayList<>();
+        ArrayList<Record> hitList = new ArrayList<>();
         HashMap<String, String> hitLinks = new HashMap<>();
         hitLinks.put("access_links", "https://repos-devel2.ids-mannheim.de:5000/api/records/vxacz-xhj42/access/links");
         hitLinks.put("draft", "https://repos-devel2.ids-mannheim.de:5000/api/records/vxacz-xhj42/draft");
@@ -193,7 +187,7 @@ public class RecordsTest {
         HashMap<String,String> ccProps = new HashMap<>();
         ccProps.put("scheme", "spdx");
         ccProps.put("url", "https://creativecommons.org/licenses/by/4.0/legalcode");
-        hitList.add(new Records.Hit(
+        hitList.add(new Record(
                 new Access(Access.AccessType.Public,Access.AccessType.Public).setEmbargo(new Access.Embargo()).setStatus("metadata-only"),
                 om.readValue("\"2023-01-11T12:52:28.945163+00:00\"", Date.class),
                 new FilesOptions(false),
@@ -210,11 +204,11 @@ public class RecordsTest {
                         new Metadata.LocalizedStrings().add(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Creative Commons Attribution 4.0 International"),
                         new Metadata.LocalizedStrings().add(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."))
                         .addProps(ccProps))),
-                new Records.Parent("5k1hr-sxr38"),
+                new Record.Parent("5k1hr-sxr38"),
                 3,
                 "published",
                 om.readValue("\"2023-01-11T12:52:29.031012+00:00\"", Date.class),
-                new Records.Versions(1,true))
+                new Record.Versions(1,true))
                 .addLinks(hitLinks)
                 .addPids(pids)
         );
