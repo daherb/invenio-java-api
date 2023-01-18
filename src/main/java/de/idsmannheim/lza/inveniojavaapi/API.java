@@ -243,8 +243,7 @@ public class API {
     public static Files.FileEntry uploadDraftFile(String id, String filename, File file) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, FileNotFoundException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        // URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + URLEncoder.encode(filename,StandardCharsets.UTF_8.toString()) + "/content", "");
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + filename + "/content", "");
+        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + URLEncoder.encode(filename,StandardCharsets.UTF_8.toString()) + "/content", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .header("Content-Type", "application/octet-stream")
                 .PUT(HttpRequest.BodyPublishers.ofFile(file.toPath()))
@@ -268,8 +267,7 @@ public class API {
     public static Files.FileEntry completeDraftFileUpload(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        // URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + URLEncoder.encode(filename,StandardCharsets.UTF_8.toString()) + "/commit", "");
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + filename + "/commit", "");
+        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + URLEncoder.encode(filename,StandardCharsets.UTF_8.toString()) + "/commit", "");
         LOG.info(uri.toString());
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.noBody())
