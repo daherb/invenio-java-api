@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -21,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -276,22 +278,150 @@ public class API {
         return om.readValue(body, Files.FileEntry.class);
     }
     
-    private static final Logger LOG = Logger.getLogger(API.class.getName());
+    /**
+     * Get metadata for a draft file (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#get-a-draft-files-metadata)
+     * @param id Identifier of the record, e.g. 4d0ns-ntd89
+     * @param filename Name of the file.
+     * @return The file entry
+     * @throws java.io.UnsupportedEncodingException
+     * @throws java.net.URISyntaxException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.KeyManagementException
+     * @throws com.fasterxml.jackson.core.JsonProcessingException
+     * @throws java.lang.InterruptedException
+     */
+    public static Files.FileEntry getDraftFileMetadata(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + URLEncoder.encode(filename,StandardCharsets.UTF_8.toString()), "");
+        LOG.info(uri.toString());
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .GET()
+                .build();
+        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
+        return om.readValue(body, Files.FileEntry.class);
+    }
     
     /**
-     * Search all records (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#search-records)
+     * Download  a draft file (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#download-a-draft-file)
+     * @param id Identifier of the record, e.g. 4d0ns-ntd89
+     * @param filename Name of the file.
+     * @return The file stream pointing to the message body
+     * @throws java.io.UnsupportedEncodingException
+     * @throws java.net.URISyntaxException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.KeyManagementException
+     * @throws com.fasterxml.jackson.core.JsonProcessingException
+     * @throws java.lang.InterruptedException
+     */
+    public static InputStream getDraftFileContent(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + URLEncoder.encode(filename,StandardCharsets.UTF_8.toString())+ "/content", "");
+        LOG.info(uri.toString());
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .GET()
+                .build();
+        return getHttpClient().send(request,BodyHandlers.ofInputStream()).body();
+    }
+    
+    /**
+     * Download  a draft file (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#download-a-draft-file)
+     * @param id Identifier of the record, e.g. 4d0ns-ntd89
+     * @param filename Name of the file.
+     * @throws java.io.UnsupportedEncodingException
+     * @throws java.net.URISyntaxException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.KeyManagementException
+     * @throws com.fasterxml.jackson.core.JsonProcessingException
+     * @throws java.lang.InterruptedException
+     */
+    public static void deleteDraftFile(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id + "/draft/files/" + URLEncoder.encode(filename,StandardCharsets.UTF_8.toString()), "");
+        LOG.info(uri.toString());
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .DELETE()
+                .build();
+        getHttpClient().send(request,BodyHandlers.discarding());
+    }
+    
+        /**
+     * Get a record (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#get-a-record)
+     * @param id Identifier of the record, e.g. 4d0ns-ntd89
+     * @return The record for the given id
+     * @throws java.io.UnsupportedEncodingException
+     * @throws java.net.URISyntaxException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.KeyManagementException
+     * @throws com.fasterxml.jackson.core.JsonProcessingException
+     * @throws java.lang.InterruptedException
+     */
+    public static Record getRecord(String id) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + id, "");
+        LOG.info(uri.toString());
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .GET()
+                .build();
+        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
+        return om.readValue(body, Record.class);
+    }
+    
+    /**
+     * Search records (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#search-records)
+     * @param query Search query used to filter results based on ElasticSearch's query string syntax.
+     * @param sort  Sort search results.
+     * @param size Specify number of items in the results page (default: 10).
+     * @param page Specify the page of results.
+     * @param allVersions Specify if all versions should be included.
      * @return The list of records  
      * @throws IOException
      * @throws InterruptedException
      * @throws URISyntaxException
      * @throws NoSuchAlgorithmException
      * @throws KeyManagementException 
+     * @throws java.lang.NoSuchMethodException 
      */
     // TODO add search parameters
-    public static Records searchRecords() throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+    public static Records searchRecords(Optional<String> query, Optional<String> sort, Optional<Integer> size, Optional<Integer> page, Optional<Boolean> allVersions) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        URI uri = new URI("https", "//" + HOST + API_RECORDS, "");
+        StringBuilder uriString = new StringBuilder();
+        uriString.append("//").append(HOST).append(API_RECORDS);
+        boolean hasPrevParam = false;
+        if (query.isPresent() || sort.isPresent() || size.isPresent() || page.isPresent() || allVersions.isPresent())
+            uriString.append("?");
+        if (query.isPresent()) {
+            uriString.append("q=").append(URLEncoder.encode(query.get(),StandardCharsets.UTF_8.toString()));
+            hasPrevParam = true;
+        }
+        if (sort.isPresent()) {
+            if (hasPrevParam)
+                uriString.append("&");
+            uriString.append("sort=").append(URLEncoder.encode(sort.get(),StandardCharsets.UTF_8.toString()));
+            hasPrevParam = true;
+        }
+        if (size.isPresent()) {
+            if (hasPrevParam)
+                uriString.append("&");
+            uriString.append("size=").append(URLEncoder.encode(size.get().toString(),StandardCharsets.UTF_8.toString()));
+            hasPrevParam = true;
+        }
+        if (page.isPresent()) {
+            if (hasPrevParam)
+                uriString.append("&");
+            uriString.append("sort=").append(URLEncoder.encode(sort.get(),StandardCharsets.UTF_8.toString()));
+            hasPrevParam = true;
+        }
+        if (allVersions.isPresent()) {
+            if (hasPrevParam)
+                uriString.append("&");
+            uriString.append("all_versions=").append(URLEncoder.encode(allVersions.get().toString().toLowerCase(),StandardCharsets.UTF_8.toString()));
+        }
+        URI uri = new URI("https", uriString.toString(), ""); //("https", "//" + HOST + API_RECORDS, "");
         
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
