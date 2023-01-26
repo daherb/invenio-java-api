@@ -34,6 +34,8 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -658,7 +660,34 @@ public class Metadata {
             }
             return Objects.equals(this.endDay, other.endDay);
         }
-        
+
+        /**
+         * Method to parse a date in ISO format and convert into Extended Date Time Format
+         * @param dateString the date or date range as a string
+         * @return the parsed ExtendedDateTimeFormat0 object
+         * @throws java.lang.IllegalArgumentException
+         */
+        public static ExtendedDateTimeFormat0 parseDateToExtended(String dateString) throws IllegalArgumentException {
+            Pattern p = Pattern.compile("(?<startYear>\\d{4})(?:-(?<startMonth>\\d{2}))?(?:-(?<startDay>\\d{2}))?.*(/(?<endYear>\\d{4})(?:-(?<endMonth>\\d{2}))?(?:-(?<endDay>\\d{2}))?.*)?");
+            Matcher m = p.matcher(dateString);
+            if (m.matches()) {
+                ExtendedDateTimeFormat0 date = new ExtendedDateTimeFormat0(m.group(0));
+                if (m.group("startMonth") != null)
+                    date.addStartMonth(m.group("startMonth"));
+                if (m.group("startDay") != null)
+                    date.addStartDay(m.group("startDay"));
+                if (m.group("endYear") != null)
+                    date.addEndYear(m.group("endYear"));
+                if (m.group("endMonth") != null)
+                    date.addEndMonth(m.group("endMonth"));
+                if (m.group("endDay") != null)
+                    date.addEndDay(m.group("endDay"));
+                return date;
+            }
+            else {
+                throw new IllegalArgumentException("Invalid date format: " + dateString);
+            }
+        }
         
     }
     
