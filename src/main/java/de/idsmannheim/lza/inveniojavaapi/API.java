@@ -201,6 +201,13 @@ public class API {
     
     /**
      * List a draft's files (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#draft-files)
+     * @param id dentifier of the record, e.g. 4d0ns-ntd89
+     * @return the list of files in the draft
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.KeyManagementException
+     * @throws com.fasterxml.jackson.core.JsonProcessingException
+     * @throws java.lang.InterruptedException
+     * @throws java.net.URISyntaxException
      */
     public static Files listDraftFiles(String id) throws NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException, URISyntaxException, URISyntaxException {
         ObjectMapper om = new ObjectMapper();
