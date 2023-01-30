@@ -101,7 +101,7 @@ public class API {
     public static DraftRecord getDraftRecord(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        String encodedId = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
+        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET().build();
@@ -285,7 +285,7 @@ public class API {
     public static Files.FileEntry completeDraftFileUpload(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        String encodedId = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
+        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
         URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename + "/commit", "");
         LOG.info(uri.toString());
@@ -311,7 +311,7 @@ public class API {
     public static Files.FileEntry getDraftFileMetadata(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        String encodedId = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
+        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
         URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename, "");
         LOG.info(uri.toString());
@@ -337,7 +337,7 @@ public class API {
     public static InputStream getDraftFileContent(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        String encodedId = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
+        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
         URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename + "/content", "");
         LOG.info(uri.toString());
@@ -361,7 +361,7 @@ public class API {
     public static void deleteDraftFile(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        String encodedId = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
+        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
         URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename, "");
         LOG.info(uri.toString());
@@ -385,7 +385,7 @@ public class API {
     public static Record getRecord(String id) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        String encodedId = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
+        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId, "");
         LOG.info(uri.toString());
         HttpRequest request = getHttpRequestBuilder(uri)
