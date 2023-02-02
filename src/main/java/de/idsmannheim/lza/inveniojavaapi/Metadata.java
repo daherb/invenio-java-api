@@ -671,7 +671,7 @@ public class Metadata {
             Pattern p = Pattern.compile("(?<startYear>\\d{4})(?:-(?<startMonth>\\d{2}))?(?:-(?<startDay>\\d{2}))?.*(/(?<endYear>\\d{4})(?:-(?<endMonth>\\d{2}))?(?:-(?<endDay>\\d{2}))?.*)?");
             Matcher m = p.matcher(dateString);
             if (m.matches()) {
-                ExtendedDateTimeFormat0 date = new ExtendedDateTimeFormat0(m.group(0));
+                ExtendedDateTimeFormat0 date = new ExtendedDateTimeFormat0(m.group("startYear"));
                 if (m.group("startMonth") != null)
                     date.addStartMonth(m.group("startMonth"));
                 if (m.group("startDay") != null)
