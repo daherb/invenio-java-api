@@ -12,14 +12,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.jdom2.Content;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
-import org.jdom2.filter.ContentFilter;
 import org.jdom2.filter.ElementFilter;
-import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 
 /**
@@ -130,7 +126,6 @@ public class CMDI {
                         new Metadata.Location.LocationFeature(Optional.empty(), new ArrayList<>(), Optional.of(text), Optional.of("Contact information")))));
             }
         }
-        LOG.info(String.valueOf(cmdiSubjectLanguages));
         if (cmdiSubjectLanguages != null && !cmdiSubjectLanguages.isEmpty()) {
             List<Metadata.Language> languages = new ArrayList<>();
             for (Element l : cmdiSubjectLanguages) {
