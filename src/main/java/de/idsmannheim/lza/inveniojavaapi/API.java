@@ -26,16 +26,40 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- *
+ * Class encapsulating the API calls using the Invenio REST API
  * @author Herbert Lange <lange@ids-mannheim.de>
  */
 public class API {
     
-    public static String PROTOCOL = "https";
-    public static String HOST = "repos-devel2.ids-mannheim.de:5000";
-    public static String TOKEN = "voCZ7NcC0lwmCmluJlxhW5m1BYJjKQoHBIyxgmabuJCyEIzsFG6yE7JHwxe8";
+    public enum Protocol { HTTP, HTTPS };
+    
     public static String API_RECORDS = "/api/records";
     public static String API_USER_RECORDS = "/api/user/records";
+
+    public String protocol = "https";
+    public String host;
+    public String token;
+    
+    /**
+     * Default constructor
+     * @param host the host to connect to
+     * @param token the API token
+     */
+    public API(String host, String token) {
+        this.token = token;
+        this.host = host;
+    }
+    
+    /**
+     * Sets the protocol for the API call, by default https
+     * @param protocol
+     * @return 
+     */
+    public API setProtocol(Protocol protocol) {
+        this.protocol = protocol.toString().toLowerCase();
+        return this;
+    }
+    
     
     /**
      * Create a suitable HttpClient
@@ -44,7 +68,7 @@ public class API {
      * @throws NoSuchAlgorithmException
      * @throws KeyManagementException 
      */
-    public static HttpClient getHttpClient() throws NoSuchAlgorithmException, KeyManagementException {
+    private HttpClient getHttpClient() throws NoSuchAlgorithmException, KeyManagementException {
         HttpClient client = HttpClient.newBuilder()
                 .version(Version.HTTP_1_1)
                 .build();
@@ -57,10 +81,10 @@ public class API {
      * @param uri The URI to be requested
      * @return 
      */
-    public static HttpRequest.Builder getHttpRequestBuilder(URI uri) {
+    private HttpRequest.Builder getHttpRequestBuilder(URI uri) {
         return HttpRequest.newBuilder()
                 .uri(uri)
-                .header("Authorization", "Bearer " + TOKEN)
+                .header("Authorization", "Bearer " + token)
                 .header("Accept", "application/json")
                 .header("Application-Type", "application/json");
     }
@@ -76,10 +100,10 @@ public class API {
      * @throws NoSuchAlgorithmException
      * @throws KeyManagementException 
      */
-    public static Record createDraftRecord(DraftRecord draftRecord) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+    public Record createDraftRecord(DraftRecord draftRecord) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS, "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS, "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(om.writeValueAsString(draftRecord)))
                 .build();
@@ -98,11 +122,11 @@ public class API {
      * @throws IOException
      * @throws InterruptedException 
      */
-    public static DraftRecord getDraftRecord(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
+    public DraftRecord getDraftRecord(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft", "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET().build();
         return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(),DraftRecord.class);
@@ -120,11 +144,11 @@ public class API {
      * @throws NoSuchAlgorithmException
      * @throws KeyManagementException 
      */
-    public static DraftRecord updateDraftRecord(String id, DraftRecord draftRecord) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+    public DraftRecord updateDraftRecord(String id, DraftRecord draftRecord) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft", "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .PUT(HttpRequest.BodyPublishers.ofString(om.writeValueAsString(draftRecord)))
                 .build();
@@ -143,11 +167,11 @@ public class API {
      * @throws java.io.IOException 
      * @throws java.lang.InterruptedException 
      */
-    public static DraftRecord publishDraftRecord(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
+    public DraftRecord publishDraftRecord(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/actions/publish", "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/actions/publish", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
@@ -167,11 +191,11 @@ public class API {
      * @throws java.io.IOException
      * @throws java.lang.InterruptedException
      */
-    public static DraftRecord createDraftFromPublished(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
+    public DraftRecord createDraftFromPublished(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft", "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
@@ -188,11 +212,11 @@ public class API {
      * @throws java.io.IOException
      * @throws java.lang.InterruptedException
      */
-    public static void deleteDraftRecord(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
+    public void deleteDraftRecord(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft", "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .DELETE()
                 .build();
@@ -209,16 +233,16 @@ public class API {
      * @throws java.lang.InterruptedException
      * @throws java.net.URISyntaxException
      */
-    public static Files listDraftFiles(String id) throws NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException, URISyntaxException, URISyntaxException {
+    public Files listDraftFiles(String id) throws NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException, URISyntaxException, URISyntaxException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files", "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/files", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
         String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
-        LOG.info(body);
+        // LOG.info(body);
         return om.readValue(body, Files.class);
     }
     
@@ -230,11 +254,11 @@ public class API {
      * @return List of file entries for files to be uploaded
      */
     
-    public static Files startDraftFileUpload(String id, ArrayList<Files.FileEntry> entries) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
+    public Files startDraftFileUpload(String id, ArrayList<Files.FileEntry> entries) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files", "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/files", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(om.writeValueAsString(entries)))
                 .build();
@@ -256,12 +280,12 @@ public class API {
      * @throws java.io.FileNotFoundException 
      * @throws java.lang.InterruptedException 
      */
-    public static Files.FileEntry uploadDraftFile(String id, String filename, File file) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, FileNotFoundException, IOException, InterruptedException {
+    public Files.FileEntry uploadDraftFile(String id, String filename, File file) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, FileNotFoundException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename + "/content", "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename + "/content", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .header("Content-Type", "application/octet-stream")
                 .PUT(HttpRequest.BodyPublishers.ofFile(file.toPath()))
@@ -282,13 +306,13 @@ public class API {
      * @throws com.fasterxml.jackson.core.JsonProcessingException
      * @throws java.lang.InterruptedException
      */
-    public static Files.FileEntry completeDraftFileUpload(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+    public Files.FileEntry completeDraftFileUpload(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename + "/commit", "");
-        LOG.info(uri.toString());
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename + "/commit", "");
+        // LOG.info(uri.toString());
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
@@ -308,13 +332,13 @@ public class API {
      * @throws com.fasterxml.jackson.core.JsonProcessingException
      * @throws java.lang.InterruptedException
      */
-    public static Files.FileEntry getDraftFileMetadata(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+    public Files.FileEntry getDraftFileMetadata(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename, "");
-        LOG.info(uri.toString());
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename, "");
+        // LOG.info(uri.toString());
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
@@ -334,13 +358,13 @@ public class API {
      * @throws com.fasterxml.jackson.core.JsonProcessingException
      * @throws java.lang.InterruptedException
      */
-    public static InputStream getDraftFileContent(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+    public InputStream getDraftFileContent(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename + "/content", "");
-        LOG.info(uri.toString());
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename + "/content", "");
+        // LOG.info(uri.toString());
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
@@ -358,12 +382,12 @@ public class API {
      * @throws com.fasterxml.jackson.core.JsonProcessingException
      * @throws java.lang.InterruptedException
      */
-    public static void deleteDraftFile(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+    public void deleteDraftFile(String id, String filename) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename, "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename, "");
         LOG.info(uri.toString());
         HttpRequest request = getHttpRequestBuilder(uri)
                 .DELETE()
@@ -382,12 +406,12 @@ public class API {
      * @throws com.fasterxml.jackson.core.JsonProcessingException
      * @throws java.lang.InterruptedException
      */
-    public static Record getRecord(String id) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+    public Record getRecord(String id) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
-        URI uri = new URI(PROTOCOL, "//" + HOST + API_RECORDS + "/" + encodedId, "");
-        LOG.info(uri.toString());
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId, "");
+        // LOG.info(uri.toString());
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
@@ -410,12 +434,11 @@ public class API {
      * @throws KeyManagementException 
      * @throws java.lang.NoSuchMethodException 
      */
-    // TODO add search parameters
-    public static Records searchRecords(Optional<String> query, Optional<String> sort, Optional<Integer> size, Optional<Integer> page, Optional<Boolean> allVersions) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+    public Records searchRecords(Optional<String> query, Optional<String> sort, Optional<Integer> size, Optional<Integer> page, Optional<Boolean> allVersions) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         StringBuilder uriString = new StringBuilder();
-        uriString.append("//").append(HOST).append(API_RECORDS);
+        uriString.append("//").append(host).append(API_RECORDS);
         boolean hasPrevParam = false;
         if (query.isPresent() || sort.isPresent() || size.isPresent() || page.isPresent() || allVersions.isPresent())
             uriString.append("?");
@@ -446,7 +469,7 @@ public class API {
                 uriString.append("&");
             uriString.append("all_versions=").append(URLEncoder.encode(allVersions.get().toString().toLowerCase(),StandardCharsets.UTF_8.toString()));
         }
-        URI uri = new URI("https", uriString.toString(), ""); //("https", "//" + HOST + API_RECORDS, "");
+        URI uri = new URI(protocol, uriString.toString(), ""); //(protocol, "//" + host + API_RECORDS, "");
         
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
@@ -465,10 +488,10 @@ public class API {
      * @throws KeyManagementException 
      */
     // TODO add query parameters
-    public static Records listUserRecords() throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+    public Records listUserRecords() throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        URI uri = new URI("https", "//" + HOST + API_USER_RECORDS, "");
+        URI uri = new URI(protocol, "//" + host + API_USER_RECORDS, "");
         
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
@@ -476,4 +499,6 @@ public class API {
         return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Records.class);
         
     }
+    
+    private static final Logger LOG = Logger.getLogger(API.class.getName());
 }
