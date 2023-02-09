@@ -30,32 +30,47 @@ public class CMDI {
     
     public static Metadata readCmdiMetadata(Document cmdiDocument) throws IllegalArgumentException, IOException {
         List<Namespace> namespaces = List.of(
-                Namespace.getNamespace("cmd", "http://www.clarin.eu/cmd/1"),
+                Namespace.getNamespace("cmd1", "http://www.clarin.eu/cmd/1"),
+                Namespace.getNamespace("cmd", "http://www.clarin.eu/cmd/"),
                 Namespace.getNamespace("cmdp", "http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1559563375778")
         );
-        Element cmdiResourceName = XPathFactory.instance().compile("/cmd:CMD/cmd:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceName",
+        Element cmdiResourceName = XPathFactory.instance()
+                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceName",
                 new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
-        Element cmdiResourceTitle = XPathFactory.instance().compile("/cmd:CMD/cmd:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceTitle",
+        Element cmdiResourceTitle = XPathFactory.instance()
+                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceTitle" +
+                       "| /cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:title",
                 new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
-        Element cmdiResourceClass = XPathFactory.instance().compile("/cmd:CMD/cmd:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceClass",
+        Element cmdiResourceClass = XPathFactory.instance()
+                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceClass" +
+                      " | /cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:type",
                 new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
-        Element cmdiVersion = XPathFactory.instance().compile("/cmd:CMD/cmd:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Version",
+        Element cmdiVersion = XPathFactory.instance()
+                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Version",
                 new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
         // LifeCycleStatus ignored
-        Element cmdiPublicationDate = XPathFactory.instance().compile("/cmd:CMD/cmd:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate",
+        Element cmdiPublicationDate = XPathFactory.instance()
+                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate" + 
+                       "| /cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:issued",
                 new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
         // LastUpdated ignored
-        Element cmdiLegalOwner = XPathFactory.instance().compile("/cmd:CMD/cmd:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LegalOwner",
+        Element cmdiLegalOwner = XPathFactory.instance()
+                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LegalOwner",
                 new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
         // Genre ignored
         // FieldOfResearch ignored
-        Element cmdiLocation = XPathFactory.instance().compile("/cmd:CMD/cmd:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Location",
+        Element cmdiLocation = XPathFactory.instance()
+                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Location",
                 new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
         // ModalityInfo ignored
-        List<Element> cmdiCreators = XPathFactory.instance().compile("/cmd:CMD/cmd:Components/cmdp:TextCorpusProfile/cmdp:Creation/cmdp:Creators/cmdp:Creator",
+        List<Element> cmdiCreators = XPathFactory.instance()
+                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:Creation/cmdp:Creators/cmdp:Creator" +
+                       "| /cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:creator",
                 new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument);
         // ...
-        List<Element> cmdiSubjectLanguages = XPathFactory.instance().compile("/cmd:CMD/cmd:Components/cmdp:TextCorpusProfile/cmdp:TextCorpusContext/cmdp:SubjectLanguages/cmdp:SubjectLanguage/cmdp:Language/cmdp:ISO639/cmdp:iso-639-3-code",
+        List<Element> cmdiSubjectLanguages = XPathFactory.instance()
+                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:TextCorpusContext/cmdp:SubjectLanguages/cmdp:SubjectLanguage/cmdp:Language/cmdp:ISO639/cmdp:iso-639-3-code" +
+                       "| /cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:language",
                 new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument);
         
         // Map mandatory fields
@@ -64,7 +79,8 @@ public class CMDI {
         // e.g. to PublicationAnnotationCollection
         Metadata.ResourceType resourceType;
         if (cmdiResourceClass != null && !cmdiResourceClass.getText().isBlank()) {
-            if (cmdiResourceClass.getText().equals("Corpus")) {
+            if (cmdiResourceClass.getText().equalsIgnoreCase("Corpus")
+                    || cmdiResourceClass.getText().equalsIgnoreCase("collection")) {
                 //  Either Dataset or PublicationAnnotationCollection seem reasonable choices (see schema.org)
                 resourceType = new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.PublicationAnnotationCollection));
             }
@@ -77,7 +93,6 @@ public class CMDI {
         }
         // Potentially not always present. Use current timestamp if missing
         // Try to parse the publication date
-        
         Metadata.ExtendedDateTimeFormat0 publicationDate;
         if (cmdiPublicationDate != null && ! cmdiPublicationDate.getText().isBlank()) {
             publicationDate = Metadata.ExtendedDateTimeFormat0.parseDateToExtended(cmdiPublicationDate.getText());
@@ -90,7 +105,7 @@ public class CMDI {
         if (cmdiResourceTitle != null && !cmdiResourceTitle.getText().isBlank()) {
             title = cmdiResourceTitle.getText();
         }
-        
+        // Either add rightsholders or creators as creators
         ArrayList<Metadata.Creator> creators = new ArrayList<>();
         if (cmdiLegalOwner != null && !cmdiLegalOwner.getText().isBlank()) {
             Metadata.Creator creator = new Metadata.Creator(new Metadata.PersonOrOrg(cmdiLegalOwner.getText()))
