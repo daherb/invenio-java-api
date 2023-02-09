@@ -479,6 +479,151 @@ public class API {
     }
     
     /**
+     * List a record's files (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#list-a-records-files)
+     * @param id Identifier of the record, e.g. cbc2k-q9x58
+     * @return the files contained in the record
+     * @throws java.net.URISyntaxException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws com.fasterxml.jackson.core.JsonProcessingException
+     * @throws java.security.KeyManagementException
+     * @throws java.lang.InterruptedException
+     */
+    public Files listRecordFiles(String id) throws URISyntaxException, NoSuchAlgorithmException, JsonProcessingException, IOException, KeyManagementException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        //        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
+        String encodedId = id;
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/files", "");
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .GET()
+                .build();
+        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Files.class);
+    }
+    
+    /**
+     * Get a record file's metadata (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#get-a-record-files-metadata)
+     * @param id Identifier of the record, e.g. cbc2k-q9x58
+     * @param filename Name of a file
+     * @return The FileEntry for the record file
+     * @throws java.net.URISyntaxException 
+     * @throws java.security.NoSuchAlgorithmException 
+     * @throws java.security.KeyManagementException 
+     * @throws java.io.IOException 
+     * @throws java.lang.InterruptedException 
+     */
+    public Files.FileEntry getRecordFileMetadata(String id, String filename) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        //        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
+        String encodedId = id;
+        //        String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
+        String encodedFilename = filename;
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/files/" + encodedFilename, "");
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .GET()
+                .build();
+        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Files.FileEntry.class);
+    }
+    
+    /**
+     * Download a record file (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#download-a-record-file)
+     * 
+     * @param id Identifier of the record, e.g. cbc2k-q9x58
+     * @param filename Name of a file
+     * @return
+     * @throws URISyntaxException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     * @throws KeyManagementException
+     * @throws InterruptedException 
+     */
+    public InputStream getRecordFileContent(String id, String filename) throws URISyntaxException, NoSuchAlgorithmException, IOException, KeyManagementException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+//        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
+        String encodedId = id;
+//        String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
+        String encodedFilename = filename;
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/files/" + encodedFilename + "/content", "");
+        // LOG.info(uri.toString());
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .GET()
+                .build();
+        return getHttpClient().send(request,BodyHandlers.ofInputStream()).body();
+    }
+    
+    /**
+     * Create a new version (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#create-a-new-version)
+     * 
+     * @param id Identifier of the record, e.g. 4d0ns-ntd89
+     * @return the new draft record
+     * @throws java.net.URISyntaxException 
+     * @throws java.security.NoSuchAlgorithmException 
+     * @throws java.security.KeyManagementException 
+     * @throws java.lang.InterruptedException 
+     * @throws java.io.IOException 
+     * @throws com.fasterxml.jackson.core.JsonProcessingException 
+     */
+    public DraftRecord createNewVersion(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException, JsonProcessingException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        //        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
+        String encodedId = id;
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/versions?prettyprint=1", "");
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
+        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
+        return om.readValue(body, DraftRecord.class);
+    }
+    
+    /**
+     * Get all versions (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#get-all-versions)
+     * 
+     * @param id Identifier of the record, e.g. 4d0ns-ntd89
+     * @return all versions of the record
+     * @throws java.net.URISyntaxException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.KeyManagementException
+     * @throws java.lang.InterruptedException
+     * @throws com.fasterxml.jackson.core.JsonProcessingException
+     */
+    public Records listAllVersions(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        //        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
+        String encodedId = id;
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/versions", "");
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .GET()
+                .build();
+        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Records.class);
+    }
+    
+    /**
+     * Get latest version (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#get-latest-version)
+     * 
+     * @param id Identifier of a record, e.g. cbc2k-q9x58
+     * @return the latest version of the record
+     * @throws java.net.URISyntaxException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.KeyManagementException
+     * @throws java.lang.InterruptedException
+     * @throws com.fasterxml.jackson.core.JsonProcessingException
+     */
+    public Record getLatestVersion(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, IOException, InterruptedException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        //        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
+        String encodedId = id;
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/versions/latest", "");
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .GET()
+                .build();
+        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Record.class);
+    }
+    
+    /**
      * Lists user records (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#user-records)
      * @return List of records
      * @throws IOException
