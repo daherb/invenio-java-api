@@ -13,7 +13,9 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -39,7 +41,16 @@ public class MetadataDeserializer extends StdDeserializer<Metadata> {
         creators.addAll(om.readerForListOf(Metadata.Creator.class)
                 .readValue(node.get("creators")));
         String title = node.get("title").asText();
-        Metadata.ExtendedDateTimeFormat0 date = om.readValue(node.get("publication_date").toString(), Metadata.ExtendedDateTimeFormat0.class);
+        // Handle missing publication date when creating a new version
+        // https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#create-a-new-version
+        Metadata.ExtendedDateTimeFormat0 date;
+        if (node.has("publication_date")) {
+            date = om.readValue(node.get("publication_date").toString(), Metadata.ExtendedDateTimeFormat0.class);
+        }
+        else {
+            Calendar c = new Calendar.Builder().setInstant(Instant.now().toEpochMilli()).build();
+            date = new Metadata.ExtendedDateTimeFormat0(String.valueOf(c.get(Calendar.YEAR)));
+        }
         Metadata metadata = new Metadata(resourceType, creators, title, date);
         if (node.has("additional_titles")) {
             metadata.addAdditionalTitles(om.readerForListOf(Metadata.AdditionalTitle.class).readValue(node.get("additional_titles").toString()));

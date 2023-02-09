@@ -13,9 +13,12 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.Access;
 import de.idsmannheim.lza.inveniojavaapi.DraftRecord;
+import de.idsmannheim.lza.inveniojavaapi.Record;
+import de.idsmannheim.lza.inveniojavaapi.ExternalPid;
 import de.idsmannheim.lza.inveniojavaapi.FilesOptions;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  *
@@ -41,7 +44,38 @@ public class DraftRecordDeserializer extends StdDeserializer<DraftRecord> {
         Access access = om.readValue(node.get("access").toString(), Access.class);
         FilesOptions files = om.readValue(node.get("files").toString(), FilesOptions.class);
         Metadata metadata = om.readValue(node.get("metadata").toString(), Metadata.class);
-        return new DraftRecord(access, files, metadata);
+        DraftRecord record = new DraftRecord(access, files, metadata);
+//        if (node.has("created")) {
+//            record.setCreated(om.readValue(node.get("created").toString(),Date.class));
+//        }
+//        if (node.has("expires_at")) {
+//            record.setExpiresAt(om.readValue(node.get("expires_at").toString(),Date.class));
+//        }
+        if (node.has("id")) {
+            record.setId(node.get("id").asText());
+        }
+        if (node.has("is_published")) {
+            record.setIsPublished(node.get("is_published").asBoolean());
+        }
+        if (node.has("links")) {
+            record.setLinks(om.readerForMapOf(String.class).readValue(node.get("links").toString()));
+        }
+        if (node.has("parent")) {
+            record.setParent(om.readValue(node.get("parent").toString(), Record.Parent.class));
+        }
+        if (node.has("pids")) {
+            record.setPids(om.readerForMapOf(ExternalPid.class).readValue(node.get("pids").toString()));
+        }
+        if (node.has("revision_id")) {
+            record.setRevisionId(node.get("revision_id").asInt());
+        }
+//        if (node.has("updated")) {
+//            record.setUpdated(om.readValue(node.get("updated").toString(),Date.class));
+//        }
+        if (node.has("versions")) {
+            record.setVersions(om.readValue(node.get("versions").toString(),Record.Versions.class));
+        }
+        return record;
     }
     
 }
