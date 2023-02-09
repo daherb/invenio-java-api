@@ -98,7 +98,7 @@ public class InvenioJavaApiApplication {
         System.out.println("Press key");
         System.in.read();
         LOG.info("Uploading draft SIP");
-        String id = tools.uploadDraftSip(new File("/home/herb/projekte/wikipedia-mini-test-sips/wdd13").toPath());
+        String id = tools.uploadDraftSip(new File("/home/herb/projekte/wikipedia-mini-test-sips/wdd13").toPath(), true);
         System.out.println("Press key");
         System.in.read();
         LOG.log(Level.INFO, "Downloading draft SIP {0}", id);
@@ -111,12 +111,58 @@ public class InvenioJavaApiApplication {
         System.in.read();
         LOG.info("Upload several SIPS");
         Instant start = Instant.now();
-        tools.uploadDraftSips(new File("/home/herb/projekte/wikipedia-mini-test-sips").toPath());
+        tools.uploadDraftSips(new File("/home/herb/projekte/wikipedia-mini-test-sips").toPath(), true);
         Instant end = Instant.now();
         LOG.log(Level.INFO, "Took {0} seconds", end.getEpochSecond() - start.getEpochSecond());
         LOG.info("Done");
     }
     
+    public static void versionedUpload(API api, APITools tools) throws IOException, JDOMException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, InterruptedException, FileNotFoundException, JsonProcessingException, UnsupportedEncodingException {
+         ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        om.enable(SerializationFeature.INDENT_OUTPUT);
+        LOG.info("Starting upload");
+        LOG.info("Upload version 1");
+        String id = tools.uploadDraftSip(Path.of("/home/herb/projekte/test-sips/disko/sip1"), false);
+        System.out.println("Press key");
+        System.in.read();
+        LOG.info("Publish version 1");
+        tools.publishDraftSip(id);
+        System.out.println("Press key");
+        System.in.read();
+        LOG.info("Upload version 2");
+        id = tools.updateSip(id,Path.of("/home/herb/projekte/test-sips/disko/sip2"));
+        System.out.println("Press key");
+        System.in.read();
+        LOG.info("Publish version 2");
+        tools.publishDraftSip(id);
+        System.out.println("Press key");
+        System.in.read();
+        LOG.info("Upload version 3");
+        id = tools.updateSip(id,Path.of("/home/herb/projekte/test-sips/disko/sip3"));
+        System.out.println("Press key");
+        System.in.read();
+        LOG.info("Publish version 3");
+        tools.publishDraftSip(id);
+        System.out.println("Press key");
+        System.in.read();
+        LOG.info("Upload version 4");
+        id = tools.updateSip(id,Path.of("/home/herb/projekte/test-sips/disko/sip4"));
+        System.out.println("Press key");
+        System.in.read();
+        LOG.info("Publish version 4");
+        tools.publishDraftSip(id);
+        System.out.println("Press key");
+        System.in.read();
+        LOG.info("Upload version 5");
+        id = tools.updateSip(id,Path.of("/home/herb/projekte/test-sips/disko/sip5"));
+        System.out.println("Press key");
+        System.in.read();
+        LOG.info("Publish version 5");
+        tools.publishDraftSip(id);
+        System.out.println("Press key");
+        System.in.read();
+    }
     private static final Logger LOG = Logger.getLogger(InvenioJavaApiApplication.class.getName());
     
 }
