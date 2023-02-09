@@ -255,6 +255,11 @@ public class API {
      * @param id Identifier of the record, e.g. 4d0ns-ntd89
      * @param entries Array of objects describing the file uploads to be initialized.
      * @return List of file entries for files to be uploaded
+     * @throws java.net.URISyntaxException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.KeyManagementException
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
      */
     
     public Files startDraftFileUpload(String id, ArrayList<Files.FileEntry> entries) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
@@ -385,6 +390,7 @@ public class API {
     
     /**
      * Download  a draft file (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#download-a-draft-file)
+     * 
      * @param id Identifier of the record, e.g. 4d0ns-ntd89
      * @param filename Name of the file.
      * @throws java.io.UnsupportedEncodingException
@@ -447,7 +453,6 @@ public class API {
      * @throws URISyntaxException
      * @throws NoSuchAlgorithmException
      * @throws KeyManagementException 
-     * @throws java.lang.NoSuchMethodException 
      */
     public Records searchRecords(Optional<String> query, Optional<String> sort, Optional<Integer> size, Optional<Integer> page, Optional<Boolean> allVersions) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         ObjectMapper om = new ObjectMapper();
@@ -643,8 +648,10 @@ public class API {
         return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Record.class);
     }
     
+    // TODO Access links
     /**
      * Lists user records (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#user-records)
+     * 
      * @return List of records
      * @throws IOException
      * @throws InterruptedException
