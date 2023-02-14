@@ -169,6 +169,50 @@ public class Files {
             else
                 return null;
         }
+
+        public String getBucketId() {
+            return bucketId;
+        }
+
+        public String getChecksum() {
+            return checksum;
+        }
+
+        public String getFileId() {
+            return fileId;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public HashMap<String, String> getLinks() {
+            return links;
+        }
+
+        public HashMap<String, Object> getMetadata() {
+            return metadata;
+        }
+
+        public String getMimetype() {
+            return mimetype;
+        }
+
+        public int getSize() {
+            return size;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public String getStorageClass() {
+            return storageClass;
+        }
+
+        public String getVersionId() {
+            return versionId;
+        }
         
         @Override
         public int hashCode() {

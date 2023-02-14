@@ -106,6 +106,65 @@ public class DraftRecord {
         return this;
     }
 
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
+    }
+
+    
+    public Access getAccess() {
+        return access;
+    }
+
+    public Optional<Date> getCreated() {
+        return created;
+    }
+
+    public Optional<Date> getExpiresAt() {
+        return expiresAt;
+    }
+
+    public FilesOptions getFiles() {
+        return files;
+    }
+
+    public Optional<String> getId() {
+        return id;
+    }
+
+    public Optional<Boolean> getIsPublished() {
+        return isPublished;
+    }
+
+    public HashMap<String, String> getLinks() {
+        return links;
+    }
+
+    public Metadata getMetadata() {
+        return metadata;
+    }
+
+    public Optional<Record.Parent> getParent() {
+        return parent;
+    }
+
+    public HashMap<String, ExternalPid> getPids() {
+        return pids;
+    }
+
+    public Optional<Integer> getRevisionId() {
+        return revisionId;
+    }
+
+    public Optional<Date> getUpdated() {
+        return updated;
+    }
+
+    public Optional<Record.Versions> getVersions() {
+        return versions;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;

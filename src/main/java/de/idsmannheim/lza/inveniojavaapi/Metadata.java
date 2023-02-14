@@ -2858,6 +2858,92 @@ public class Metadata {
         return this;
     }
 
+    public ResourceType getResourceType() {
+        return resourceType;
+    }
+
+    public List<Creator> getCreators() {
+        return creators;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public ExtendedDateTimeFormat0 getPublicationDate() {
+        return publicationDate;
+    }
+
+    public List<AdditionalTitle> getAdditionalTitles() {
+        return additionalTitles;
+    }
+
+    public Optional<String> getDescription() {
+        return description;
+    }
+
+    public List<AdditionalDescription> getAdditionalDescriptions() {
+        return additionalDescriptions;
+    }
+
+    public List<License> getRights() {
+        return rights;
+    }
+
+    public List<Contributor> getContributors() {
+        return contributors;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public List<Date> getDates() {
+        return dates;
+    }
+
+    public Optional<String> getVersion() {
+        return version;
+    }
+
+    public Optional<String> getPublisher() {
+        return publisher;
+    }
+
+    public List<AlternateIdentifier> getAlternativeIdentifiers() {
+        return alternativeIdentifiers;
+    }
+
+    public List<RelatedIdentifier> getRelatedIdentifiers() {
+        return relatedIdentifiers;
+    }
+
+    public List<String> getSizes() {
+        return sizes;
+    }
+
+    public List<String> getFormats() {
+        return formats;
+    }
+
+    public Location getLocations() {
+        return locations;
+    }
+
+    public List<FundingReference> getFundingReferences() {
+        return fundingReferences;
+    }
+
+    public List<Reference> getReferences() {
+        return references;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 3;

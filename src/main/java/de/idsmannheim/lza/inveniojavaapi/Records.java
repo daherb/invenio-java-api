@@ -169,7 +169,14 @@ public class Records {
             return this;
         }
 
-        
+        public ArrayList<Record> getHits() {
+            return hits;
+        }
+
+        public int getTotal() {
+            return total;
+        }
+
         @Override
         public int hashCode() {
             int hash = 7;
@@ -229,6 +236,23 @@ public class Records {
         return this;
     }
 
+    public HashMap<String, Aggregation> getAggregations() {
+        return aggregations;
+    }
+
+    public Hits getHits() {
+        return hits;
+    }
+
+    public HashMap<String, String> getLinks() {
+        return links;
+    }
+
+    public String getSortBy() {
+        return sortBy;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 7;
