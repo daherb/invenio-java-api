@@ -249,6 +249,30 @@ public class API {
         return om.readValue(body, Files.class);
     }
     
+        /**
+     * Import files from previous version (undocumented?)
+     * 
+     * @param id
+     * @return 
+     * @throws java.net.URISyntaxException
+     * @throws java.security.NoSuchAlgorithmException
+     * @throws java.security.KeyManagementException
+     * @throws java.lang.InterruptedException
+     * @throws com.fasterxml.jackson.core.JsonProcessingException
+     */
+    public Files draftImportFiles(String id) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException, JsonProcessingException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        //        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
+        String encodedId = id;
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/actions/file-import?prettyprint=1", "");
+        HttpRequest request = getHttpRequestBuilder(uri)
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
+        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
+        return om.readValue(body, Files.class);
+    }
+    
     /**
      * Start draft file upload(s) (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#start-draft-file-uploads)
      * 
