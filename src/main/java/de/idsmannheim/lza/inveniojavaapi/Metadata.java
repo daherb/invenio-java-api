@@ -3087,7 +3087,7 @@ public class Metadata {
         return resourceType;
     }
 
-    public List<Creator> getCreators() {
+    public ArrayList<Creator> getCreators() {
         return creators;
     }
 
