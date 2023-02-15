@@ -1092,10 +1092,11 @@ public class ControlledVocabulary {
             return this;
         }
         
-        public FunderId setName(String id) {
-            // this.id = 
-            // TODO
-            return this;
+        // TODO
+//        public FunderId setName(String id) {
+//            // this.id = 
+//            return this;
+//        }
 
         @Override
         protected Object clone() throws CloneNotSupportedException {
@@ -1194,8 +1195,9 @@ public class ControlledVocabulary {
             return new FunderId().setId(id);
         }
         
-        public static FunderId usingName(String name) throws IOException {
-            return new FunderId().setName(name);
-        }
+        // TODO
+//        public static FunderId usingName(String name) throws IOException {
+//            return new FunderId().setName(name);
+//        }
     }
 }
