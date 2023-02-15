@@ -85,7 +85,7 @@ public class Files {
         String bucketId;
         @JsonProperty("checksum")
         String checksum;
-        Date created;
+        Date created = new Date();
         @JsonProperty("file_id")
         String fileId;
         @JsonProperty("key")
@@ -104,7 +104,7 @@ public class Files {
         // TODO: Enum?
         @JsonProperty("storage_class")
         String storageClass;
-        Date updated;
+        Date updated = new Date();
         @JsonProperty("version_id")
         String versionId;
 
