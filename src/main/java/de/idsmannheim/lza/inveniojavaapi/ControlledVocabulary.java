@@ -905,7 +905,7 @@ public class ControlledVocabulary {
 
         public static enum ERelatedRecordIdentifierScheme {
             ISBN10, ISBN13, ISSN, ISTC, DOI, Handle, EAN8, EAN13, ISNI, ORCID,
-            ARK, PURL, LSID, URN, Bibcode, arXiv, PubMedID, PubMedCentralID,
+            ARK, PURL, LSID, URN, URL, Bibcode, arXiv, PubMedID, PubMedCentralID,
             GND, SRA, BioProject, BioSample, Ensembl, UniProt, RefSeq, 
             GenomeAssembly
         }
