@@ -3187,7 +3187,8 @@ public class Metadata {
         newMetadata.addRelatedIdentifiers((List<RelatedIdentifier>) relatedIdentifiers.clone());
         newMetadata.addSizes((List<String>) sizes.clone());
         newMetadata.addFormats((List<String>) formats.clone());
-        newMetadata.setLocations((Location) locations.clone());
+        if (locations != null)
+            newMetadata.setLocations((Location) locations.clone());
         newMetadata.addFundingReferences((List<FundingReference>) fundingReferences.clone());
         newMetadata.addReferences((List<Reference>) references.clone());
         return newMetadata;
