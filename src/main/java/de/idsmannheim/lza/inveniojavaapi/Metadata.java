@@ -36,7 +36,6 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -2775,12 +2774,7 @@ public class Metadata {
         this.title = title;
         this.publicationDate = publicationDate;
     }
-    
-    public Metadata setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-    
+
     public Metadata addAdditionalTitles(
             /**
              * Additional titles (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#additional-titles-0-n)
