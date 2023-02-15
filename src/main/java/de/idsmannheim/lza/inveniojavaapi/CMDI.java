@@ -127,8 +127,7 @@ public class CMDI {
             String resourceName = cmdiResourceName.getText();
             metadata.addAdditionalTitles(List.of(new Metadata.AdditionalTitle(resourceName, 
                     new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle),
-                            new Metadata.LocalizedStrings().add(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Alternative title")), 
-                    Optional.empty())));
+                            new Metadata.LocalizedStrings().add(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Alternative title")))));
         }
         if (cmdiVersion != null && !cmdiVersion.getText().isBlank()) {
             metadata.setVersion(cmdiVersion.getText());

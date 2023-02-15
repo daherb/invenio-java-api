@@ -77,7 +77,6 @@ public class RelatedIdentifierDeserializer extends StdDeserializer<Metadata.Rela
 
     @Override
     public Metadata.RelatedIdentifier deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
-        Optional<Metadata.RelatedIdentifier.RelatedResourceType> resourceType = Optional.empty();
         JsonNode node = p.getCodec().readTree(p);
         ObjectMapper om = new ObjectMapper()
                 .registerModule(new Jdk8Module());
@@ -87,10 +86,11 @@ public class RelatedIdentifierDeserializer extends StdDeserializer<Metadata.Rela
         Metadata.RelatedIdentifier.RelationType relationType = 
                 om.readValue(node.get("relation_type").toString(), 
                         Metadata.RelatedIdentifier.RelationType.class);
+        Metadata.RelatedIdentifier relatedIdentifier = new Metadata.RelatedIdentifier(identifier, scheme, relationType);
         if (node.has("resource_type")) {
-                resourceType = Optional.of(om.readValue(node.get("resource_type").toString(), 
+                relatedIdentifier.setResourceType(om.readValue(node.get("resource_type").toString(), 
                         Metadata.RelatedIdentifier.RelatedResourceType.class));
         }
-        return new Metadata.RelatedIdentifier(identifier, scheme, relationType, resourceType);
+        return relatedIdentifier;
     }
 }

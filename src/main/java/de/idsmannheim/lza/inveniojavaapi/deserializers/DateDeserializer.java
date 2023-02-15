@@ -14,7 +14,6 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  *
@@ -53,14 +52,14 @@ public class DateDeserializer extends StdDeserializer<Metadata.Date> {
 
     @Override
     public Metadata.Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
-        Optional<String> description = Optional.empty();
         JsonNode node = p.getCodec().readTree(p);
         ObjectMapper om = new ObjectMapper()
                 .registerModule(new Jdk8Module());
         Metadata.ExtendedDateTimeFormat0 date = om.readValue(node.get("date").toString(), Metadata.ExtendedDateTimeFormat0.class);
         Metadata.Date.DateType type = om.readValue(node.get("type").toString(), Metadata.Date.DateType.class);
+        Metadata.Date newDate = new Metadata.Date(date, type);
         if (node.has("description"))
-            description = Optional.of(node.get("description").asText());
-        return new Metadata.Date(date, type, description);
+            newDate.setDescription(node.get("description").asText());
+        return newDate;
     }
 }

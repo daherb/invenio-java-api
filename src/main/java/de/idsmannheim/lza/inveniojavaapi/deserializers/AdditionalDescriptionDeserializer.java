@@ -14,7 +14,6 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  *
@@ -58,11 +57,11 @@ public class AdditionalDescriptionDeserializer extends StdDeserializer<Metadata.
         ObjectMapper om = new ObjectMapper()
                 .registerModule(new Jdk8Module());
         String description = node.get("description").asText();
-        Optional<Metadata.Language> lang = Optional.empty();
-        if (node.has("lang"))
-            lang = Optional.of(om.readValue(node.get("lang").toString(),Metadata.Language.class));
         Metadata.AdditionalDescription.DescriptionType type =
                 om.readValue(node.get("type").toString(), Metadata.AdditionalDescription.DescriptionType.class);
-        return new Metadata.AdditionalDescription(description, type, lang);
+        Metadata.AdditionalDescription additionalDescription = new Metadata.AdditionalDescription(description, type);
+        if (node.has("lang"))
+            additionalDescription.setLang(om.readValue(node.get("lang").toString(),Metadata.Language.class));
+        return additionalDescription;
     }
 }

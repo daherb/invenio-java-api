@@ -18,7 +18,6 @@ import de.idsmannheim.lza.inveniojavaapi.ExternalPid;
 import de.idsmannheim.lza.inveniojavaapi.FilesOptions;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.io.IOException;
-import java.util.Date;
 
 /**
  *
@@ -58,13 +57,13 @@ public class DraftRecordDeserializer extends StdDeserializer<DraftRecord> {
             record.setIsPublished(node.get("is_published").asBoolean());
         }
         if (node.has("links")) {
-            record.setLinks(om.readerForMapOf(String.class).readValue(node.get("links").toString()));
+            record.addLinks(om.readerForMapOf(String.class).readValue(node.get("links").toString()));
         }
         if (node.has("parent")) {
             record.setParent(om.readValue(node.get("parent").toString(), Record.Parent.class));
         }
         if (node.has("pids")) {
-            record.setPids(om.readerForMapOf(ExternalPid.class).readValue(node.get("pids").toString()));
+            record.addPids(om.readerForMapOf(ExternalPid.class).readValue(node.get("pids").toString()));
         }
         if (node.has("revision_id")) {
             record.setRevisionId(node.get("revision_id").asInt());

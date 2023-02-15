@@ -196,7 +196,7 @@ public class RecordsTest {
                 true,
                 new Metadata(
                         new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.Other)),
-                        Collections.singletonList(new Metadata.Creator(new Metadata.PersonOrOrg("IDS Mannheim"))),
+                        new ArrayList<Metadata.Creator>(Collections.singletonList(new Metadata.Creator(new Metadata.PersonOrOrg("IDS Mannheim")))),
                         "Blank", 
                         new Metadata.ExtendedDateTimeFormat0("2023").addStartMonth("01").addStartDay("11")
                 ).addRights(Collections.singletonList(new Metadata.License(

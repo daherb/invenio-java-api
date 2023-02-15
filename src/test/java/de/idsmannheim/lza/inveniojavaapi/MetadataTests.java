@@ -64,18 +64,18 @@ class MetadataTests {
         ArrayList<Affiliation> affiliations = new ArrayList<>();
         affiliations.add(new Affiliation(Optional.of(new ControlledVocabulary.OrganizationalOrInstitutionalId(ControlledVocabulary.OrganizationalOrInstitutionalId.EOrganization.CERN)),
                 Optional.of("CERN")));
-        creators.add(new Creator(new Metadata.PersonOrOrg("Lars Holm","Nielsen").setIdentifiers(identifiers)).addAffiliations(affiliations));
+        creators.add(new Creator(new Metadata.PersonOrOrg("Lars Holm","Nielsen").addIdentifiers(identifiers)).addAffiliations(affiliations));
         additionalTitles.add(new Metadata.AdditionalTitle("A research data management platform", 
                 new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle), 
-                        new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Alternative Title")),
-                Optional.of(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId3("eng")))));
+                        new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Alternative Title")))
+                .setLang(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId3("eng"))));
         additionalDescriptions.add(new Metadata.AdditionalDescription(
                 "The description of a research data management platform.", 
                 new Metadata.AdditionalDescription.DescriptionType(
                         new ControlledVocabulary.DescriptionTypeId(ControlledVocabulary.DescriptionTypeId.EDescriptionType.Methods),
                         new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), 
-                                "Methods")), 
-                Optional.of(new Language(ControlledVocabulary.LanguageIdFactory.usingId3("eng")))));
+                                "Methods")))
+                .setLang(new Language(ControlledVocabulary.LanguageIdFactory.usingId3("eng"))));
         rights.add(new Metadata.License("cc-by-4.0", 
                 new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), 
                         "Creative Commons Attribution 4.0 International"),
@@ -84,13 +84,13 @@ class MetadataTests {
                 .setLink(new URL("https://creativecommons.org/licenses/by/4.0/")));
         Metadata.PersonOrOrg personOrOrg = new Metadata.PersonOrOrg(
                 "Lars Holm", "Nielsen")
-                .setIdentifiers(new ArrayList<>(List.of(new Metadata.PersonOrOrg.Identifier(
+                .addIdentifiers(new ArrayList<>(List.of(new Metadata.PersonOrOrg.Identifier(
                         new ControlledVocabulary.PersonOrOrgIdentifierScheme(ControlledVocabulary.PersonOrOrgIdentifierScheme.EScheme.ORCID), 
                         "0000-0001-8135-3489"))));
         contributors.add(new Metadata.Contributor(
                 personOrOrg, 
-                new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.Editor), 
-                List.of(new Affiliation(
+                new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.Editor))
+                .addAffiliations(List.of(new Affiliation(
                         Optional.of(new ControlledVocabulary.OrganizationalOrInstitutionalId(ControlledVocabulary.OrganizationalOrInstitutionalId.EOrganization.CERN)), 
                         Optional.of("CERN")))));
         subjects.add(new Metadata.Subject(new URL("https://id.nlm.nih.gov/mesh/D000001")));
@@ -103,8 +103,7 @@ class MetadataTests {
                         new Metadata.LocalizedStrings().add(
                                 new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")),
                                 "Other")
-                ),
-                Optional.of("A date")));
+                )).setDescription("A date"));
         alternateIdentifiers.add(new Metadata.AlternateIdentifier(
                 "1924MNRAS..84..308E", 
                 new ControlledVocabulary.RecordIdentifierScheme(
@@ -119,16 +118,15 @@ class MetadataTests {
                         new ControlledVocabulary.RelationTypeId(ControlledVocabulary.RelationTypeId.ERelationTypeId.Cites), 
                         new Metadata.LocalizedStrings()
                                 .add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Cites"));
-        Optional<Metadata.RelatedIdentifier.RelatedResourceType> resourceType = Optional.of(
+        Metadata.RelatedIdentifier.RelatedResourceType newResourceType = 
                 new Metadata.RelatedIdentifier.RelatedResourceType(new ControlledVocabulary.RelatedResourceType(
                         ControlledVocabulary.RelatedResourceType.EResourceType.Dataset),
                 new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")),
-                        "Dataset")));
+                        "Dataset"));
         relatedIdentifiers.add(new Metadata.RelatedIdentifier(
                 identifier, 
                 scheme, 
-                relationType, 
-                resourceType));
+                relationType).setResourceType(newResourceType));
         ArrayList<Metadata.Location.LocationFeature> locationFeatures = 
                 new ArrayList<>();
         locationFeatures.add(new Metadata.Location.LocationFeature(
@@ -158,9 +156,9 @@ class MetadataTests {
                         new ArrayList<>(List.of(
                                 new Metadata.AlternateIdentifier("https://experimental-physics.eu", 
                                 new ControlledVocabulary.RecordIdentifierScheme(ControlledVocabulary.RecordIdentifierScheme.ERecordItentifierScheme.URL)))))));
-        references.add(new Metadata.Reference("Nielsen et al,..", 
-                Optional.of(new ControlledVocabulary.ReferenceScheme(ControlledVocabulary.ReferenceScheme.EReferenceScheme.Other)), 
-                Optional.of("10.1234/foo.bar")));
+        references.add(new Metadata.Reference("Nielsen et al,..")
+                .setScheme(new ControlledVocabulary.ReferenceScheme(ControlledVocabulary.ReferenceScheme.EReferenceScheme.Other))
+                .setIdentifier("10.1234/foo.bar"));
     }
     
     @Test
@@ -442,9 +440,9 @@ class MetadataTests {
                 "  }]";
         
         ArrayList<Metadata.Reference> references = new ArrayList<>();
-        references.add(new Metadata.Reference("Nielsen et al,..", 
-                Optional.of(new ControlledVocabulary.ReferenceScheme(ControlledVocabulary.ReferenceScheme.EReferenceScheme.Other)), 
-                Optional.of("10.1234/foo.bar")));
+        references.add(new Metadata.Reference("Nielsen et al,..") 
+                .setScheme(new ControlledVocabulary.ReferenceScheme(ControlledVocabulary.ReferenceScheme.EReferenceScheme.Other))
+                .setIdentifier("10.1234/foo.bar"));
          ArrayList<Metadata.Reference> r2 = om.readerForListOf(Metadata.Reference.class)
                 .readValue(referencesText);
         ArrayList<Metadata.Reference> r3 = om.readerForListOf(Metadata.Reference.class)
@@ -459,7 +457,7 @@ class MetadataTests {
         creators.add(new Metadata.Creator(
                 new Metadata.PersonOrOrg("Troy","Brown")));
         creators.add(new Metadata.Creator(
-                new Metadata.PersonOrOrg("Thomas", "Collins","Collins, Thomas").setIdentifiers(
+                new Metadata.PersonOrOrg("Thomas", "Collins","Collins, Thomas").addIdentifiers(
                     new ArrayList<>(List.of(new Metadata.PersonOrOrg.Identifier(new ControlledVocabulary.PersonOrOrgIdentifierScheme(ControlledVocabulary.PersonOrOrgIdentifierScheme.EScheme.ORCID),"0000-0002-1825-0097")))
                 )).addAffiliations(
                 new ArrayList<>(List.of(new Metadata.Affiliation(Optional.of(new ControlledVocabulary.OrganizationalOrInstitutionalId(ControlledVocabulary.OrganizationalOrInstitutionalId.EOrganization.CERN)), Optional.of("Entity One"))))
@@ -484,7 +482,7 @@ class MetadataTests {
                 new Metadata.PersonOrOrg("Troy","Brown")));
         creators.add(new Metadata.Creator(
                 new Metadata.PersonOrOrg("Thomas", "Collins","Collins, Thomas")
-                .setIdentifiers(new ArrayList<>(
+                .addIdentifiers(new ArrayList<>(
                     List.of(new Metadata.PersonOrOrg.Identifier(
                             new ControlledVocabulary.PersonOrOrgIdentifierScheme(ControlledVocabulary.PersonOrOrgIdentifierScheme.EScheme.ORCID),
                             "0000-0002-1825-0097")))

@@ -60,46 +60,46 @@ public class Metadata {
     @JsonProperty("resource_type")
     final ResourceType resourceType;
     @JsonProperty("creators")
-    final List<Creator> creators;
+    final ArrayList<Creator> creators;
     @JsonProperty("title")
-    final String title;
+    String title;
     @JsonProperty("publication_date")
     final ExtendedDateTimeFormat0 publicationDate;
     // The rest is initialized with an empty value
     @JsonProperty("additional_titles")
-    final List<AdditionalTitle> additionalTitles = new ArrayList<>();
+    final ArrayList<AdditionalTitle> additionalTitles = new ArrayList<>();
     @JsonProperty("description")
     Optional<String> description = Optional.empty();
     @JsonProperty("additional_descriptions")
-    final List<AdditionalDescription> additionalDescriptions = new ArrayList<>();
+    final ArrayList<AdditionalDescription> additionalDescriptions = new ArrayList<>();
     @JsonProperty("rights")
-    final List<License> rights = new ArrayList<>();
+    final ArrayList<License> rights = new ArrayList<>();
     @JsonProperty("contributors")
-    final List<Contributor> contributors = new ArrayList<>();
+    final ArrayList<Contributor> contributors = new ArrayList<>();
     @JsonProperty("subjects")
-    final List<Subject> subjects = new ArrayList<>();
+    final ArrayList<Subject> subjects = new ArrayList<>();
     @JsonProperty("languages")
-    final List<Language> languages = new ArrayList<>();
+    final ArrayList<Language> languages = new ArrayList<>();
     @JsonProperty("dates")
-    final List<Date> dates = new ArrayList<>();
+    final ArrayList<Date> dates = new ArrayList<>();
     @JsonProperty("version")
     Optional<String> version = Optional.empty();
     @JsonProperty("publisher")
     Optional<String> publisher = Optional.empty();
     @JsonProperty("alternative_identifiers")
-    final List<AlternateIdentifier> alternativeIdentifiers = new ArrayList<>();
+    final ArrayList<AlternateIdentifier> alternativeIdentifiers = new ArrayList<>();
     @JsonProperty("related_identifiers")
-    final List<RelatedIdentifier> relatedIdentifiers = new ArrayList<>();
+    final ArrayList<RelatedIdentifier> relatedIdentifiers = new ArrayList<>();
     @JsonProperty("sizes")
-    final List<String> sizes = new ArrayList<>();
+    final ArrayList<String> sizes = new ArrayList<>();
     @JsonProperty("formats")
-    final List<String> formats = new ArrayList<>();
+    final ArrayList<String> formats = new ArrayList<>();
     @JsonProperty("locations")
     Location locations;
     @JsonProperty("funding")
-    final List<FundingReference> fundingReferences = new ArrayList<>();
+    final ArrayList<FundingReference> fundingReferences = new ArrayList<>();
     @JsonProperty("references")
-    final List<Reference> references = new ArrayList<>();
+    final ArrayList<Reference> references = new ArrayList<>();
     
     /**
      * Resource type (1)¶
@@ -400,12 +400,16 @@ public class Metadata {
             this.type = Type.Organizational;
         }
 
+        public void setType(Type type) {
+            this.type = type;
+        }
+
         /**
          * Adds identifiers
          * @param identifiers list of identifiers
          * @return the updated object
          */
-        public PersonOrOrg setIdentifiers(ArrayList<Identifier> identifiers) {
+        public PersonOrOrg addIdentifiers(ArrayList<Identifier> identifiers) {
             this.identifiers.addAll(identifiers);
             return this;
         }
@@ -917,12 +921,17 @@ public class Metadata {
         Optional<Language> lang = Optional.empty();
 
         @JsonCreator
-        public AdditionalTitle(String title, TitleType type, Optional<Language> lang) {
+        public AdditionalTitle(String title, TitleType type) {
             this.title = title;
             this.type = type;
-            this.lang = lang;
         }
 
+        public AdditionalTitle setLang(Language lang) {
+            this.lang = Optional.of(lang);
+            return this;
+        }
+
+        
         @Override
         public String toString() {
             return "AdditionalTitle{" + "title=" + title + ", type=" + type + ", lang=" + lang + '}';
@@ -1063,10 +1072,14 @@ public class Metadata {
         @JsonProperty("lang")
         Optional<Language> lang;
 
-        public AdditionalDescription(String description, DescriptionType type, Optional<Language> lang) {
+        public AdditionalDescription(String description, DescriptionType type) {
             this.description = description;
             this.type = type;
-            this.lang = lang;
+        }
+
+        public AdditionalDescription setLang(Language lang) {
+            this.lang = Optional.of(lang);
+            return this;
         }
 
         @Override
@@ -1264,16 +1277,18 @@ public class Metadata {
         @JsonProperty("role")
         ControlledVocabulary.Role role;
         @JsonProperty("affiliations")
-        List<Affiliation> affiliations = new ArrayList<>();
+        ArrayList<Affiliation> affiliations = new ArrayList<>();
 
-        public Contributor(PersonOrOrg personOrOrg, ControlledVocabulary.Role role, List<Affiliation> affiliations) {
+        public Contributor(PersonOrOrg personOrOrg, ControlledVocabulary.Role role) {
             this.personOrOrg = personOrOrg;
             this.role = role;
-            if (personOrOrg.type == PersonOrOrg.Type.Personal) {
-                this.affiliations.addAll(affiliations);
-            }
         }
 
+        public Contributor addAffiliations(List<Affiliation> affiliations) {
+            this.affiliations.addAll(affiliations);
+            return this;
+        }
+        
         @Override
         public int hashCode() {
             int hash = 3;
@@ -1488,12 +1503,17 @@ public class Metadata {
         @JsonProperty("description")
         Optional<String> description = Optional.empty();
 
-        public Date(ExtendedDateTimeFormat0 date, DateType type, Optional<String> description) {
+        public Date(ExtendedDateTimeFormat0 date, DateType type) {
             this.date = date;
             this.type = type;
-            this.description = description;
         }
 
+        public Date setDescription(String description) {
+            this.description = Optional.of(description);
+            return this;
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 3;
@@ -1784,12 +1804,17 @@ public class Metadata {
 
         public RelatedIdentifier(String identifier, 
                 ControlledVocabulary.RelatedRecordIdentifierScheme scheme, 
-                RelationType relationType, 
-                Optional<RelatedResourceType> resourceType) {
+                RelationType relationType) {
             this.identifier = identifier;
             this.scheme = scheme;
             this.relationType = relationType;
-            this.resourceType = resourceType;
+        }
+
+        public RelatedIdentifier setResourceType(RelatedResourceType resourceType) {
+            this.resourceType = Optional.of(resourceType);
+            return this;
+        }
+
         }
 
         @Override
@@ -2102,7 +2127,7 @@ public class Metadata {
         }
         
         @JsonProperty("features")
-        List<LocationFeature> features = new ArrayList<>();
+        ArrayList<LocationFeature> features = new ArrayList<>();
 
         public Location(List<LocationFeature> features) {
             if (!features.isEmpty())
@@ -2411,12 +2436,18 @@ public class Metadata {
         @JsonProperty("identifier")
         Optional<String> identifier = Optional.empty();
 
-        public Reference(String reference,
-                Optional<ControlledVocabulary.ReferenceScheme> schema,
-                Optional<String> identifier) {
+        public Reference(String reference) {
             this.reference = reference;
-            this.scheme = schema;
-            this.identifier = identifier;
+        }
+
+        public Reference setScheme(ControlledVocabulary.ReferenceScheme scheme) {
+            this.scheme = Optional.of(scheme);
+            return this;
+        }
+
+        public Reference setIdentifier(String identifier) {
+            this.identifier = Optional.of(identifier);
+            return this;
         }
 
         @Override
@@ -2499,7 +2530,7 @@ public class Metadata {
              * editor needs to be credited for the work, while authors of
              * individual articles will be listed under contributors.
              */
-            List<Creator> creators,
+            ArrayList<Creator> creators,
             /**
              * Title (1) (https://inveniordm.docs.cern.ch/reference/metadata/#title-1)
              *
@@ -2548,6 +2579,11 @@ public class Metadata {
         this.creators = creators;
         this.title = title;
         this.publicationDate = publicationDate;
+    }
+    
+    public Metadata setTitle(String title) {
+        this.title = title;
+        return this;
     }
     
     public Metadata addAdditionalTitles(

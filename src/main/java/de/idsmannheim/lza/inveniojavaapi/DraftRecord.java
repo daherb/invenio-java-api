@@ -76,7 +76,7 @@ public class DraftRecord {
         return this;
     }
 
-    public DraftRecord setLinks(HashMap<String, String> links) {
+    public DraftRecord addLinks(HashMap<String, String> links) {
         this.links.putAll(links);
         return this;
     }
@@ -86,7 +86,7 @@ public class DraftRecord {
         return this;
     }
 
-    public DraftRecord setPids(HashMap<String,ExternalPid> pids) {
+    public DraftRecord addPids(HashMap<String,ExternalPid> pids) {
         this.pids.putAll(pids);
         return this;
     }

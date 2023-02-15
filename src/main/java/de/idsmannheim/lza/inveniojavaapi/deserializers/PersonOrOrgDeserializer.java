@@ -68,17 +68,17 @@ public class PersonOrOrgDeserializer extends StdDeserializer<PersonOrOrg> {
                             node.get("given_name").asText(),
                             node.get("family_name").asText(),
                             node.get("name").asText())
-                            .setIdentifiers(identifiers);
+                            .addIdentifiers(identifiers);
                 else
                     return new PersonOrOrg(
                         node.get("given_name").asText(),
                         node.get("family_name").asText())
-                            .setIdentifiers(identifiers);
+                            .addIdentifiers(identifiers);
             }
             case "organizational" -> {
                 return new PersonOrOrg(
                         node.get("name").asText())
-                            .setIdentifiers(identifiers);
+                            .addIdentifiers(identifiers);
             }
             default -> throw new IllegalArgumentException("PersonOrOrg type is invalid: " + typeStr);
         }

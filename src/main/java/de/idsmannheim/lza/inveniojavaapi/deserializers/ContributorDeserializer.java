@@ -14,7 +14,6 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  *
@@ -32,16 +31,16 @@ public class ContributorDeserializer extends StdDeserializer<Metadata.Contributo
 
     @Override
     public Metadata.Contributor deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
-        ArrayList<Metadata.Affiliation> affiliations = new ArrayList<>();
         JsonNode node = p.getCodec().readTree(p);
         ObjectMapper om = new ObjectMapper()
                 .registerModule(new Jdk8Module());
         Metadata.PersonOrOrg personOrOrg = om.readValue(node.get("person_or_org").toString(), Metadata.PersonOrOrg.class);
         ControlledVocabulary.Role role = new ControlledVocabulary.Role(node.get("role").asText());
+        Metadata.Contributor contributor = new Metadata.Contributor(personOrOrg, role);
         if (node.has("affiliations")) {
-            affiliations.addAll(om.readerForListOf(Metadata.Affiliation.class)
+            contributor.addAffiliations(om.readerForListOf(Metadata.Affiliation.class)
                     .readValue(node.get("affiliations").toString()));
         }
-        return new Metadata.Contributor(personOrOrg, role, affiliations);
+        return contributor;
     }
 }

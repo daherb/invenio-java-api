@@ -59,11 +59,11 @@ public class AdditionalTitleDeserializer extends StdDeserializer<Metadata.Additi
         ObjectMapper om = new ObjectMapper()
                 .registerModule(new Jdk8Module());
         String title = node.get("title").asText();
-        Optional<Metadata.Language> lang = Optional.empty();
-        if (node.has("lang"))
-            lang = Optional.of(om.readValue(node.get("lang").toString(),Metadata.Language.class));
         Metadata.AdditionalTitle.TitleType type =
                 om.readValue(node.get("type").toString(), Metadata.AdditionalTitle.TitleType.class);
-        return new Metadata.AdditionalTitle(title, type, lang);
+        Metadata.AdditionalTitle additionalTitle = new Metadata.AdditionalTitle(title, type);
+        if (node.has("lang"))
+            additionalTitle.setLang(om.readValue(node.get("lang").toString(),Metadata.Language.class));
+        return additionalTitle;
     }
 }
