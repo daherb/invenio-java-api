@@ -213,6 +213,14 @@ public class Files {
         public String getVersionId() {
             return versionId;
         }
+
+        @Override
+        protected Object clone() {
+            FileEntry fileEntry = new FileEntry(bucketId, checksum, (Date) created.clone(), fileId, key, mimetype, size, status, storageClass, (Date) updated.clone(), versionId);
+            fileEntry.addLinks((HashMap<String, String>) links.clone());
+            fileEntry.addMetadata((HashMap<String, Object>) metadata.clone());
+            return fileEntry;
+        }
         
         @Override
         public int hashCode() {
@@ -347,6 +355,18 @@ public class Files {
             return this.entries.getLeft();
         else
             return this.entries.get();
+    }
+
+    @Override
+    protected Object clone() {
+        Files files = new Files(enabled);
+        if (entries.isLeft())
+            files.addEntries((ArrayList<FileEntry>) entries.getLeft().clone());
+        else
+            files.addEntries((HashMap<String, FileEntry>) entries.get().clone());
+        if (defaultPreview.isPresent())
+            files.setDefaultPreview(defaultPreview.get());
+        return files;
     }
 
     

@@ -68,6 +68,12 @@ public class Parent {
         }
 
         @Override
+        protected Object clone() {
+            return new Access((ArrayList<Owner>) ownedBy.clone());
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 5;
             hash = 67 * hash + Objects.hashCode(this.ownedBy);
@@ -114,6 +120,12 @@ public class Parent {
         }
 
         @Override
+        protected Object clone() {
+            return new Owner(user);
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 7;
             hash = 23 * hash + this.user;
@@ -159,6 +171,11 @@ public class Parent {
     public Parent(String id, Access access) {
         this.id = id;
         this.access = access;
+    }
+
+    @Override
+    protected Object clone() {
+        return new Parent(id, (Access) access.clone());
     }
 
     

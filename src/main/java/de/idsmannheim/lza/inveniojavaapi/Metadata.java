@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -149,6 +150,12 @@ public class Metadata {
         }
 
         @Override
+        protected Object clone() {
+            return new ResourceType(id);
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 5;
             hash = 83 * hash + Objects.hashCode(this.id);
@@ -231,6 +238,16 @@ public class Metadata {
             return "Creator{" + "personOrOrg=" + personOrOrg + ", role=" + role + ", affiliations=" + affiliations + '}';
         }
 
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            Creator creator = new Creator((PersonOrOrg) personOrOrg.clone());
+            if (role.isPresent())
+                creator.setRole((ControlledVocabulary.Role) role.get().clone());
+            creator.addAffiliations((List<Affiliation>) affiliations.clone());
+            return creator;
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 5;
@@ -316,6 +333,12 @@ public class Metadata {
                 return "Identifier{" + "scheme=" + scheme + ", identifier=" + identifier + '}';
             }
 
+            @Override
+            protected Object clone() throws CloneNotSupportedException {
+                return new Identifier((ControlledVocabulary.PersonOrOrgIdentifierScheme) scheme.clone(), identifier);
+            }
+
+            
             @Override
             public int hashCode() {
                 int hash = 7;
@@ -422,6 +445,14 @@ public class Metadata {
         }
 
         @Override
+        protected Object clone() throws CloneNotSupportedException {
+            PersonOrOrg personOrOrg = new PersonOrOrg(givenName, familyName, name);
+            personOrOrg.setType(type);
+            return personOrOrg;
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 5;
             return hash;
@@ -492,6 +523,12 @@ public class Metadata {
             return "Affiliation{" + "id=" + id + ", name=" + name + '}';
         }
 
+        @Override
+        protected Object clone() {
+            return new Affiliation(id, name);
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 3;
@@ -624,6 +661,23 @@ public class Metadata {
         }
 
         @Override
+        protected Object clone() {
+            ExtendedDateTimeFormat0 extendedDateTimeFormat0 = new ExtendedDateTimeFormat0(startYear);
+            if (startMonth.isPresent())
+                extendedDateTimeFormat0.addStartMonth(startMonth.get());
+            if (startDay.isPresent())
+                extendedDateTimeFormat0.addStartDay(startDay.get());
+            if (endYear.isPresent())
+                extendedDateTimeFormat0.addEndYear(endYear.get());
+            if (endMonth.isPresent())
+                extendedDateTimeFormat0.addEndMonth(endMonth.get());
+            if (endDay.isPresent())
+                extendedDateTimeFormat0.addEndDay(endDay.get());
+            return extendedDateTimeFormat0;
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 7;
             hash = 89 * hash + Objects.hashCode(this.startYear);
@@ -715,6 +769,12 @@ public class Metadata {
         }
 
         @Override
+        protected Object clone() throws CloneNotSupportedException {
+            return new Language((ControlledVocabulary.LanguageId) id.clone());
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 7;
             hash = 43 * hash + Objects.hashCode(this.id);
@@ -767,6 +827,14 @@ public class Metadata {
             this.localizedStrings.putAll(strings.localizedStrings);
             return this;
         }
+
+        @Override
+        protected Object clone() {
+            LocalizedStrings newLocalizedStrings = new LocalizedStrings();
+            newLocalizedStrings.addAll((LocalizedStrings) localizedStrings.clone());
+            return newLocalizedStrings;
+        }
+        
         
         @Override
         public int hashCode() {
@@ -864,6 +932,12 @@ public class Metadata {
             }
 
             @Override
+            protected Object clone() throws CloneNotSupportedException {
+                return new TitleType((ControlledVocabulary.TitleTypeId) id.clone(), (LocalizedStrings) title.clone());
+            }
+
+            
+            @Override
             public int hashCode() {
                 int hash = 7;
                 hash = 37 * hash + Objects.hashCode(this.id);
@@ -937,6 +1011,15 @@ public class Metadata {
             return "AdditionalTitle{" + "title=" + title + ", type=" + type + ", lang=" + lang + '}';
         }
 
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            AdditionalTitle additionalTitle = new AdditionalTitle(title, (TitleType) type.clone());
+            if (lang.isPresent())
+                additionalTitle.setLang(lang.get());
+            return additionalTitle;
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 7;
@@ -1027,6 +1110,12 @@ public class Metadata {
             }
 
             @Override
+            protected Object clone() {
+                return new DescriptionType((ControlledVocabulary.DescriptionTypeId) id.clone(), (LocalizedStrings) title.clone());
+            }
+
+            
+            @Override
             public int hashCode() {
                 int hash = 7;
                 hash = 89 * hash + Objects.hashCode(this.id);
@@ -1082,6 +1171,16 @@ public class Metadata {
             return this;
         }
 
+        
+        @Override
+        protected Object clone() {
+            AdditionalDescription additionalDescription = new AdditionalDescription(description, type);
+            if (lang.isPresent())
+                additionalDescription.setLang(lang.get());
+            return additionalDescription;
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 5;
@@ -1193,6 +1292,15 @@ public class Metadata {
             return this;
         }
 
+        @Override
+        protected Object clone() {
+            License license = new License(id, (LocalizedStrings) title.clone(), (LocalizedStrings) description.clone());
+            if (link.isPresent())
+                license.setLink(link.get());
+            license.addProps((HashMap<String, String>) props.clone());
+            return license;
+        }
+
         
         @Override
         public int hashCode() {
@@ -1290,6 +1398,14 @@ public class Metadata {
         }
         
         @Override
+        protected Object clone() throws CloneNotSupportedException {
+            Contributor contributor = new Contributor((PersonOrOrg) personOrOrg.clone(), (ControlledVocabulary.Role) role.clone());
+            contributor.addAffiliations((ArrayList<Affiliation>) affiliations.clone());
+            return contributor;
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 3;
             hash = 97 * hash + Objects.hashCode(this.personOrOrg);
@@ -1361,6 +1477,16 @@ public class Metadata {
             this.subject = Optional.of(subject);
         }
 
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            if (id.isPresent())
+                return new Subject(id.get());
+            if (subject.isPresent())
+                return new Subject(subject.get());
+            throw new CloneNotSupportedException("Error cloning subject. Neither id nor subject defined.");
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 3;
@@ -1464,6 +1590,12 @@ public class Metadata {
             }
 
             @Override
+            protected Object clone() {
+                return new DateType((ControlledVocabulary.DateTypeId) id.clone(), (LocalizedStrings) title.clone());
+            }
+
+            
+            @Override
             public int hashCode() {
                 int hash = 5;
                 hash = 89 * hash + Objects.hashCode(this.id);
@@ -1511,6 +1643,15 @@ public class Metadata {
         public Date setDescription(String description) {
             this.description = Optional.of(description);
             return this;
+        }
+
+        
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            Date newDate = new Date((ExtendedDateTimeFormat0) date.clone(), (DateType) type.clone());
+            if (description.isPresent())
+                newDate.setDescription(description.get());
+            return newDate;
         }
 
         
@@ -1600,6 +1741,12 @@ public class Metadata {
             this.scheme = scheme;
         }
 
+        @Override
+        protected Object clone() {
+            return new AlternateIdentifier(identifier, (ControlledVocabulary.RecordIdentifierScheme) scheme.clone());
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 3;
@@ -1713,6 +1860,12 @@ public class Metadata {
             }
 
             @Override
+            protected Object clone() {
+                return new RelationType(id, (LocalizedStrings) title.clone());
+            }
+
+            
+            @Override
             public int hashCode() {
                 int hash = 5;
                 hash = 67 * hash + Objects.hashCode(this.id);
@@ -1815,8 +1968,15 @@ public class Metadata {
             return this;
         }
 
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            RelatedIdentifier relatedIdentifier = new RelatedIdentifier(identifier, (ControlledVocabulary.RelatedRecordIdentifierScheme) scheme.clone(), (RelationType) relationType.clone());
+            if (resourceType.isPresent())
+                relatedIdentifier.setResourceType(resourceType.get());
+            return relatedIdentifier;
         }
 
+        
         @Override
         public int hashCode() {
             int hash = 5;
@@ -2137,6 +2297,12 @@ public class Metadata {
         }
 
         @Override
+        protected Object clone() {
+            return new Location((ArrayList<LocationFeature>) features.clone());
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 7;
             hash = 41 * hash + Objects.hashCode(this.features);
@@ -2244,6 +2410,12 @@ public class Metadata {
             }
 
             @Override
+            protected Object clone() {
+                return new Funder(id, name);
+            }
+
+            
+            @Override
             public int hashCode() {
                 int hash = 7;
                 hash = 29 * hash + Objects.hashCode(this.id);
@@ -2317,6 +2489,12 @@ public class Metadata {
             }
 
             @Override
+            protected Object clone() {
+                return new Award(id, (LocalizedStrings) title.clone(), number, (ArrayList<AlternateIdentifier>) identifiers.clone());
+            }
+
+            
+            @Override
             public int hashCode() {
                 int hash = 5;
                 hash = 19 * hash + Objects.hashCode(this.id);
@@ -2368,6 +2546,12 @@ public class Metadata {
             this.award = award;
         }
 
+        @Override
+        protected Object clone() {
+            return new FundingReference((Funder) funder.clone(), (Award) award.clone());
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 3;
@@ -2450,6 +2634,17 @@ public class Metadata {
             return this;
         }
 
+        @Override
+        protected Object clone() {
+            Reference newReference = new Reference(this.reference);
+            if (scheme.isPresent())
+                newReference.setScheme(scheme.get());
+            if (identifier.isPresent()) 
+                newReference.setIdentifier(identifier.get());
+            return newReference;
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 7;
@@ -2978,7 +3173,32 @@ public class Metadata {
         return references;
     }
 
-    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Metadata newMetadata = new Metadata((ResourceType) resourceType.clone(), (ArrayList < Creator >) creators.clone(), title, (ExtendedDateTimeFormat0) publicationDate.clone());
+        newMetadata.addAdditionalTitles((ArrayList<AdditionalTitle>) additionalTitles.clone());
+        if (description.isPresent())
+            newMetadata.setDescription(description.get());
+        newMetadata.addAdditionalDescriptions((List<AdditionalDescription>) additionalDescriptions.clone());
+        newMetadata.addRights((List<License>) rights.clone());
+        newMetadata.addContributors((List<Contributor>) contributors.clone());
+        newMetadata.addSubjects((List<Subject>) subjects.clone());
+        newMetadata.addLanguages((List<Language>) languages.clone());
+        newMetadata.addDates((List<Date>) dates.clone());
+        if (version.isPresent())
+            newMetadata.setVersion(version.get());
+        if (publisher.isPresent())
+            newMetadata.setPublisher(publisher.get());
+        newMetadata.addAlternativeIdentifiers((List<AlternateIdentifier>) alternativeIdentifiers.clone());
+        newMetadata.addRelatedIdentifiers((List<RelatedIdentifier>) relatedIdentifiers.clone());
+        newMetadata.addSizes((List<String>) sizes.clone());
+        newMetadata.addFormats((List<String>) formats.clone());
+        newMetadata.setLocations((Location) locations.clone());
+        newMetadata.addFundingReferences((List<FundingReference>) fundingReferences.clone());
+        newMetadata.addReferences((List<Reference>) references.clone());
+        return newMetadata;
+    }
+
     
     @Override
     public int hashCode() {

@@ -164,6 +164,29 @@ public class DraftRecord {
     }
 
     
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        DraftRecord draftRecord = new DraftRecord((Access) access.clone(), (FilesOptions) files.clone(), (Metadata) metadata.clone());
+        if (created.isPresent())
+            draftRecord.setCreated((Date) created.get().clone());
+        if (expiresAt.isPresent())
+            draftRecord.setExpiresAt((Date) expiresAt.get().clone());
+        if (id.isPresent())
+            draftRecord.setId(id.get());
+        if (isPublished.isPresent())
+            draftRecord.setIsPublished(isPublished.get());
+        draftRecord.addLinks((HashMap<String, String>) links.clone());
+        if (parent.isPresent())
+            draftRecord.setParent((Record.Parent) parent.get().clone());
+        draftRecord.addPids((HashMap<String, ExternalPid>) pids.clone());
+        if (revisionId.isPresent())
+            draftRecord.setRevisionId(revisionId.get());
+        if (updated.isPresent())
+            draftRecord.setUpdated((Date) updated.get().clone());
+        if (versions.isPresent())
+            draftRecord.setVersions((Record.Versions) versions.get().clone());
+        return draftRecord;
+    }
     
     @Override
     public int hashCode() {

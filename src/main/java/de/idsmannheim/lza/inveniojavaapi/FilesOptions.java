@@ -56,6 +56,12 @@ public class FilesOptions {
     }
     
     @Override
+    protected Object clone() {
+        FilesOptions filesOptions = new FilesOptions(enabled, defaultPreview);
+        filesOptions.addOrder((ArrayList<String>) order.clone());
+        return filesOptions;
+    }
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 89 * hash + (this.enabled ? 1 : 0);
@@ -63,7 +69,7 @@ public class FilesOptions {
         hash = 89 * hash + Objects.hashCode(this.order);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

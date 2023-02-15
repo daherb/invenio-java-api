@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import de.idsmannheim.lza.inveniojavaapi.deserializers.RecordDeserializer;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -46,8 +47,14 @@ public class Record {
         public HashMap<String, Object> getCommunities() {
             return communities;
         }
-        
-        
+
+        @Override
+        protected Object clone() {
+            Parent parent = new Parent(id);
+            parent.addCommunities((HashMap<String, String>) communities.clone());
+            return parent;
+        }
+
         @Override
         public int hashCode() {
             int hash = 7;
@@ -55,7 +62,7 @@ public class Record {
             hash = 13 * hash + Objects.hashCode(this.communities);
             return hash;
         }
-        
+
         @Override
         public boolean equals(Object obj) {
             if (this == obj) {
@@ -101,6 +108,12 @@ public class Record {
         
         public boolean isLatest() {
             return latest;
+        }
+
+        @Override
+        protected Object clone() {
+            return new Versions(index, latest);
+            
         }
         
         
@@ -266,7 +279,16 @@ public class Record {
     public Versions getVersions() {
         return versions;
     }
-    
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Record record = new Record((Access) access.clone(), (Date) created.clone(), (FilesOptions) files.clone(), id, isDraft, isPublished, (Metadata) metadata.clone(), (Parent) parent.clone(), revisionId, status, (Date) updated.clone(), (Versions) versions.clone());
+        record.addCustomFields((HashMap<String, Object>) customFields.clone());
+        record.addLinks((HashMap<String, String>) links.clone());
+        record.addPids((HashMap<String, ExternalPid>) pids.clone());
+        return record;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;

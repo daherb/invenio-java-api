@@ -100,6 +100,17 @@ public class Access {
         }
 
         @Override
+        protected Object clone() {
+            if (this.active) {
+                return new Embargo(until.get(), reason);
+            }
+            else {
+                return new Embargo();
+            }
+        }
+
+        
+        @Override
         public boolean equals(Object obj) {
             if (this == obj) {
                 return true;
@@ -162,6 +173,11 @@ public class Access {
     }
 
     @Override
+    protected Object clone() {
+        return new Access(record, files);
+    }
+    
+    @Override
     public int hashCode() {
         int hash = 3;
         hash = 41 * hash + Objects.hashCode(this.record);
@@ -171,6 +187,7 @@ public class Access {
         return hash;
     }
 
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

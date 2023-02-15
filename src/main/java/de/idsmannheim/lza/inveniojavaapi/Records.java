@@ -44,6 +44,15 @@ public class Records {
             return this;
         }
 
+        @Override
+        protected Object clone() {
+            Aggregation aggregation = new Aggregation();
+            aggregation.addBuckets((ArrayList<Bucket>) buckets.clone());
+            if (label.isPresent())
+                aggregation.setLabel(label.get());
+            return aggregation;
+        }
+
         
         @Override
         public int hashCode() {
@@ -103,6 +112,14 @@ public class Records {
         public Bucket setInner(Aggregation inner) {
             this.inner = Optional.of(inner);
             return this;
+        }
+
+        @Override
+        protected Object clone() {
+            Bucket bucket = new Bucket(docCount, isSelected, key, label);
+            if (inner.isPresent())
+                bucket.setInner((Aggregation) inner.get().clone());
+            return bucket;
         }
 
         
@@ -178,6 +195,14 @@ public class Records {
         }
 
         @Override
+        protected Object clone() {
+            Hits newHits = new Hits(total);
+            newHits.addHits((ArrayList<Record>) hits.clone());
+            return newHits;
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 7;
             hash = 59 * hash + Objects.hashCode(this.hits);
@@ -250,6 +275,14 @@ public class Records {
 
     public String getSortBy() {
         return sortBy;
+    }
+
+    @Override
+    protected Object clone() {
+        Records records = new Records((Hits) hits.clone(), sortBy);
+        records.addAggregations((HashMap<String, Aggregation>) aggregations.clone());
+        records.addLinks((HashMap<String, String>) links.clone());
+        return records;
     }
 
     

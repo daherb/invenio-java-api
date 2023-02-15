@@ -115,6 +115,12 @@ public class ControlledVocabulary {
         }
 
         @Override
+        protected Object clone() {
+            return new ResourceType(resourceType);
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 3;
             hash = 23 * hash + Objects.hashCode(this.resourceType);
@@ -197,6 +203,12 @@ public class ControlledVocabulary {
         }
 
         @Override
+        protected Object clone() {
+            return new PersonOrOrgIdentifierScheme(scheme);
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 7;
             hash = 97 * hash + Objects.hashCode(this.scheme);
@@ -271,6 +283,12 @@ public class ControlledVocabulary {
             return role.toString().toLowerCase();
         }
 
+        @Override
+        protected Object clone() {
+            return new Role(role);
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 7;
@@ -365,6 +383,12 @@ public class ControlledVocabulary {
             return organizations.get(organization);
         }
 
+        @Override
+        protected Object clone() {
+            return new OrganizationalOrInstitutionalId(organization);
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 3;
@@ -471,6 +495,22 @@ public class ControlledVocabulary {
         }
 
         @Override
+        protected Object clone() throws CloneNotSupportedException {
+            try {
+                LanguageId languageId = new LanguageId();
+                if (id2.isPresent())
+                    languageId.setId2(id2.get());
+                if (id3.isPresent())
+                    languageId.setId3(id3.get());
+                return languageId;
+            }
+            catch (IOException e) {
+                throw new CloneNotSupportedException("Encountered exception when cloning. " + e.toString());
+            }
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 7;
             hash = 97 * hash + Objects.hashCode(this.id2);
@@ -551,6 +591,12 @@ public class ControlledVocabulary {
         }
 
         @Override
+        protected Object clone() {
+            return new TitleTypeId(type);
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 7;
             hash = 59 * hash + Objects.hashCode(this.type);
@@ -623,6 +669,12 @@ public class ControlledVocabulary {
         }
 
         @Override
+        protected Object clone() {
+            return new DescriptionTypeId(type);
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 7;
             hash = 83 * hash + Objects.hashCode(this.type);
@@ -689,6 +741,12 @@ public class ControlledVocabulary {
         }
 
         @Override
+        protected Object clone() {
+            return new DateTypeId(dateType);
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 7;
             hash = 53 * hash + Objects.hashCode(this.dateType);
@@ -743,6 +801,12 @@ public class ControlledVocabulary {
             return scheme.toString().toLowerCase();
         }
 
+        @Override
+        protected Object clone() {
+            return new RecordIdentifierScheme(scheme);
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 7;
@@ -804,6 +868,12 @@ public class ControlledVocabulary {
         }
 
         @Override
+        protected Object clone() {
+            return new RelationTypeId(relation);
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 3;
             hash = 13 * hash + Objects.hashCode(this.relation);
@@ -862,6 +932,12 @@ public class ControlledVocabulary {
         }
 
         @Override
+        protected Object clone() {
+            return new RelatedRecordIdentifierScheme(scheme);
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 5;
             hash = 37 * hash + Objects.hashCode(this.scheme);
@@ -915,6 +991,12 @@ public class ControlledVocabulary {
             return scheme.toString().toLowerCase();
         }
 
+        @Override
+        protected Object clone() {
+            return new ReferenceScheme(scheme);
+        }
+
+        
         @Override
         public int hashCode() {
             int hash = 3;
@@ -1014,8 +1096,17 @@ public class ControlledVocabulary {
             // this.id = 
             // TODO
             return this;
+
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            try {
+                return FunderIdFactory.usingId(id);
+            } catch (IOException e) {
+                throw new CloneNotSupportedException("Encountered exception when cloning. " + e.toString());
+            }
         }
 
+        
         @Override
         public int hashCode() {
             int hash = 7;
@@ -1064,6 +1155,11 @@ public class ControlledVocabulary {
         @JsonValue
         public String toString() {
             return id;
+        }
+
+        @Override
+        protected Object clone() {
+            return new AwardId(id);
         }
 
         

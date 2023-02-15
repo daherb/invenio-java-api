@@ -46,6 +46,12 @@ public class Tombstone {
         }
 
         @Override
+        protected Object clone() {
+            return new User(user);
+        }
+
+        
+        @Override
         public int hashCode() {
             int hash = 3;
             hash = 29 * hash + this.user;
@@ -104,6 +110,12 @@ public class Tombstone {
         this.timestamp = timestamp;
     }
 
+    @Override
+    protected Object clone() {
+        return new Tombstone(reason, category, (User) removedBy.clone(), (Date) timestamp.clone());
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 5;

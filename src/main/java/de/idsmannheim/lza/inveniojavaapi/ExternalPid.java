@@ -60,6 +60,14 @@ public class ExternalPid {
     }
 
     @Override
+    protected Object clone() {
+        ExternalPid externalPid = new ExternalPid(identifier, provider);
+        if (client.isPresent())
+            externalPid.setClient(client.get());
+        return externalPid;
+    }
+
+    @Override
     public int hashCode() {
         int hash = 5;
         hash = 23 * hash + Objects.hashCode(this.identifier);
@@ -68,6 +76,7 @@ public class ExternalPid {
         return hash;
     }
 
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
