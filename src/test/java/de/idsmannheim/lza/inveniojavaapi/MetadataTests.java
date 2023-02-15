@@ -453,10 +453,10 @@ class MetadataTests {
     
     @Test
     void draftRequestMetadataTest() throws JsonProcessingException, IOException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-        ArrayList<Metadata.Creator> creators = new ArrayList<>();
-        creators.add(new Metadata.Creator(
+        ArrayList<Metadata.Creator> newCreators = new ArrayList<>();
+        newCreators.add(new Metadata.Creator(
                 new Metadata.PersonOrOrg("Troy","Brown")));
-        creators.add(new Metadata.Creator(
+        newCreators.add(new Metadata.Creator(
                 new Metadata.PersonOrOrg("Thomas", "Collins","Collins, Thomas").addIdentifiers(
                     new ArrayList<>(List.of(new Metadata.PersonOrOrg.Identifier(new ControlledVocabulary.PersonOrOrgIdentifierScheme(ControlledVocabulary.PersonOrOrgIdentifierScheme.EScheme.ORCID),"0000-0002-1825-0097")))
                 )).addAffiliations(
@@ -464,7 +464,7 @@ class MetadataTests {
                 ));
         Metadata exampleMetadata = new Metadata(
                 new ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.ImagePhoto)),
-                creators,
+                newCreators,
                 "A Romans story",
                 new Metadata.ExtendedDateTimeFormat0("2020").addStartMonth("06").addStartDay("01")
                         );
@@ -477,10 +477,10 @@ class MetadataTests {
 
     @Test
     void draftReplyMetadataTest() throws JsonProcessingException, IOException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-        ArrayList<Metadata.Creator> creators = new ArrayList<>();
-        creators.add(new Metadata.Creator(
+        ArrayList<Metadata.Creator> newCreators = new ArrayList<>();
+        newCreators.add(new Metadata.Creator(
                 new Metadata.PersonOrOrg("Troy","Brown")));
-        creators.add(new Metadata.Creator(
+        newCreators.add(new Metadata.Creator(
                 new Metadata.PersonOrOrg("Thomas", "Collins","Collins, Thomas")
                 .addIdentifiers(new ArrayList<>(
                     List.of(new Metadata.PersonOrOrg.Identifier(
@@ -493,7 +493,7 @@ class MetadataTests {
                 ));
         Metadata exampleMetadata = new Metadata(
                 new ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.ImagePhoto)),
-                creators,
+                newCreators,
                 "A Romans story",
                 new Metadata.ExtendedDateTimeFormat0("2020").addStartMonth("06").addStartDay("01")
                         );
