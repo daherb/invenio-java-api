@@ -187,6 +187,7 @@ public class RecordsTest {
         HashMap<String,String> ccProps = new HashMap<>();
         ccProps.put("scheme", "spdx");
         ccProps.put("url", "https://creativecommons.org/licenses/by/4.0/legalcode");
+        ControlledVocabulary.LanguageIdFactory languageIdFactory = new ControlledVocabulary.LanguageIdFactory();
         hitList.add(new Record(
                 new Access(Access.AccessType.Public,Access.AccessType.Public).setEmbargo(new Access.Embargo()).setStatus("metadata-only"),
                 om.readValue("\"2023-01-11T12:52:28.945163+00:00\"", Date.class),
@@ -201,8 +202,8 @@ public class RecordsTest {
                         new Metadata.ExtendedDateTimeFormat0("2023").addStartMonth("01").addStartDay("11")
                 ).addRights(Collections.singletonList(new Metadata.License(
                         "cc-by-4.0",
-                        new Metadata.LocalizedStrings().add(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Creative Commons Attribution 4.0 International"),
-                        new Metadata.LocalizedStrings().add(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."))
+                        new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "Creative Commons Attribution 4.0 International"),
+                        new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."))
                         .addProps(ccProps))),
                 new Record.Parent("5k1hr-sxr38"),
                 3,

@@ -34,9 +34,10 @@ public class LocalizedStringsDeserializer extends StdDeserializer<Metadata.Local
         JsonNode node = p.getCodec().readTree(p);
         Metadata.LocalizedStrings strings = new Metadata.LocalizedStrings();
         Iterator<Map.Entry<String,JsonNode>> it = node.fields();
+        ControlledVocabulary.LanguageIdFactory languageIdFactory = new ControlledVocabulary.LanguageIdFactory();
         while (it.hasNext()) {
             Map.Entry<String,JsonNode> field = it.next();
-            strings.add(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId2(field.getKey())), field.getValue().asText());
+            strings.add(new Metadata.Language(languageIdFactory.usingId2(field.getKey())), field.getValue().asText());
         }
         return strings;
     }

@@ -58,6 +58,7 @@ class MetadataTests {
         om.findAndRegisterModules();
         // Initialize example data
         ArrayList<Identifier> identifiers = new ArrayList<>();
+        ControlledVocabulary.LanguageIdFactory languageIdFactory = new ControlledVocabulary.LanguageIdFactory();
         identifiers.add(new Identifier(
                 new ControlledVocabulary.PersonOrOrgIdentifierScheme(ControlledVocabulary.PersonOrOrgIdentifierScheme.EScheme.ORCID),
                 "0000-0001-8135-3489"));
@@ -67,19 +68,19 @@ class MetadataTests {
         creators.add(new Creator(new Metadata.PersonOrOrg("Lars Holm","Nielsen").addIdentifiers(identifiers)).addAffiliations(affiliations));
         additionalTitles.add(new Metadata.AdditionalTitle("A research data management platform", 
                 new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle), 
-                        new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Alternative Title")))
-                .setLang(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId3("eng"))));
+                        new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Alternative Title")))
+                .setLang(new Metadata.Language(languageIdFactory.usingId3("eng"))));
         additionalDescriptions.add(new Metadata.AdditionalDescription(
                 "The description of a research data management platform.", 
                 new Metadata.AdditionalDescription.DescriptionType(
                         new ControlledVocabulary.DescriptionTypeId(ControlledVocabulary.DescriptionTypeId.EDescriptionType.Methods),
-                        new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), 
+                        new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), 
                                 "Methods")))
-                .setLang(new Language(ControlledVocabulary.LanguageIdFactory.usingId3("eng"))));
+                .setLang(new Language(languageIdFactory.usingId3("eng"))));
         rights.add(new Metadata.License("cc-by-4.0", 
-                new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), 
+                new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), 
                         "Creative Commons Attribution 4.0 International"),
-                new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), 
+                new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), 
                         "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."))
                 .setLink(new URL("https://creativecommons.org/licenses/by/4.0/")));
         Metadata.PersonOrOrg personOrOrg = new Metadata.PersonOrOrg(
@@ -94,14 +95,14 @@ class MetadataTests {
                         Optional.of(new ControlledVocabulary.OrganizationalOrInstitutionalId(ControlledVocabulary.OrganizationalOrInstitutionalId.EOrganization.CERN)), 
                         Optional.of("CERN")))));
         subjects.add(new Metadata.Subject(new URL("https://id.nlm.nih.gov/mesh/D000001")));
-        languages.add(new Language(ControlledVocabulary.LanguageIdFactory.usingId3("dan")));
-        languages.add(new Language(ControlledVocabulary.LanguageIdFactory.usingId3("eng")));
+        languages.add(new Language(languageIdFactory.usingId3("dan")));
+        languages.add(new Language(languageIdFactory.usingId3("eng")));
         dates.add(new Metadata.Date(
                 new Metadata.ExtendedDateTimeFormat0("1939").addEndYear("1945"),
                 new Metadata.Date.DateType(
                 new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Other),
                         new Metadata.LocalizedStrings().add(
-                                new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")),
+                                new Language(languageIdFactory.usingId2("en")),
                                 "Other")
                 )).setDescription("A date"));
         alternateIdentifiers.add(new Metadata.AlternateIdentifier(
@@ -117,11 +118,11 @@ class MetadataTests {
                 new Metadata.RelatedIdentifier.RelationType(
                         new ControlledVocabulary.RelationTypeId(ControlledVocabulary.RelationTypeId.ERelationTypeId.Cites), 
                         new Metadata.LocalizedStrings()
-                                .add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Cites"));
+                                .add(new Language(languageIdFactory.usingId2("en")), "Cites"));
         Metadata.RelatedIdentifier.RelatedResourceType newResourceType = 
                 new Metadata.RelatedIdentifier.RelatedResourceType(new ControlledVocabulary.RelatedResourceType(
                         ControlledVocabulary.RelatedResourceType.EResourceType.Dataset),
-                new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")),
+                new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")),
                         "Dataset"));
         relatedIdentifiers.add(new Metadata.RelatedIdentifier(
                 identifier, 
@@ -150,7 +151,7 @@ class MetadataTests {
                         Optional.empty()),
                 new Metadata.FundingReference.Award(Optional.empty(),
                         new Metadata.LocalizedStrings().add(
-                                new Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), 
+                                new Language(languageIdFactory.usingId2("en")), 
                                 "Research on Experimental Physics"), 
                         Optional.of("EP-123456"),
                         new ArrayList<>(List.of(

@@ -34,8 +34,8 @@ public class LanguageDeserializer extends StdDeserializer<Metadata.Language> {
         langText = node.get("id").asText();
         ControlledVocabulary.LanguageId lang;
         switch (langText.length()) {
-            case 2 -> lang = ControlledVocabulary.LanguageIdFactory.usingId2(langText);
-            case 3 -> lang = ControlledVocabulary.LanguageIdFactory.usingId3(langText);
+            case 2 -> lang = new ControlledVocabulary.LanguageIdFactory().usingId2(langText);
+            case 3 -> lang = new ControlledVocabulary.LanguageIdFactory().usingId3(langText);
             default -> throw new IllegalArgumentException("Invalid language code");
         }
         return new Metadata.Language(lang);

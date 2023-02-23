@@ -439,49 +439,23 @@ public class ControlledVocabulary {
             
         }
         
-        ArrayList<LanguageInfo> languages = new ArrayList<>();
         
         Optional<String> id2 = Optional.empty();
         Optional<String> id3 = Optional.empty();
         
         private LanguageId() throws IOException {
-            ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
-            
-            TreeNode tree = objectMapper.createParser(this.getClass().getClassLoader()
-                    .getResourceAsStream("languages.yaml"))
-                    .readValueAsTree();
-            for (int ct = 0 ; ct < tree.size(); ct++) {
-                Optional<String> id = 
-                        tree.get(ct).get("props").get("alpha_2").toString().isBlank() 
-                        ? Optional.empty() 
-                        : Optional.of(tree.get(ct).get("props").get("alpha_2").toString().replace("\"", ""));
-                LanguageInfo langInfo = new LanguageInfo(tree.get(ct).get("id").toString().replace("\"", ""),
-                        id,
-                        tree.get(ct).get("title").get("en").toString().replace("\"", ""));
-                languages.add(langInfo);
-            }
             
         }
         
-        public LanguageId setId2(String id2) throws IllegalArgumentException {
-            if (languages.stream().anyMatch(info -> info.id2.isPresent() && 
-                    info.id2.get().equals(id2))) {
-                this.id2 = Optional.of(id2);
-                return this;
-            }
-            else {
-                throw new IllegalArgumentException("No such ISO-639-2 language code");
-            }
+        private LanguageId setId2(String id2) throws IllegalArgumentException {
+            this.id2 = Optional.of(id2);
+            return this;
         }
         
-        public LanguageId setId3(String id3) throws IllegalArgumentException{
-            if (languages.stream().anyMatch(info -> info.id3.equals(id3))) {
-                this.id3 = Optional.of(id3);
-                return this;
-            }
-            else {
-                throw new IllegalArgumentException("No such ISO-639-3 language code");
-            }
+        private LanguageId setId3(String id3) throws IllegalArgumentException{
+            this.id3 = Optional.of(id3);
+            return this;
+            
         }
 
         @Override
@@ -540,12 +514,47 @@ public class ControlledVocabulary {
     }
 
     public static class LanguageIdFactory {
-        public static LanguageId usingId2(String id2) throws IOException {
-            return new LanguageId().setId2(id2);
+
+        ArrayList<LanguageId.LanguageInfo> languages = new ArrayList<>();
+        
+        public LanguageIdFactory() throws IOException {
+            ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
+            
+            TreeNode tree = objectMapper.createParser(this.getClass().getClassLoader()
+                    .getResourceAsStream("languages.yaml"))
+                    .readValueAsTree();
+            for (int ct = 0 ; ct < tree.size(); ct++) {
+                Optional<String> id = 
+                        tree.get(ct).get("props").get("alpha_2").toString().isBlank() 
+                        ? Optional.empty() 
+                        : Optional.of(tree.get(ct).get("props").get("alpha_2").toString().replace("\"", ""));
+                LanguageId.LanguageInfo langInfo = new LanguageId.LanguageInfo(tree.get(ct).get("id").toString().replace("\"", ""),
+                        id,
+                        tree.get(ct).get("title").get("en").toString().replace("\"", ""));
+                languages.add(langInfo);
+            }
         }
         
-        public static LanguageId usingId3(String id3) throws IOException {
-            return new LanguageId().setId3(id3);
+        
+        public LanguageId usingId2(String id2) throws IOException {
+            if (languages.stream().anyMatch(info -> info.id2.isPresent() && 
+                    info.id2.get().equals(id2))) {
+                return new LanguageId().setId2(id2);
+            }
+            else {
+                throw new IllegalArgumentException("No such ISO-639-2 language code");
+            }
+            
+        }
+        
+        public LanguageId usingId3(String id3) throws IOException {
+            if (languages.stream().anyMatch(info -> info.id3.equals(id3))) {
+                return new LanguageId().setId3(id3);
+            }
+            else {
+                throw new IllegalArgumentException("No such ISO-639-3 language code");
+            }
+            
         }
     }
     

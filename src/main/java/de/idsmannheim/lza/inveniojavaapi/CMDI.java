@@ -29,6 +29,7 @@ import org.jdom2.xpath.XPathFactory;
 public class CMDI {
     
     public static Metadata readCmdiMetadata(Document cmdiDocument) throws IllegalArgumentException, IOException {
+        ControlledVocabulary.LanguageIdFactory languageIdFactory = new ControlledVocabulary.LanguageIdFactory();
         List<Namespace> namespaces = List.of(
                 Namespace.getNamespace("cmd1", "http://www.clarin.eu/cmd/1"),
                 Namespace.getNamespace("cmd", "http://www.clarin.eu/cmd/"),
@@ -127,7 +128,7 @@ public class CMDI {
             String resourceName = cmdiResourceName.getText();
             metadata.addAdditionalTitles(List.of(new Metadata.AdditionalTitle(resourceName, 
                     new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle),
-                            new Metadata.LocalizedStrings().add(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId2("en")), "Alternative title")))));
+                            new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "Alternative title")))));
         }
         if (cmdiVersion != null && !cmdiVersion.getText().isBlank()) {
             metadata.setVersion(cmdiVersion.getText());
@@ -143,7 +144,7 @@ public class CMDI {
         if (cmdiSubjectLanguages != null && !cmdiSubjectLanguages.isEmpty()) {
             List<Metadata.Language> languages = new ArrayList<>();
             for (Element l : cmdiSubjectLanguages) {
-                languages.add(new Metadata.Language(ControlledVocabulary.LanguageIdFactory.usingId3(l.getText())));
+                languages.add(new Metadata.Language(languageIdFactory.usingId3(l.getText())));
             }
             metadata.addLanguages(languages);
         }
