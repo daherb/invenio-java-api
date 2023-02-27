@@ -4,19 +4,16 @@
  */
 package de.idsmannheim.lza.inveniojavaapi;
 
+import de.idsmannheim.lza.inveniojavaapi.cmdi.CmdiProfileMapping;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
-import org.jdom2.filter.ElementFilter;
-import org.jdom2.xpath.XPathFactory;
 
 /**
  *
@@ -28,51 +25,23 @@ import org.jdom2.xpath.XPathFactory;
  */
 public class CMDI {
     
-    public static Metadata readCmdiMetadata(Document cmdiDocument) throws IllegalArgumentException, IOException {
+    public static Metadata readCmdiMetadata(CmdiProfileMapping mapper) throws IllegalArgumentException, IOException {
         ControlledVocabulary.LanguageIdFactory languageIdFactory = new ControlledVocabulary.LanguageIdFactory();
-        List<Namespace> namespaces = List.of(
-                Namespace.getNamespace("cmd1", "http://www.clarin.eu/cmd/1"),
-                Namespace.getNamespace("cmd", "http://www.clarin.eu/cmd/"),
-                Namespace.getNamespace("cmdp", "http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1559563375778")
-        );
-        Element cmdiResourceName = XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceName",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
-        Element cmdiResourceTitle = XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceTitle" +
-                       "| /cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:title",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
-        Element cmdiResourceClass = XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceClass" +
-                      " | /cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:type",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
-        Element cmdiVersion = XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Version",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
+        Element cmdiResourceName = mapper.getResourceName();
+        Element cmdiResourceTitle = mapper.getResourceTitle();
+        Element cmdiResourceClass = mapper.getResourceClass();
+        Element cmdiVersion = mapper.getVersion();
         // LifeCycleStatus ignored
-        Element cmdiPublicationDate = XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate" + 
-                       "| /cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:issued",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
+        Element cmdiPublicationDate = mapper.getPublicationDate();
         // LastUpdated ignored
-        Element cmdiLegalOwner = XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LegalOwner",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
+        Element cmdiLegalOwner = mapper.getLegalOwner();
         // Genre ignored
         // FieldOfResearch ignored
-        Element cmdiLocation = XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Location",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument);
+        Element cmdiLocation = mapper.getLocation();
         // ModalityInfo ignored
-        List<Element> cmdiCreators = XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:Creation/cmdp:Creators/cmdp:Creator" +
-                       "| /cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:creator",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument);
+        List<Element> cmdiCreators = mapper.getCreators();
         // ...
-        List<Element> cmdiSubjectLanguages = XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:TextCorpusContext/cmdp:SubjectLanguages/cmdp:SubjectLanguage/cmdp:Language/cmdp:ISO639/cmdp:iso-639-3-code" +
-                       "| /cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:language",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument);
+        List<Element> cmdiSubjectLanguages = mapper.getSubjectLanguages();
         
         // Map mandatory fields
         // We cannot get the resource type directly from the metadata but we can
@@ -135,7 +104,7 @@ public class CMDI {
         }
         if (cmdiLocation != null) {
             // TODO: Split into components or get data in separate elements
-            String text = getAllText(cmdiLocation).stream().collect(Collectors.joining("\n"));
+            String text = CmdiProfileMapping.getAllText(cmdiLocation).stream().collect(Collectors.joining("\n"));
             if (!text.isBlank()) {
                 metadata.setLocations(new Metadata.Location(List.of(
                         new Metadata.Location.LocationFeature(Optional.empty(), new ArrayList<>(), Optional.of(text), Optional.of("Contact information")))));
@@ -150,13 +119,6 @@ public class CMDI {
         }
         return metadata;
     }
-    
-    // Gets all text from an element and its children
-    public static List<String> getAllText(Element e) {
-        List<String> result = new ArrayList<>(List.of(e.getTextNormalize()));
-        result.addAll(e.getChildren().stream().flatMap(c -> getAllText(c).stream()).filter(s -> !s.isBlank()).collect(Collectors.toList()));
-        return result;
-    }
-    
+
     private static final Logger LOG = Logger.getLogger(CMDI.class.getName());
 }
