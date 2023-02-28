@@ -4,9 +4,10 @@
  */
 package de.idsmannheim.lza.inveniojavaapi.cmdi;
 
+import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -38,23 +39,64 @@ public abstract class CmdiProfileMapping {
         return result;
     }
     
-    public abstract Element getResourceName();
+    /**
+     * Gets the name of the resource. Used as alternative title in Invenio
+     * @return the resource name if it exists
+     */
+    public abstract Optional<String> getResourceName();
     
-    public abstract Element getResourceTitle();
+    /**
+     * Gets the title of the resource. Used as the title in Invenio
+     * @return the title if it exists
+     */
+    public abstract Optional<String> getResourceTitle();
     
-    public abstract Element getResourceClass();
+    /**
+     * Gets the resource type or class. Used as the resource type in invenio
+     * @return the resource type if it exists
+     */
+    public abstract Optional<Metadata.ResourceType> getResourceType();
     
-    public abstract Element getVersion();
+    /**
+     * Gets the version. Used as version in Invenio
+     * @return the version as string if it exists
+     */
+    public abstract Optional<String> getVersion();
     
-    public abstract Element getPublicationDate();
+    /**
+     * Gets the publication date. Used as publication date in Invenio
+     * @return the publication date if it exists
+     */
+    public abstract Optional<Metadata.ExtendedDateTimeFormat0> getPublicationDate();
     
-    public abstract Element getLegalOwner();
+    /**
+     * Gets the legal owner of the resource. Used as the rights holder creators in Invenio
+     * @return the legal owner if it exists
+     */
+    public abstract Optional<String> getLegalOwner();
     
-    public abstract Element getLocation();
+    /**
+     * Gets the location. Used as a location in Invenio
+     * @return the location if it exists
+     */
+    public abstract Optional<String> getLocation();
     
-    public abstract List<Element> getCreators();
+    /**
+     * Gets the list of creators. Used as creators in Invenio
+     * @return potentially empty list of creators
+     */
+    public abstract List<String> getCreators();
     
-    public abstract List<Element> getSubjectLanguages();
-    
+    /**
+     * Gets the list of subject languages. Used as languages in Invenio
+     * @return potentially empty list of languages
+     */
+    public abstract List<String> getSubjectLanguages();
+
+    /**
+     * Gets the list of licenses. Used as rights in Invenio
+     * @return potentially empty list of licenses
+     */
+    public abstract List<String> getLicenses();
     
 }

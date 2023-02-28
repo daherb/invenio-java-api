@@ -27,95 +27,88 @@ public class CMDI {
     
     public static Metadata readCmdiMetadata(CmdiProfileMapping mapper) throws IllegalArgumentException, IOException {
         ControlledVocabulary.LanguageIdFactory languageIdFactory = new ControlledVocabulary.LanguageIdFactory();
-        Element cmdiResourceName = mapper.getResourceName();
-        Element cmdiResourceTitle = mapper.getResourceTitle();
-        Element cmdiResourceClass = mapper.getResourceClass();
-        Element cmdiVersion = mapper.getVersion();
+        Optional<String> cmdiResourceName = mapper.getResourceName();
+        Optional<String> cmdiResourceTitle = mapper.getResourceTitle();
+        Optional<Metadata.ResourceType> cmdiResourceType = mapper.getResourceType();
+        Optional<String> cmdiVersion = mapper.getVersion();
         // LifeCycleStatus ignored
-        Element cmdiPublicationDate = mapper.getPublicationDate();
+        Optional<Metadata.ExtendedDateTimeFormat0> cmdiPublicationDate = mapper.getPublicationDate();
         // LastUpdated ignored
-        Element cmdiLegalOwner = mapper.getLegalOwner();
+        Optional<String> cmdiLegalOwner = mapper.getLegalOwner();
         // Genre ignored
         // FieldOfResearch ignored
-        Element cmdiLocation = mapper.getLocation();
+        Optional<String> cmdiLocation = mapper.getLocation();
         // ModalityInfo ignored
-        List<Element> cmdiCreators = mapper.getCreators();
+        List<String> cmdiCreators = mapper.getCreators();
         // ...
-        List<Element> cmdiSubjectLanguages = mapper.getSubjectLanguages();
+        List<String> cmdiSubjectLanguages = mapper.getSubjectLanguages();
+        
+        List<String> cmdiLicense = mapper.getLicenses();
         
         // Map mandatory fields
         // We cannot get the resource type directly from the metadata but we can
         // try to map the ResourceClass (which is currently hardcoded to Corpus)
         // e.g. to PublicationAnnotationCollection
-        Metadata.ResourceType resourceType;
-        if (cmdiResourceClass != null && !cmdiResourceClass.getText().isBlank()) {
-            if (cmdiResourceClass.getText().equalsIgnoreCase("Corpus")
-                    || cmdiResourceClass.getText().equalsIgnoreCase("collection")) {
-                //  Either Dataset or PublicationAnnotationCollection seem reasonable choices (see schema.org)
-                resourceType = new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.PublicationAnnotationCollection));
-            }
-            else {
-                resourceType = new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.Other));
-            }
-        }
-        else {
-           resourceType = new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.Other));
-        }
-        // Potentially not always present. Use current timestamp if missing
+        //  Either Dataset or PublicationAnnotationCollection seem reasonable choices (see schema.org)
+        Metadata.ResourceType resourceType = cmdiResourceType
+                .orElse(new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.Other)));
+//                    || cmdiResourceType.getText().equalsIgnoreCase("collection")) {
+        // Potentially not always present. Use current year if missing
         // Try to parse the publication date
-        Metadata.ExtendedDateTimeFormat0 publicationDate;
-        if (cmdiPublicationDate != null && ! cmdiPublicationDate.getText().isBlank()) {
-            publicationDate = Metadata.ExtendedDateTimeFormat0.parseDateToExtended(cmdiPublicationDate.getText());
-        }
-        // Otherwise just use current year
-        else {
-            publicationDate = new Metadata.ExtendedDateTimeFormat0(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
-        }
-        String title = "";
-        if (cmdiResourceTitle != null && !cmdiResourceTitle.getText().isBlank()) {
-            title = cmdiResourceTitle.getText();
-        }
+        Metadata.ExtendedDateTimeFormat0 publicationDate = cmdiPublicationDate
+                .orElse(new Metadata.ExtendedDateTimeFormat0(String.valueOf(Calendar.getInstance().get(Calendar.YEAR))));
+        // Either title or the string "n/a"
+        String title = cmdiResourceTitle.orElse("n/a");
         // Either add rightsholders or creators as creators
         ArrayList<Metadata.Creator> creators = new ArrayList<>();
-        if (cmdiLegalOwner != null && !cmdiLegalOwner.getText().isBlank()) {
-            Metadata.Creator creator = new Metadata.Creator(new Metadata.PersonOrOrg(cmdiLegalOwner.getText()))
+        if (cmdiLegalOwner.isPresent()) {
+            Metadata.Creator creator = new Metadata.Creator(new Metadata.PersonOrOrg(cmdiLegalOwner.get()))
                     .setRole(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.RightsHolder));
             creators.add(creator);
+            
         }
-        if (cmdiCreators != null && !cmdiCreators.isEmpty()) {
-            for (Element c : cmdiCreators) {
-                creators.add(new Metadata.Creator(new Metadata.PersonOrOrg(c.getText()))
+        for (String c : cmdiCreators) {
+                creators.add(new Metadata.Creator(new Metadata.PersonOrOrg(c))
                         .setRole(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.DataCollector)));
-            }
         }
         Metadata metadata = new Metadata(resourceType, creators, title, publicationDate);
         // Add optional fields if they exist
         /* TODO: 
         - Map missing fields
         */
-        if (cmdiResourceName != null && !cmdiResourceName.getText().isBlank()) {
-            String resourceName = cmdiResourceName.getText();
-            metadata.addAdditionalTitles(List.of(new Metadata.AdditionalTitle(resourceName, 
+        if (cmdiResourceName.isPresent()) {
+            metadata.addAdditionalTitles(List.of(new Metadata.AdditionalTitle(cmdiResourceName.get(), 
                     new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle),
                             new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "Alternative title")))));
         }
-        if (cmdiVersion != null && !cmdiVersion.getText().isBlank()) {
-            metadata.setVersion(cmdiVersion.getText());
+        if (cmdiVersion.isPresent()) {
+            metadata.setVersion(cmdiVersion.get());
         }
-        if (cmdiLocation != null) {
+        if (cmdiLocation.isPresent()) {
             // TODO: Split into components or get data in separate elements
-            String text = CmdiProfileMapping.getAllText(cmdiLocation).stream().collect(Collectors.joining("\n"));
-            if (!text.isBlank()) {
+            if (!cmdiLocation.get().isBlank()) {
                 metadata.setLocations(new Metadata.Location(List.of(
-                        new Metadata.Location.LocationFeature(Optional.empty(), new ArrayList<>(), Optional.of(text), Optional.of("Contact information")))));
+                        new Metadata.Location.LocationFeature(Optional.empty(), new ArrayList<>(), cmdiLocation, Optional.of("Contact information")))));
             }
         }
-        if (cmdiSubjectLanguages != null && !cmdiSubjectLanguages.isEmpty()) {
-            List<Metadata.Language> languages = new ArrayList<>();
-            for (Element l : cmdiSubjectLanguages) {
-                languages.add(new Metadata.Language(languageIdFactory.usingId3(l.getText())));
-            }
+        List<Metadata.Language> languages = new ArrayList<>();
+        for (String l : cmdiSubjectLanguages) {
+            languages.add(new Metadata.Language(languageIdFactory.usingId3(l)));
+        }
+        if (!languages.isEmpty()) {
             metadata.addLanguages(languages);
+        }
+        List<Metadata.License> rights = new ArrayList<>();
+        for (String l : cmdiLicense) {
+            
+            Metadata.License license = new Metadata.License(
+                    Optional.empty(),
+                    new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "n/a"),
+                    new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), l));
+            rights.add(license);
+        }
+        if (!rights.isEmpty()) {
+            metadata.addRights(rights);
         }
         return metadata;
     }
