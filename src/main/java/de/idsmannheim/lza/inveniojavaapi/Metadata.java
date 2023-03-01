@@ -725,29 +725,44 @@ public class Metadata {
          * @throws java.lang.IllegalArgumentException
          */
         public static ExtendedDateTimeFormat0 parseDateToExtended(String dateString) throws IllegalArgumentException {
-            Pattern p = Pattern.compile("(?<startYear>\\d{4})(?:-(?<startMonth>\\d{2}))?(?:-(?<startDay>\\d{2}))?.*(/(?<endYear>\\d{4})(?:-(?<endMonth>\\d{2}))?(?:-(?<endDay>\\d{2}))?.*)?");
-            Matcher m = p.matcher(dateString);
-            if (m.matches()) {
-                ExtendedDateTimeFormat0 date = new ExtendedDateTimeFormat0(m.group("startYear"));
-                if (m.group("startMonth") != null)
-                    date.addStartMonth(m.group("startMonth"));
-                if (m.group("startDay") != null)
-                    date.addStartDay(m.group("startDay"));
-                if (m.group("endYear") != null)
-                    date.addEndYear(m.group("endYear"));
-                if (m.group("endMonth") != null)
-                    date.addEndMonth(m.group("endMonth"));
-                if (m.group("endDay") != null)
-                    date.addEndDay(m.group("endDay"));
+            Pattern p1 = Pattern.compile("(?<startYear>\\d{4})(?:-(?<startMonth>\\d{2}))?(?:-(?<startDay>\\d{2}))?.*(?:/(?<endYear>\\d{4})(?:-(?<endMonth>\\d{2}))?(?:-(?<endDay>\\d{2}))?.*)?");
+            Matcher m1 = p1.matcher(dateString);
+            Pattern p2 = Pattern.compile("(?:(?<startDay>\\d{2})-)?(?:(?<startMonth>\\d{2})-)?(?<startYear>\\d{4})(?:/(?:(?<endDay>\\d{2})-)?(?:(?<endMonth>\\d{2})-)?(?<endYear>\\d{4}))?");
+            Matcher m2 = p2.matcher(dateString);
+            if (m1.matches()) {
+                ExtendedDateTimeFormat0 date = new ExtendedDateTimeFormat0(m1.group("startYear"));
+                if (m1.group("startMonth") != null)
+                    date.addStartMonth(m1.group("startMonth"));
+                if (m1.group("startDay") != null)
+                    date.addStartDay(m1.group("startDay"));
+                if (m1.group("endYear") != null)
+                    date.addEndYear(m1.group("endYear"));
+                if (m1.group("endMonth") != null)
+                    date.addEndMonth(m1.group("endMonth"));
+                if (m1.group("endDay") != null)
+                    date.addEndDay(m1.group("endDay"));
+                return date;
+            }
+            // Try non-iso date format
+            else if (m2.matches()) {
+                ExtendedDateTimeFormat0 date = new ExtendedDateTimeFormat0(m2.group("startYear"));
+                if (m2.group("startMonth") != null)
+                    date.addStartMonth(m2.group("startMonth"));
+                if (m2.group("startDay") != null)
+                    date.addStartDay(m2.group("startDay"));
+                if (m2.group("endYear") != null)
+                    date.addEndYear(m2.group("endYear"));
+                if (m2.group("endMonth") != null)
+                    date.addEndMonth(m2.group("endMonth"));
+                if (m2.group("endDay") != null)
+                    date.addEndDay(m2.group("endDay"));
                 return date;
             }
             else {
                 throw new IllegalArgumentException("Invalid date format: " + dateString);
             }
         }
-        
     }
-    
         
     /**
      * The lang field is as follows:
