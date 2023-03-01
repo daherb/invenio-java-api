@@ -417,7 +417,7 @@ public class ControlledVocabulary {
     /**
      * See https://raw.githubusercontent.com/inveniosoftware/invenio-rdm-records/master/invenio_rdm_records/fixtures/data/vocabularies/languages.yaml
      * 
-     * Both ISO-639-2 and ISO-639-3 language codes loaded from a resource
+     * Both ISO-639-1 and ISO-639-3 language codes loaded from a resource
      */
     public static class LanguageId {
 
@@ -524,12 +524,12 @@ public class ControlledVocabulary {
                     .getResourceAsStream("languages.yaml"))
                     .readValueAsTree();
             for (int ct = 0 ; ct < tree.size(); ct++) {
-                Optional<String> id = 
-                        tree.get(ct).get("props").get("alpha_2").toString().isBlank() 
+                Optional<String> id2 = 
+                        tree.get(ct).get("props").get("alpha_2").toString().replace("\"", "").isBlank() 
                         ? Optional.empty() 
                         : Optional.of(tree.get(ct).get("props").get("alpha_2").toString().replace("\"", ""));
                 LanguageId.LanguageInfo langInfo = new LanguageId.LanguageInfo(tree.get(ct).get("id").toString().replace("\"", ""),
-                        id,
+                        id2,
                         tree.get(ct).get("title").get("en").toString().replace("\"", ""));
                 languages.add(langInfo);
             }
@@ -542,7 +542,7 @@ public class ControlledVocabulary {
                 return new LanguageId().setId2(id2);
             }
             else {
-                throw new IllegalArgumentException("No such ISO-639-2 language code");
+                throw new IllegalArgumentException("No such ISO-639-1 language code");
             }
             
         }
@@ -555,6 +555,33 @@ public class ControlledVocabulary {
                 throw new IllegalArgumentException("No such ISO-639-3 language code");
             }
             
+        }
+
+        /**
+         * Convert an ISO-639-1 code to ISO-639-3
+         * @param id2 the two letter ISO-639-1 code
+         * @return the three letter ISO-639-3 code
+         */
+        public String id2toId3(String id2) {
+            Optional<LanguageId.LanguageInfo> code = languages.stream()
+                    .filter(info -> info.id2.isPresent() && info.id2.get().equals(id2))
+                    .findFirst();
+            return code.orElseThrow(() -> new IllegalArgumentException("No such ISO-639-1 code: " + id2))
+                    .id3;
+            
+        }
+        
+        /**
+         * Convert an ISO-639-3 code to ISO-639-1
+         * @param id3 the three letter ISO-639-3 code
+         * @return the two letter ISO-639-1 code
+         */
+        public String id3toId2(String id3) {
+            Optional<LanguageId.LanguageInfo> code = languages.stream()
+                    .filter(info -> info.id3.equals(id3))
+                    .findFirst();
+            return code.orElseThrow(() -> new IllegalArgumentException("No such ISO-639-3 code: " + id3))
+                    .id2.orElseThrow(() -> new IllegalArgumentException("No ISO-639-1 code for ISO-639-3 code: " + id3));
         }
     }
     
