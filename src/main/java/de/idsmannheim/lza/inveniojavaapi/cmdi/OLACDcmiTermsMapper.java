@@ -8,7 +8,9 @@ import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
@@ -38,19 +40,14 @@ public class OLACDcmiTermsMapper extends CmdiProfileMapping {
 
     @Override
     public Optional<String> getResourceTitle() {
-        return Optional.ofNullable(XPathFactory.instance()
-                .compile("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:title",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument))
-                .map(Element::getText);
+        return getOptionalText("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:title");
     }
 
     @Override
     public Optional<Metadata.ResourceType> getResourceType() {
-        return Optional.ofNullable(XPathFactory.instance()
-                .compile("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:type",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument))
+        return getOptionalText("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:type")
                 .map((t) -> {
-                    if (t.getText().equals("collection")) {
+                    if (t.equals("collection")) {
                         return new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.PublicationAnnotationCollection));
                     }
                     else {
@@ -66,20 +63,13 @@ public class OLACDcmiTermsMapper extends CmdiProfileMapping {
 
     @Override
     public Optional<Metadata.ExtendedDateTimeFormat0> getPublicationDate() {
-        return Optional.ofNullable(XPathFactory.instance()
-                .compile("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:issued",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument))
-                .map((d) -> {
-                    return Metadata.ExtendedDateTimeFormat0.parseDateToExtended(d.getText());
-                });
+        return getOptionalText("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:issued")
+                .map((d) -> Metadata.ExtendedDateTimeFormat0.parseDateToExtended(d));
     }
 
     @Override
     public Optional<String> getLegalOwner() {
-        return Optional.ofNullable(XPathFactory.instance()
-                .compile("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:publisher",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument))
-                .map(Element::getText);
+        return getOptionalText("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:publisher");
     }
 
     @Override
@@ -89,26 +79,21 @@ public class OLACDcmiTermsMapper extends CmdiProfileMapping {
 
     @Override
     public List<String> getCreators() {
-        return XPathFactory.instance()
-                .compile("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:creator",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)
-                .stream().map(Element::getText).toList();
+        return getTextList("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:creator");
     }
 
     @Override
     public List<String> getSubjectLanguages() {
-        return XPathFactory.instance()
-                .compile("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:language",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)
-                .stream().map(Element::getText).toList();
+        return getTextList("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:language");
     }
 
     @Override
     public List<String> getLicenses() {
-        return XPathFactory.instance()
-                .compile("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:rights",
-                        new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)
-                .stream().map(Element::getText).toList();
+        return getTextList("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:rights");
     }
     
+    @Override
+    public Map<String, String> getDescription() {
+        return getLangMap("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:Description");
+    }
 }

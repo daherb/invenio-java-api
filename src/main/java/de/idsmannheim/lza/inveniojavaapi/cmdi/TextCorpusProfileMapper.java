@@ -8,6 +8,7 @@ import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.jdom2.Document;
@@ -35,25 +36,17 @@ private final List<Namespace> namespaces = List.of(
     
     @Override
     public Optional<String> getResourceName() {
-        return Optional.ofNullable(XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceName",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument))
-                .map(Element::getText);
+        return getOptionalText("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceName");
     }
 
     @Override
     public Optional<String> getResourceTitle() {
-        return Optional.ofNullable(XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceTitle",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument)).map(Element::getText);
+        return getOptionalText("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceTitle");
     }
 
     @Override
     public Optional<Metadata.ResourceType> getResourceType() {
-        return Optional.ofNullable(XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceClass",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument))
-                .map(Element::getText)
+        return getOptionalText("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:ResourceClass")
                 .map((t) -> {
                     if (t.equals("Corpus")) {
                         return new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.PublicationAnnotationCollection));
@@ -66,60 +59,45 @@ private final List<Namespace> namespaces = List.of(
 
     @Override
     public Optional<String> getVersion() {
-        return Optional.ofNullable(XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Version",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument))
-                .map(Element::getText);
+        return getOptionalText("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Version");
     }
 
     @Override
     public Optional<Metadata.ExtendedDateTimeFormat0> getPublicationDate() {
-        return Optional.of(XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument))
+        return getOptionalText("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate")
                 .map((d) -> {
-                    return Metadata.ExtendedDateTimeFormat0.parseDateToExtended(d.getText());
+                    return Metadata.ExtendedDateTimeFormat0.parseDateToExtended(d);
                 });
     }
 
     @Override
     public Optional<String> getLegalOwner() {
-        return Optional.ofNullable(XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LegalOwner",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument))
-                .map(Element::getText);
+        return getOptionalText("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LegalOwner");
     }
 
     @Override
     public Optional<String> getLocation() {
-        return Optional.ofNullable(XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Location",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument))
+        return getOptionalElement("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Location")
                 .map((e) -> CmdiProfileMapping.getAllText(e).stream().collect(Collectors.joining("\n")));
     }
 
     @Override
     public List<String> getCreators() {
-        return XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:Creation/cmdp:Creators/cmdp:Creator",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)
-                .stream().map(Element::getText).toList();
+        return getTextList("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:Creation/cmdp:Creators/cmdp:Creator");
     }
 
     @Override
     public List<String> getSubjectLanguages() {
-        return XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:TextCorpusContext/cmdp:SubjectLanguages/cmdp:SubjectLanguage/cmdp:Language/cmdp:ISO639/cmdp:iso-639-3-code",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)
-                .stream().map(Element::getText).toList();
+        return getTextList("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:TextCorpusContext/cmdp:SubjectLanguages/cmdp:SubjectLanguage/cmdp:Language/cmdp:ISO639/cmdp:iso-639-3-code");
     }
 
     @Override
     public List<String> getLicenses() {
-        return XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:Access",
-                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)
-                .stream().map((e) -> CmdiProfileMapping.getAllText(e).stream().collect(Collectors.joining("\n")))
-                        .toList();
+        return getTextList("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:Access");
+    }
+    
+    @Override
+    public Map<String, String> getDescription() {
+        return getLangMap("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInformation/cmdp:Descriptions/cmdp:Description");
     }
 }

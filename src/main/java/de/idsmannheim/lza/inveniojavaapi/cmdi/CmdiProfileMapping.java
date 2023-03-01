@@ -6,12 +6,17 @@ package de.idsmannheim.lza.inveniojavaapi.cmdi;
 
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
+import org.jdom2.filter.ElementFilter;
+import org.jdom2.xpath.XPathFactory;
 
 /**
  *
@@ -99,4 +104,44 @@ public abstract class CmdiProfileMapping {
      */
     public abstract List<String> getLicenses();
     
+    /**
+     * Gets the description
+     * @return the description if it exists
+     */
+    public abstract Map<String,String> getDescription();
+    
+    Optional<Element> getOptionalElement(String xpath) {
+        return Optional.ofNullable(XPathFactory.instance()
+                .compile(xpath,
+                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument));
+    }
+    
+    Optional<String> getOptionalText(String xpath) {
+        return getOptionalElement(xpath)
+                .map(Element::getText);
+    }
+    
+    List<String> getTextList(String xpath) {
+        return XPathFactory.instance()
+                .compile("/cmd1:CMD/cmd1:Components/cmdp:SpeechCorpusProfile/cmdp:Creation/cmdp:Creators/cmdp:Creator",
+                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)
+                .stream().map(Element::getText).toList();
+    }
+    Map<String,String> getLangMap(String xpath) {
+        HashMap<String, String> descriptions = new HashMap<>();
+        for (Element e : XPathFactory.instance()
+                .compile(xpath,
+                        new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)) {
+            LOG.info(e.getAttributes().stream().map((a) -> a.getNamespace().toString()).toList().toString());
+            // Try to find a language attribute
+            Optional<String> lang = Optional.ofNullable(e.getAttributeValue("lang", Namespace.getNamespace("xml", "http://www.w3.org/XML/1998/namespace")));
+            lang = lang.or(() -> Optional.ofNullable(e.getAttributeValue("LanguageID")));
+            String value = CmdiProfileMapping.getAllText(e).stream().collect(Collectors.joining("\n"));
+            // If language is missing, default to english
+            descriptions.compute(lang.orElse("en"), (k,v) -> v == null ? value : v + "\n" + value);
+        }
+        LOG.info(descriptions.toString());
+        return descriptions;
+    }
+    private static final Logger LOG = Logger.getLogger(CmdiProfileMapping.class.getName());
 }
