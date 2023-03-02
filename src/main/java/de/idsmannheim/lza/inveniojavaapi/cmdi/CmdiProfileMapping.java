@@ -132,7 +132,6 @@ public abstract class CmdiProfileMapping {
         for (Element e : XPathFactory.instance()
                 .compile(xpath,
                         new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)) {
-            LOG.info(e.getAttributes().stream().map((a) -> a.getNamespace().toString()).toList().toString());
             // Try to find a language attribute
             Optional<String> lang = Optional.ofNullable(e.getAttributeValue("lang", Namespace.getNamespace("xml", "http://www.w3.org/XML/1998/namespace")));
             lang = lang.or(() -> Optional.ofNullable(e.getAttributeValue("LanguageID")));
