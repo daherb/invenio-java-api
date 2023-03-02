@@ -139,7 +139,6 @@ public abstract class CmdiProfileMapping {
             // If language is missing, default to english
             descriptions.compute(lang.orElse("en"), (k,v) -> v == null ? value : v + "\n" + value);
         }
-        LOG.info(descriptions.toString());
         return descriptions;
     }
     private static final Logger LOG = Logger.getLogger(CmdiProfileMapping.class.getName());
