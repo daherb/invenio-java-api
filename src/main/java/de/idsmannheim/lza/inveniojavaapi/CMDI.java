@@ -9,11 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import org.jdom2.Element;
-import org.jdom2.Namespace;
 
 /**
  *
@@ -45,6 +43,8 @@ public class CMDI {
         
         List<String> cmdiLicense = mapper.getLicenses();
         
+        Map<String, String> cmdiDescription = mapper.getDescription();
+        
         // Map mandatory fields
         // We cannot get the resource type directly from the metadata but we can
         // try to map the ResourceClass (which is currently hardcoded to Corpus)
@@ -52,7 +52,6 @@ public class CMDI {
         //  Either Dataset or PublicationAnnotationCollection seem reasonable choices (see schema.org)
         Metadata.ResourceType resourceType = cmdiResourceType
                 .orElse(new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.Other)));
-//                    || cmdiResourceType.getText().equalsIgnoreCase("collection")) {
         // Potentially not always present. Use current year if missing
         // Try to parse the publication date
         Metadata.ExtendedDateTimeFormat0 publicationDate = cmdiPublicationDate
@@ -63,13 +62,13 @@ public class CMDI {
         ArrayList<Metadata.Creator> creators = new ArrayList<>();
         if (cmdiLegalOwner.isPresent()) {
             Metadata.Creator creator = new Metadata.Creator(new Metadata.PersonOrOrg(cmdiLegalOwner.get()))
-                    .setRole(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.RightsHolder));
+                    .setRole(new Metadata.Creator.Role(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.RightsHolder)));
             creators.add(creator);
             
         }
         for (String c : cmdiCreators) {
                 creators.add(new Metadata.Creator(new Metadata.PersonOrOrg(c))
-                        .setRole(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.DataCollector)));
+                        .setRole(new Metadata.Creator.Role(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.DataCollector))));
         }
         Metadata metadata = new Metadata(resourceType, creators, title, publicationDate);
         // Add optional fields if they exist

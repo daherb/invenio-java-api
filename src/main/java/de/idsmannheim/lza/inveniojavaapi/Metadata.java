@@ -209,11 +209,56 @@ public class Metadata {
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonDeserialize(using = CreatorDeserializer.class)
     public static class Creator {
+        @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+        @JsonDeserialize(using = CreatorDeserializer.CreatorRoleDeserializer.class)
+        public static class Role {
+            
+            @JsonProperty("id")
+                    ControlledVocabulary.Role id;
+            
+            public Role(ControlledVocabulary.Role id) {
+                this.id = id;
+            }
+            
+            @Override
+            public int hashCode() {
+                int hash = 5;
+                hash = 13 * hash + Objects.hashCode(this.id);
+                return hash;
+            }
+            
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj) {
+                    return true;
+                }
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final Role other = (Role) obj;
+                return Objects.equals(this.id, other.id);
+            }
+            
+            @Override
+            public String toString() {
+                return "Role{" + "id=" + id + '}';
+            }
+
+            @Override
+            protected Object clone() throws CloneNotSupportedException {
+                return new Creator.Role(id);
+            }
+            
+            
+        }
         
         @JsonProperty("person_or_org")
         PersonOrOrg personOrOrg;
         @JsonProperty("role")
-        Optional<ControlledVocabulary.Role> role = Optional.empty();
+        Optional<Creator.Role> role = Optional.empty();
         @JsonProperty("affiliations")
         ArrayList<Affiliation> affiliations = new ArrayList<>();
         
@@ -222,7 +267,7 @@ public class Metadata {
             this.personOrOrg = personOrOrg;
         }
         
-        public Creator setRole(ControlledVocabulary.Role role) {
+        public Creator setRole(Creator.Role role) {
             this.role = Optional.of(role);
             return this;
         }
@@ -241,7 +286,7 @@ public class Metadata {
         protected Object clone() throws CloneNotSupportedException {
             Creator creator = new Creator((PersonOrOrg) personOrOrg.clone());
             if (role.isPresent())
-                creator.setRole((ControlledVocabulary.Role) role.get().clone());
+                creator.setRole((Creator.Role) role.get().clone());
             creator.addAffiliations((List<Affiliation>) affiliations.clone());
             return creator;
         }
