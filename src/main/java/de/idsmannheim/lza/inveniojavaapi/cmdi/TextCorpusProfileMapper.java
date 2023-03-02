@@ -98,6 +98,6 @@ private final List<Namespace> namespaces = List.of(
     
     @Override
     public Map<String, String> getDescription() {
-        return getLangMap("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInformation/cmdp:Descriptions/cmdp:Description");
+        return getLangMap("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Descriptions/cmdp:Description");
     }
 }

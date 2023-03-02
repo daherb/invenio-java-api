@@ -98,6 +98,6 @@ public class SpeechCorpusProfileMapper extends CmdiProfileMapping {
 
     @Override
     public Map<String, String> getDescription() {
-        return getLangMap("/cmd1:CMD/cmd1:Components/cmdp:SpeechCorpusProfile//cmdp:Description");
+        return getLangMap("/cmd1:CMD/cmd1:Components/cmdp:SpeechCorpusProfile/cmdp:GeneralInfo/cmdp:Descriptions/cmdp:Description");
     }
 }
