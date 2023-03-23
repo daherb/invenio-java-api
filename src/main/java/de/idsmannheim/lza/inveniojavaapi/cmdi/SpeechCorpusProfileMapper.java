@@ -6,6 +6,7 @@ package de.idsmannheim.lza.inveniojavaapi.cmdi;
 
 import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,10 @@ public class SpeechCorpusProfileMapper extends CmdiProfileMapping {
     public Optional<Metadata.ExtendedDateTimeFormat0> getPublicationDate() {
         return getOptionalText("/cmd1:CMD/cmd1:Components/cmdp:SpeechCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate")
                 .map((d) -> {
-                    return Metadata.ExtendedDateTimeFormat0.parseDateToExtended(d);
+                    if (!d.isEmpty())
+                        return Metadata.ExtendedDateTimeFormat0.parseDateToExtended(d);
+                    else
+                        return new Metadata.ExtendedDateTimeFormat0(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
                 });
     }
 

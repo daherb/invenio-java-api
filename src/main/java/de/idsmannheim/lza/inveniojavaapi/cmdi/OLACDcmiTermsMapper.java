@@ -6,6 +6,7 @@ package de.idsmannheim.lza.inveniojavaapi.cmdi;
 
 import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +65,12 @@ public class OLACDcmiTermsMapper extends CmdiProfileMapping {
     @Override
     public Optional<Metadata.ExtendedDateTimeFormat0> getPublicationDate() {
         return getOptionalText("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:issued")
-                .map((d) -> Metadata.ExtendedDateTimeFormat0.parseDateToExtended(d));
+                .map((d) -> {
+                    if (!d.isEmpty())
+                        return Metadata.ExtendedDateTimeFormat0.parseDateToExtended(d);
+                    else
+                        return new Metadata.ExtendedDateTimeFormat0(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+                });
     }
 
     @Override
