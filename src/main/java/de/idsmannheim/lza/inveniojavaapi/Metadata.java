@@ -5,6 +5,7 @@
 package de.idsmannheim.lza.inveniojavaapi;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -2835,6 +2836,16 @@ public class Metadata {
         this.publicationDate = publicationDate;
     }
 
+    /**
+     * Overwrites the title
+     * @param title the new title
+     */
+    @JsonIgnore
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    
     public Metadata addAdditionalTitles(
             /**
              * Additional titles (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#additional-titles-0-n)
