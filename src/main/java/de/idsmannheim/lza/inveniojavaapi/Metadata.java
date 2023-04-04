@@ -1924,7 +1924,14 @@ public class Metadata {
                 return new RelationType(id, (LocalizedStrings) title.clone());
             }
 
-            
+            public ControlledVocabulary.RelationTypeId getId() {
+                return id;
+            }
+
+            public LocalizedStrings getTitle() {
+                return title;
+            }
+
             @Override
             public int hashCode() {
                 int hash = 5;
@@ -1971,6 +1978,14 @@ public class Metadata {
             public RelatedResourceType(ControlledVocabulary.RelatedResourceType id, LocalizedStrings title) {
                 this.id = id;
                 this.title.addAll(title);
+            }
+
+            public ControlledVocabulary.RelatedResourceType getId() {
+                return id;
+            }
+
+            public LocalizedStrings getTitle() {
+                return title;
             }
 
             @Override
@@ -2026,6 +2041,22 @@ public class Metadata {
         public RelatedIdentifier setResourceType(RelatedResourceType resourceType) {
             this.resourceType = Optional.of(resourceType);
             return this;
+        }
+
+        public String getIdentifier() {
+            return identifier;
+        }
+
+        public ControlledVocabulary.RelatedRecordIdentifierScheme getScheme() {
+            return scheme;
+        }
+
+        public RelationType getRelationType() {
+            return relationType;
+        }
+
+        public Optional<RelatedResourceType> getResourceType() {
+            return resourceType;
         }
 
         @Override
