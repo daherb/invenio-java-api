@@ -81,7 +81,7 @@ public class FilesTest {
         link.put("iiif_base", "{scheme+hostname}/api/iiif/record:8a4dq-z5237:your_file.png");
         link.put("iiif_info", "{scheme+hostname}/api/iiif/record:8a4dq-z5237:your_file.png/info.json");
         link.put("iiif_api", "{scheme+hostname}/api/iiif/record:8a4dq-z5237:your_file.png/full/full/0/default.png");
-        files.addEntries(new HashMap<>(Collections.singletonMap("paper.pdf", 
+        files.addEntriesMap(new HashMap<>(Collections.singletonMap("paper.pdf", 
                 new Files.FileEntry("<bucket-id>", "md5:abcdef...", created, 
                         "<file-id>", "paper.pdf", "application/pdf", 12345, 
                         "completed", "A", updated, "<object-version-id>")

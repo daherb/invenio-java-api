@@ -319,7 +319,9 @@ public class Files {
     boolean enabled;
     // Antries can either be a list (e.g. when listing draft files) or a map from file name to file entry (e.g. in metadata)
     // JSON property is defined on the getter
-    Either<ArrayList<FileEntry>,HashMap<String,FileEntry>> entries;
+    // Either<ArrayList<FileEntry>,HashMap<String,FileEntry>> entries;
+    ArrayList<FileEntry> entriesList = new ArrayList<>();
+    HashMap<String, FileEntry> entriesMap = new HashMap<String, FileEntry>();
     // HashMap<String, FileEntry> entries = new HashMap<>();
     @JsonProperty("default_preview")
     Optional<String> defaultPreview = Optional.empty();
@@ -328,19 +330,21 @@ public class Files {
         this.enabled = enabled;
     }
     
-    public Files addEntries(HashMap<String, FileEntry> entries) {
-        if (this.entries == null)
-            this.entries = Either.right(entries);
-        else
-            this.entries.get().putAll(entries);
+    public Files addEntriesMap(HashMap<String, FileEntry> entries) {
+//        if (this.entries == null)
+//            this.entries = Either.right(entries);
+//        else
+//            this.entries.get().putAll(entries);
+        this.entriesMap.putAll(entries);
         return this;
     }
     
-    public Files addEntries(ArrayList<FileEntry> entries) {
-        if (this.entries == null)
-            this.entries = Either.left(entries);
-        else
-            this.entries.getLeft().addAll(entries);
+    public Files addEntriesList(ArrayList<FileEntry> entries) {
+//        if (this.entries == null)
+//            this.entries = Either.left(entries);
+//        else
+//            this.entries.getLeft().addAll(entries);
+        this.entriesList.addAll(entries);
         return this;
     }
     
@@ -351,19 +355,27 @@ public class Files {
 
     @JsonProperty("entries")
     public Object getEntries() {
-        if (this.entries.isLeft())
-            return this.entries.getLeft();
-        else
-            return this.entries.get();
+//        if (this.entries.isLeft())
+//            return this.entries.getLeft();
+//        else
+//            return this.entries.get();
+        if (!this.entriesMap.isEmpty()) {
+            return this.entriesMap;
+        }
+        else {
+            return this.entriesList;
+        }
     }
 
     @Override
     protected Object clone() {
         Files files = new Files(enabled);
-        if (entries.isLeft())
-            files.addEntries((ArrayList<FileEntry>) entries.getLeft().clone());
-        else
-            files.addEntries((HashMap<String, FileEntry>) entries.get().clone());
+        files.addEntriesMap(entriesMap);
+        files.addEntriesList(entriesList);
+//        if (entries.isLeft())
+//            files.addEntries((ArrayList<FileEntry>) entries.getLeft().clone());
+//        else
+//            files.addEntries((HashMap<String, FileEntry>) entries.get().clone());
         if (defaultPreview.isPresent())
             files.setDefaultPreview(defaultPreview.get());
         return files;
@@ -374,7 +386,8 @@ public class Files {
     public int hashCode() {
         int hash = 5;
         hash = 89 * hash + (this.enabled ? 1 : 0);
-        hash = 89 * hash + Objects.hashCode(this.entries);
+        hash = 89 * hash + Objects.hashCode(this.entriesMap);
+        hash = 89 * hash + Objects.hashCode(this.entriesList);
         hash = 89 * hash + Objects.hashCode(this.defaultPreview);
         return hash;
     }
@@ -394,7 +407,10 @@ public class Files {
         if (this.enabled != other.enabled) {
             return false;
         }
-        if (!Objects.equals(this.entries, other.entries)) {
+        if (!Objects.equals(this.entriesMap, other.entriesMap)) {
+            return false;
+        }
+        if (!Objects.equals(this.entriesList, other.entriesList)) {
             return false;
         }
         return Objects.equals(this.defaultPreview, other.defaultPreview);
@@ -402,7 +418,7 @@ public class Files {
 
     @Override
     public String toString() {
-        return "Files{" + "enabled=" + enabled + ", entries=" + entries + ", defaultPreview=" + defaultPreview + '}';
+        return "Files{" + "enabled=" + enabled + ", entriesMap=" + entriesMap + ", entriesList=" + entriesList + ", defaultPreview=" + defaultPreview + '}';
     }
     
     

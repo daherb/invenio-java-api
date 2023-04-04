@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.Files;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 /**
  *
@@ -98,10 +100,10 @@ public class FilesDeserializer extends StdDeserializer<Files> {
         Files files = new Files(enabled);
         if (node.has("entries")) {
             if (node.get("entries").isArray()) {
-                files.addEntries((ArrayList < Files.FileEntry >) om.readerForListOf(Files.FileEntry.class).readValue(node.get("entries").toString()));
+                files.addEntriesList((ArrayList < Files.FileEntry >) om.readerForListOf(Files.FileEntry.class).readValue(node.get("entries").toString()));
             }
             else {
-                files.addEntries((HashMap < String, Files.FileEntry >) om.readerForMapOf(Files.FileEntry.class).readValue(node.get("entries").toString()));
+                files.addEntriesMap((HashMap < String, Files.FileEntry >) om.readerForMapOf(Files.FileEntry.class).readValue(node.get("entries").toString()));
             }
         }
         if (node.has("default_preview") && node.get("default_preview") != null) {
@@ -109,5 +111,6 @@ public class FilesDeserializer extends StdDeserializer<Files> {
         }
         return files;
     }
+    private static final Logger LOG = Logger.getLogger(FilesDeserializer.class.getName());
     
 }
