@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.jdom2.Document;
@@ -41,7 +42,7 @@ public abstract class CmdiProfileMapping {
     public static List<String> getAllText(Element e) {
         List<String> result = new ArrayList<>(List.of(e.getTextNormalize()));
         result.addAll(e.getChildren().stream().flatMap(c -> getAllText(c).stream()).filter(s -> !s.isBlank()).collect(Collectors.toList()));
-        return result;
+        return result.stream().filter(Predicate.not(String::isEmpty)).toList();
     }
     
     /**
