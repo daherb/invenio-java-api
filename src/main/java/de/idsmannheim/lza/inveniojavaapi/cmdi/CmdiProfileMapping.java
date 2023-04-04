@@ -124,7 +124,7 @@ public abstract class CmdiProfileMapping {
     
     List<String> getTextList(String xpath) {
         return XPathFactory.instance()
-                .compile("/cmd1:CMD/cmd1:Components/cmdp:SpeechCorpusProfile/cmdp:Creation/cmdp:Creators/cmdp:Creator",
+                .compile(xpath,
                 new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)
                 .stream().map(Element::getText).toList();
     }
