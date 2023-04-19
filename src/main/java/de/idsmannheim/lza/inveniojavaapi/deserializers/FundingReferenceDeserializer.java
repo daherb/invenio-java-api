@@ -97,8 +97,12 @@ public class FundingReferenceDeserializer extends StdDeserializer<Metadata.Fundi
                 .registerModule(new Jdk8Module());
         Metadata.FundingReference.Funder funder = om.readValue(node.get("funder").toString(),
                 Metadata.FundingReference.Funder.class);
-        Metadata.FundingReference.Award award = om.readValue(node.get("award").toString(), 
+        Metadata.FundingReference fundingReference = new Metadata.FundingReference(funder);
+        if (node.has("award")) {
+            Metadata.FundingReference.Award award = om.readValue(node.get("award").toString(), 
                 Metadata.FundingReference.Award.class);
-        return new Metadata.FundingReference(funder,award);
+            fundingReference.setAward(award);
+        }
+        return fundingReference;
     }
 }

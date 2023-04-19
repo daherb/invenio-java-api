@@ -2630,16 +2630,25 @@ public class Metadata {
         @JsonProperty("funder")
         Funder funder;
         @JsonProperty("award")
-        Award award;
+        Optional<Award> award;
 
-        public FundingReference(Funder funder, Award award) {
+        public FundingReference(Funder funder) {
             this.funder = funder;
-            this.award = award;
         }
 
+        public FundingReference setAward(Award award) {
+            this.award = Optional.of(award);
+            return this;
+        }
+
+        
         @Override
         protected Object clone() {
-            return new FundingReference((Funder) funder.clone(), (Award) award.clone());
+            FundingReference fundingReference = new FundingReference((Funder) this.funder.clone());
+            if (this.award.isPresent())
+                fundingReference.setAward(this.award.get());
+            return fundingReference;
+            
         }
 
         

@@ -140,7 +140,7 @@ class MetadataTests {
         funding.add(new Metadata.FundingReference(
                 new Metadata.FundingReference.Funder(
                         Optional.of(ControlledVocabulary.FunderIdFactory.usingId("00k4n6c32")),
-                        Optional.empty()),
+                        Optional.empty())).setAward(
                 new Metadata.FundingReference.Award(
                         Optional.of(new ControlledVocabulary.AwardId("00k4n6c32::246686")),
                         new Metadata.LocalizedStrings(), Optional.empty(), new ArrayList<>())
@@ -148,7 +148,7 @@ class MetadataTests {
         funding.add(new Metadata.FundingReference(
                 new Metadata.FundingReference.Funder(
                         Optional.of(ControlledVocabulary.FunderIdFactory.usingId("00k4n6c32")),
-                        Optional.empty()),
+                        Optional.empty())).setAward(
                 new Metadata.FundingReference.Award(Optional.empty(),
                         new Metadata.LocalizedStrings().add(
                                 new Language(languageIdFactory.usingId2("en")), 
