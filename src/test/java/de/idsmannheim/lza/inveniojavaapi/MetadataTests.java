@@ -533,4 +533,65 @@ class MetadataTests {
             Assertions.assertEquals(f.get(metadata),f.get(exampleMetadata),"Field " + f.getName() + ": ");
         }
     }
+    
+    @Test
+    void derekoMetadataTest() throws IOException, IllegalArgumentException, IllegalAccessException {
+        ResourceType resourceType = new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.PublicationAnnotationCollection));
+        ArrayList<Metadata.Creator> creators = new ArrayList<>();
+        creators.add(new Creator(new Metadata.PersonOrOrg("Leibniz-Institut für Deutsche Sprache (IDS)")));
+        String title = "Deutsches Referenzkorpus";
+        Metadata.ExtendedDateTimeFormat0 publicationDate = new Metadata.ExtendedDateTimeFormat0("2022");
+        Metadata metadata = new Metadata(resourceType, creators, title, publicationDate);
+        ArrayList<Metadata.AdditionalTitle> additionalTitles = new ArrayList<>();
+        additionalTitles.add(new Metadata.AdditionalTitle("DeReKo", 
+                new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle),
+                        new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("de")), "Alternativer Titel")
+                .add(new Language(languageIdFactory.usingId2("en")),"Alternative title"))));
+        metadata.addAdditionalTitles(additionalTitles);
+        metadata.setDescription("Die Korpora geschriebener Gegenwartssprache des IDS - bilden mit 53 Milliarden Wörtern (Stand 08.03.2022) die weltweit größte linguistisch motivierte Sammlung elektronischer Korpora mit geschriebenen deutschsprachigen Texten aus der Gegenwart und der neueren Vergangenheit. - sind über COSMAS II und KorAP kostenlos abfragbar - enthalten belletristische, wissenschaftliche und populärwissenschaftliche Texte, eine große Zahl von Zeitungstexten sowie eine breite Palette weiterer Textarten und werden kontinuierlich weiterentwickelt. - werden im Hinblick auf Umfang, Variabilität, Qualität und Aktualität akquiriert und erlauben in der Nutzungsphase über COSMAS II und v.a. KorAP die Komposition virtueller Korpora, die repräsentativ oder auf spezielle Aufgabenstellungen zugeschnitten sind. - enthalten ausschließlich urheberrechtlich abgesichertes Material.");
+        ArrayList<Metadata.License> rights = new ArrayList<>(List.of(
+                new Metadata.License("CC-BY", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
+                new Metadata.License("CC-BY-NC", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
+                new Metadata.License("CC-0", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
+                new Metadata.License("Proprietory", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
+                new Metadata.License("Restricted", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
+                new Metadata.License("Other", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings())
+        ));
+        metadata.addRights(rights);
+        ArrayList<Metadata.Contributor> contributors = new ArrayList<>();
+        contributors.add(new Metadata.Contributor(new Metadata.PersonOrOrg("Marc", "Kupietz", "Kupietz, Marc"), 
+                new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.DataCurator))
+                .addAffiliations(new ArrayList<>(List.of(new Affiliation(Optional.empty(), Optional.of("Leibniz-Institut für Deutsche Sprache (IDS)"))))));
+        metadata.addContributors(contributors);
+        metadata.addLanguages(new ArrayList<>(List.of(new Language(languageIdFactory.usingId3("deu")))));
+        ArrayList<Metadata.Date> dates = new ArrayList<>();
+        dates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("1965"), 
+                new Metadata.Date.DateType(new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Other), 
+                        new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Other"))).setDescription("Start year"));
+        dates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("2022"), 
+                new Metadata.Date.DateType(new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Updated), 
+                        new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Updated"))).setDescription("Last update"));
+        dates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("1591").addEndYear(""), 
+                new Metadata.Date.DateType(new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Other), 
+                        new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Other"))).setDescription("Time coverage"));
+        metadata.addDates(dates);
+        metadata.setPublisher("Leibniz-Institut für Deutsche Sprache (IDS)");
+        ArrayList<Metadata.AlternateIdentifier> alternateIdentifiers = new ArrayList<>(List.of(
+                new Metadata.AlternateIdentifier("https://hdl.handle.net/NOTYET", new ControlledVocabulary.RecordIdentifierScheme(ControlledVocabulary.RecordIdentifierScheme.ERecordItentifierScheme.Handle))
+        ));
+        metadata.addAlternativeIdentifiers(alternateIdentifiers);
+        metadata.addFormats(new ArrayList<>(List.of("application/xml")));
+        metadata.addFundingReferences(new ArrayList<>(List.of(new Metadata.FundingReference(new Metadata.FundingReference.Funder(Optional.empty(), Optional.of("DFG"))))));
+        /*
+        new Metadata.Creator().setRole()))
+        */
+        Metadata derekoMetadata = om.readValue(this.getClass().getClassLoader().getResourceAsStream("DeReKo_Invenio.json"), Metadata.class);
+        for (Field f : Metadata.class.getDeclaredFields()) {
+            f.setAccessible(true);
+            Assertions.assertEquals(f.get(metadata),f.get(derekoMetadata),"Field " + f.getName() + ": ");
+//            Assertions.assertNotNull(f.get(derekoMetadata));
+//            LOG.log(Level.INFO, "{0} - {1}", new Object[]{f.getName(), f.get(derekoMetadata)});
+        }
+    }
+    private static final Logger LOG = Logger.getLogger(MetadataTests.class.getName());
 }
