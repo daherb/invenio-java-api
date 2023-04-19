@@ -38,13 +38,18 @@ public class ExtendedDateTimeFormat0Deserializer extends StdDeserializer<Extende
         String endDay = "";
         if (node.asText().contains("/")) {
             start = node.asText().split("/")[0];
-            end = node.asText().split("/")[1];
-            String[] endSplit = end.split("-");
-            endYear = endSplit[0];
-            if (endSplit.length > 1)
-                endMonth = endSplit[1];
-            if (endSplit.length == 3) 
-                endDay = endSplit[2];
+            if (node.asText().split("/").length > 1) {
+                end = node.asText().split("/")[1];
+                String[] endSplit = end.split("-");
+                endYear = endSplit[0];
+                if (endSplit.length > 1)
+                    endMonth = endSplit[1];
+                if (endSplit.length == 3) 
+                    endDay = endSplit[2];
+            }
+            else {
+                endYear = "";
+            }
         }
         else 
             start = node.asText();
