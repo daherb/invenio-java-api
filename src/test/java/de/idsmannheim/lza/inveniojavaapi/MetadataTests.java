@@ -49,6 +49,7 @@ class MetadataTests {
     static Metadata.Location locations;
     static ArrayList<Metadata.FundingReference> funding = new ArrayList<>();
     static ArrayList<Metadata.Reference> references = new ArrayList<>();
+    static ControlledVocabulary.LanguageIdFactory languageIdFactory;
         
     @BeforeAll
     static void init() throws IOException {
@@ -56,7 +57,7 @@ class MetadataTests {
         om.findAndRegisterModules();
         // Initialize example data
         ArrayList<Identifier> identifiers = new ArrayList<>();
-        ControlledVocabulary.LanguageIdFactory languageIdFactory = new ControlledVocabulary.LanguageIdFactory();
+        languageIdFactory = new ControlledVocabulary.LanguageIdFactory();
         identifiers.add(new Identifier(
                 new ControlledVocabulary.PersonOrOrgIdentifierScheme(ControlledVocabulary.PersonOrOrgIdentifierScheme.EScheme.ORCID),
                 "0000-0001-8135-3489"));
