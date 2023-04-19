@@ -675,6 +675,11 @@ public class API {
     /**
      * Lists user records (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#user-records)
      * 
+     * @param query Optional query string
+     * @param sort Optional sorting string
+     * @param size Optional number of items per page
+     * @param page Optional page number
+     * @param allVersions Optional flag if all versions should be shown
      * @return List of records
      * @throws IOException
      * @throws InterruptedException
@@ -683,11 +688,47 @@ public class API {
      * @throws KeyManagementException 
      */
     // TODO add query parameters
-    public Records listUserRecords() throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+    public Records listUserRecords(Optional<String> query, Optional<String> sort, Optional<Integer> size, Optional<Integer> page, Optional<Boolean> allVersions) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
-        URI uri = new URI(protocol, "//" + host + API_USER_RECORDS, "");
-        
+        StringBuilder uriString = new StringBuilder();
+        uriString.append("//").append(host).append(API_USER_RECORDS);
+        boolean hasPrevParam = false;
+        if (query.isPresent() || sort.isPresent() || size.isPresent() || page.isPresent() || allVersions.isPresent())
+            uriString.append("?");
+        if (query.isPresent()) {
+            // uriString.append("q=").append(URLEncoder.encode(query.get(),StandardCharsets.UTF_8.toString()));
+            uriString.append("q=").append(query.get());
+            hasPrevParam = true;
+        }
+        if (sort.isPresent()) {
+            if (hasPrevParam)
+                uriString.append("&");
+            // uriString.append("sort=").append(URLEncoder.encode(sort.get(),StandardCharsets.UTF_8.toString()));
+            uriString.append("sort=").append(sort.get());
+            hasPrevParam = true;
+        }
+        if (size.isPresent()) {
+            if (hasPrevParam)
+                uriString.append("&");
+            // uriString.append("size=").append(URLEncoder.encode(size.get().toString(),StandardCharsets.UTF_8.toString()));
+            uriString.append("size=").append(size.get().toString());
+            hasPrevParam = true;
+        }
+        if (page.isPresent()) {
+            if (hasPrevParam)
+                uriString.append("&");
+            // uriString.append("sort=").append(URLEncoder.encode(sort.get(),StandardCharsets.UTF_8.toString()));
+            uriString.append("sort=").append(sort.get());
+            hasPrevParam = true;
+        }
+        if (allVersions.isPresent()) {
+            if (hasPrevParam)
+                uriString.append("&");
+            // uriString.append("all_versions=").append(URLEncoder.encode(allVersions.get().toString().toLowerCase(),StandardCharsets.UTF_8.toString()));
+            uriString.append("all_versions=").append(allVersions.get().toString().toLowerCase());
+        }
+        URI uri = new URI(protocol, uriString.toString(), ""); //(protocol, "//" + host + API_RECORDS, "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
