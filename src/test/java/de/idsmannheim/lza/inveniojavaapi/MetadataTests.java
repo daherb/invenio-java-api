@@ -35,9 +35,7 @@ class MetadataTests {
                 new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.ImagePhoto));
     static ArrayList<Creator> creators = new ArrayList<>();
     static String title = "InvenioRDM";
-    static Metadata.ExtendedDateTimeFormat0 publicationDate = 
-                new Metadata.ExtendedDateTimeFormat0("2018")
-                .addEndYear("2020").addEndMonth("09");
+    static Metadata.ExtendedDateTimeFormat0 publicationDate;
     static ArrayList<Metadata.AdditionalTitle> additionalTitles = new ArrayList<>();
     static ArrayList<Metadata.AdditionalDescription> additionalDescriptions = 
                 new ArrayList<>();
@@ -66,6 +64,9 @@ class MetadataTests {
         affiliations.add(new Affiliation(Optional.of(new ControlledVocabulary.OrganizationalOrInstitutionalId(ControlledVocabulary.OrganizationalOrInstitutionalId.EOrganization.CERN)),
                 Optional.of("CERN")));
         creators.add(new Creator(new Metadata.PersonOrOrg("Lars Holm","Nielsen").addIdentifiers(identifiers)).addAffiliations(affiliations));
+        publicationDate = 
+                new Metadata.ExtendedDateTimeFormat0("2018")
+                .addEndYear("2020").addEndMonth("09");
         additionalTitles.add(new Metadata.AdditionalTitle("A research data management platform", 
                 new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle), 
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Alternative Title")))

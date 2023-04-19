@@ -31,11 +31,11 @@ public class ExtendedDateTimeFormat0Deserializer extends StdDeserializer<Extende
         String start;
         String end;
         String startYear;
-        String startMonth = "";
-        String startDay = "";
-        String endYear = "";
-        String endMonth = "";
-        String endDay = "";
+        String startMonth = null;
+        String startDay = null;
+        String endYear = null;
+        String endMonth = null;
+        String endDay = null;
         if (node.asText().contains("/")) {
             start = node.asText().split("/")[0];
             if (node.asText().split("/").length > 1) {
@@ -60,15 +60,15 @@ public class ExtendedDateTimeFormat0Deserializer extends StdDeserializer<Extende
         if (startSplit.length == 3)
             startDay = startSplit[2];
         ExtendedDateTimeFormat0 date = new ExtendedDateTimeFormat0(startYear);
-        if (!startMonth.isBlank())
+        if (startMonth != null)
             date.addStartMonth(startMonth);
-        if (!startDay.isBlank()) 
+        if (startDay != null) 
             date.addStartDay(startDay);
-        if (!endYear.isBlank()) 
+        if (endYear != null) 
             date.addEndYear(endYear);
-        if (!endMonth.isBlank())
+        if (endMonth != null)
             date.addEndMonth(endMonth);
-        if (!endDay.isBlank())
+        if (endDay != null)
             date.addEndDay(endDay);
         return date;
     }

@@ -650,7 +650,7 @@ public class Metadata {
         }
         
         public ExtendedDateTimeFormat0 addEndYear(String endYear) {
-            if (!endYear.matches("\\d{4}"))
+            if (!endYear.matches("\\d{4}") && !endYear.isEmpty())
                 throw new IllegalArgumentException("Illegal year: " + endYear);
             this.endYear = Optional.of(endYear);
             return this;
