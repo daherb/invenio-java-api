@@ -60,7 +60,7 @@ public class CMDI {
         String title = cmdiResourceTitle.orElse("n/a");
         // Either add rightsholders or creators as creators
         ArrayList<Metadata.Creator> creators = new ArrayList<>();
-        if (cmdiLegalOwner.isPresent()) {
+        if (cmdiLegalOwner.isPresent() && !cmdiLegalOwner.get().isEmpty()) {
             Metadata.Creator creator = new Metadata.Creator(new Metadata.PersonOrOrg(cmdiLegalOwner.get()))
                     .setRole(new Metadata.Creator.Role(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.RightsHolder)));
             creators.add(creator);
