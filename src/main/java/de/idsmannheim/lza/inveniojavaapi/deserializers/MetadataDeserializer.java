@@ -55,6 +55,9 @@ public class MetadataDeserializer extends StdDeserializer<Metadata> {
         if (node.has("additional_titles")) {
             metadata.addAdditionalTitles(om.readerForListOf(Metadata.AdditionalTitle.class).readValue(node.get("additional_titles").toString()));
         }
+        if (node.has("description")) {
+            metadata.setDescription(node.get("description").asText());
+        }
         if (node.has("additional_descriptions")) {
             metadata.addAdditionalDescriptions(om.readerForListOf(Metadata.AdditionalDescription.class).readValue(node.get("additional_descriptions").toString()));
         }
@@ -73,11 +76,23 @@ public class MetadataDeserializer extends StdDeserializer<Metadata> {
         if (node.has("dates")) {
             metadata.addDates(om.readerForListOf(Metadata.Date.class).readValue(node.get("dates").toString()));
         }
+        if (node.has("version")) {
+            metadata.setVersion(node.get("version").asText());
+        }
+        if (node.has("publisher")) {
+            metadata.setPublisher(node.get("publisher").asText());
+        }
         if (node.has("identifiers")) {
             metadata.addAlternativeIdentifiers(om.readerForListOf(Metadata.AlternateIdentifier.class).readValue(node.get("identifiers").toString()));
         }
         if (node.has("related_identifiers")) {
             metadata.addRelatedIdentifiers(om.readerForListOf(Metadata.RelatedIdentifier.class).readValue(node.get("related_identifiers").toString()));
+        }
+        if (node.has("sizes")) {
+            metadata.addSizes(om.readerForListOf(String.class).readValue(node.get("sizes").toString()));
+        }
+        if (node.has("formats")) {
+            metadata.addFormats(om.readerForListOf(String.class).readValue(node.get("formats").toString()));
         }
         if (node.has("locations")) {
             metadata.setLocations(om.readValue(node.get("locations").toString(), Metadata.Location.class));
