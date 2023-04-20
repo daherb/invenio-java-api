@@ -1,5 +1,5 @@
 {
-    "resource_type": {"id": "Corpus"},
+    "resource_type": {"id": "publication-annotationcollection"},
     "creators": [
         {
             "person_or_org": {
@@ -13,8 +13,8 @@
     "additional_titles": [
         {
             "title": "IDS Bestand",
-            "type": {"id": "alternative-title"},
-            "lang": {"id": "deu"}
+            "type": {"id": "alternative-title",
+            "title": {"de" : "Alternativer Titel", "en" : "Alternative title"}}
         }
     ],
     "description": "Dies ist der Gesamtbestand des IDS Repositoriums",
@@ -34,7 +34,7 @@
                 "given_name": "Marc",
                 "family_name": "Kupietz"
             },
-            "role": {"id": "editor"},
+            "role": "editor",
             "affiliations": [
                 {"name": "Leibniz-Institut für Deutsche Sprache (IDS)"}
             ]
@@ -61,7 +61,7 @@
             "description": "Last update"
         },
         {
-            "date": "1591-2023",
+            "date": "1591/2023",
             "type": {
                 "id": "other",
                 "title": {"en": "Other"}
