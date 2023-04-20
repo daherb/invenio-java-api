@@ -527,6 +527,11 @@ class MetadataTests {
         metadata.setLocations(locations);
         metadata.addFundingReferences(funding);
         metadata.addReferences(references);
+        metadata.setDescription("<strong>Test</strong>");
+        metadata.setVersion("v1.0.0");
+        metadata.setPublisher("InvenioRDM");
+        metadata.addSizes(List.of("11 pages"));
+        metadata.addFormats(List.of("application/pdf"));
         Metadata exampleMetadata = om.readValue(this.getClass().getClassLoader().getResourceAsStream("exampleMetadata.json"), Metadata.class);
         for (Field f : Metadata.class.getDeclaredFields()) {
             f.setAccessible(true);
