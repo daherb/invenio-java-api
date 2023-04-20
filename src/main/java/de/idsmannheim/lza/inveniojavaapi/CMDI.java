@@ -110,7 +110,13 @@ public class CMDI {
             metadata.addRights(rights);
         }
         if (cmdiDescription.containsKey("en")) {
-            metadata.setDescription(cmdiDescription.get("en"));
+            if (cmdiDescription.containsKey("en") && !cmdiDescription.get("en").isBlank()) {
+                metadata.setDescription(cmdiDescription.get("en"));
+            }
+            // Try to use any value
+            else if (!cmdiDescription.isEmpty()) {
+                metadata.setDescription(cmdiDescription.values().iterator().next());
+            }
             ArrayList<Metadata.AdditionalDescription> additionalDescriptions = new ArrayList<>();
             for (String lang : cmdiDescription.keySet().stream().filter((l) -> !(l.equals("en") || l.isBlank())).toList()) {
                 additionalDescriptions.add(
