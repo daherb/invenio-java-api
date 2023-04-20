@@ -1,0 +1,85 @@
+{
+    "resource_type": {"id": "Corpus"},
+    "creators": [
+        {
+            "person_or_org": {
+                "name": "Leibniz-Institut für Deutsche Sprache (IDS)",
+                "type": "organizational"
+            }
+        }
+    ],
+    "title": "Gesamtdatenbestand des Leibniz-Instituts für Deutsche Sprache (IDS), Mannheim",
+    "publication_date": "2022",
+    "additional_titles": [
+        {
+            "title": "IDS Bestand",
+            "type": {"id": "alternative-title"},
+            "lang": {"id": "deu"}
+        }
+    ],
+    "description": "Dies ist der Gesamtbestand des IDS Repositoriums",
+    "rights": [
+        {"id": "CC-BY"},
+        {"id": "CC-BY-NC"},
+        {"id": "CC-0"},
+        {"id": "Proprietory"},
+        {"id": "Restricted"},
+        {"id": "Other"}
+    ],
+    "contributors": [
+        {
+            "person_or_org": {
+                "name": "Kupietz, Marc",
+                "type": "personal",
+                "given_name": "Marc",
+                "family_name": "Kupietz"
+            },
+            "role": {"id": "editor"},
+            "affiliations": [
+                {"name": "Leibniz-Institut für Deutsche Sprache (IDS)"}
+            ]
+        }
+    ],
+    "languages": [
+        {"id": "deu"}
+    ],
+    "dates": [
+        {
+            "date": "1965",
+            "type": {
+                "id": "other",
+                "title": {"en": "Other"}
+            },
+            "description": "Start year"
+        },
+        {
+            "date": "2022",
+            "type": {
+                "id": "updated",
+                "title": {"en": "Updated"}
+            },
+            "description": "Last update"
+        },
+        {
+            "date": "1591-2023",
+            "type": {
+                "id": "other",
+                "title": {"en": "Other"}
+            },
+            "description": "Time coverage"
+        }
+    ],
+    "publisher": "Leibniz-Institut für Deutsche Sprache (IDS)",
+    "identifiers": [
+        {
+            "identifier": "https://hdl.handle.net/IDSGESAMTBESTANDPID",
+            "scheme": "handle"
+        }
+    ],
+    "formats": ["application/xml"],
+    "funding": [
+        {
+            "funder": {"name": "DFG"}
+        }
+    ]
+}

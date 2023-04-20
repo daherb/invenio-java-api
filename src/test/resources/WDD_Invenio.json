@@ -1,0 +1,79 @@
+{
+    "resource_type": {"id": "Corpus"},
+    "creators": [
+        {
+            "person_or_org": {
+                "name": "Leibniz-Institut für Deutsche Sprache (IDS)",
+                "type": "organizational"
+            }
+        }
+    ],
+    "title": "Wikipedia Diskussionen",
+    "publication_date": "2017",
+    "additional_titles": [
+        {
+            "title": "WDD",
+            "type": {"id": "alternative-title"},
+            "lang": {"id": "deu"}
+        }
+    ],
+    "description": "",
+    "rights": [
+        {"id": "CC-BY"},
+        {"id": "CC-BY-NC"},
+        {"id": "CC-0"},
+        {"id": "Proprietory"},
+        {"id": "Restricted"},
+        {"id": "Other"}
+    ],
+    "contributors": [
+        {
+            "person_or_org": {
+                "name": "Kupietz, Marc",
+                "type": "personal",
+                "given_name": "Marc",
+                "family_name": "Kupietz"
+            },
+            "role": {"id": "editor"},
+            "affiliations": [
+                {"name": "Leibniz-Institut für Deutsche Sprache (IDS)"}
+            ]
+        }
+    ],
+    "languages": [
+        {"id": "deu"}
+    ],
+    "dates": [
+        null,
+        {
+            "date": "2017",
+            "type": {
+                "id": "other",
+                "title": {"en": "Other"}
+            },
+            "description": "Publication date"
+        },
+        {
+            "date": "2017-10-26",
+            "type": {
+                "id": "updated",
+                "title": {"en": "Updated"}
+            },
+            "description": "Last update"
+        }
+    ],
+    "version": "1.0",
+    "publisher": "Leibniz-Institut für Deutsche Sprache (IDS)",
+    "identifiers": [
+        {
+            "identifier": "https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wdd",
+            "scheme": "handle"
+        }
+    ],
+    "formats": ["application/xml"],
+    "funding": [
+        {
+            "funder": {"name": "DFG"}
+        }
+    ]
+}
