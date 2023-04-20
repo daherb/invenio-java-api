@@ -442,16 +442,16 @@ class MetadataTests {
                 "      \"scheme\": \"other\"\n" +
                 "  }]";
         
-        ArrayList<Metadata.Reference> references = new ArrayList<>();
-        references.add(new Metadata.Reference("Nielsen et al,..") 
+        ArrayList<Metadata.Reference> localReferences = new ArrayList<>();
+        localReferences.add(new Metadata.Reference("Nielsen et al,..") 
                 .setScheme(new ControlledVocabulary.ReferenceScheme(ControlledVocabulary.ReferenceScheme.EReferenceScheme.Other))
                 .setIdentifier("10.1234/foo.bar"));
          ArrayList<Metadata.Reference> r2 = om.readerForListOf(Metadata.Reference.class)
                 .readValue(referencesText);
         ArrayList<Metadata.Reference> r3 = om.readerForListOf(Metadata.Reference.class)
-                .readValue(om.writeValueAsString(references));
-        Assertions.assertEquals(references, r2);
-        Assertions.assertEquals(references, r3);
+                .readValue(om.writeValueAsString(localReferences));
+        Assertions.assertEquals(localReferences, r2);
+        Assertions.assertEquals(localReferences, r3);
     }
     
     @Test
@@ -536,20 +536,20 @@ class MetadataTests {
     
     @Test
     void derekoMetadataTest() throws IOException, IllegalArgumentException, IllegalAccessException {
-        ResourceType resourceType = new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.PublicationAnnotationCollection));
-        ArrayList<Metadata.Creator> creators = new ArrayList<>();
-        creators.add(new Creator(new Metadata.PersonOrOrg("Leibniz-Institut für Deutsche Sprache (IDS)")));
-        String title = "Deutsches Referenzkorpus";
-        Metadata.ExtendedDateTimeFormat0 publicationDate = new Metadata.ExtendedDateTimeFormat0("2022");
-        Metadata metadata = new Metadata(resourceType, creators, title, publicationDate);
-        ArrayList<Metadata.AdditionalTitle> additionalTitles = new ArrayList<>();
-        additionalTitles.add(new Metadata.AdditionalTitle("DeReKo", 
+        ResourceType derekoResourceTypeesourceType = new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.PublicationAnnotationCollection));
+        ArrayList<Metadata.Creator> derekoCreators = new ArrayList<>();
+        derekoCreators.add(new Creator(new Metadata.PersonOrOrg("Leibniz-Institut für Deutsche Sprache (IDS)")));
+        String derekoTitle = "Deutsches Referenzkorpus";
+        Metadata.ExtendedDateTimeFormat0 derekoPublicationDate = new Metadata.ExtendedDateTimeFormat0("2022");
+        Metadata metadata = new Metadata(derekoResourceTypeesourceType, derekoCreators, derekoTitle, derekoPublicationDate);
+        ArrayList<Metadata.AdditionalTitle> derekoAdditionalTitles = new ArrayList<>();
+        derekoAdditionalTitles.add(new Metadata.AdditionalTitle("DeReKo", 
                 new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle),
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("de")), "Alternativer Titel")
                 .add(new Language(languageIdFactory.usingId2("en")),"Alternative title"))));
-        metadata.addAdditionalTitles(additionalTitles);
+        metadata.addAdditionalTitles(derekoAdditionalTitles);
         metadata.setDescription("Die Korpora geschriebener Gegenwartssprache des IDS - bilden mit 53 Milliarden Wörtern (Stand 08.03.2022) die weltweit größte linguistisch motivierte Sammlung elektronischer Korpora mit geschriebenen deutschsprachigen Texten aus der Gegenwart und der neueren Vergangenheit. - sind über COSMAS II und KorAP kostenlos abfragbar - enthalten belletristische, wissenschaftliche und populärwissenschaftliche Texte, eine große Zahl von Zeitungstexten sowie eine breite Palette weiterer Textarten und werden kontinuierlich weiterentwickelt. - werden im Hinblick auf Umfang, Variabilität, Qualität und Aktualität akquiriert und erlauben in der Nutzungsphase über COSMAS II und v.a. KorAP die Komposition virtueller Korpora, die repräsentativ oder auf spezielle Aufgabenstellungen zugeschnitten sind. - enthalten ausschließlich urheberrechtlich abgesichertes Material.");
-        ArrayList<Metadata.License> rights = new ArrayList<>(List.of(
+        ArrayList<Metadata.License> derekoRights = new ArrayList<>(List.of(
                 new Metadata.License("CC-BY", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
                 new Metadata.License("CC-BY-NC", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
                 new Metadata.License("CC-0", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
@@ -557,29 +557,29 @@ class MetadataTests {
                 new Metadata.License("Restricted", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
                 new Metadata.License("Other", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings())
         ));
-        metadata.addRights(rights);
-        ArrayList<Metadata.Contributor> contributors = new ArrayList<>();
-        contributors.add(new Metadata.Contributor(new Metadata.PersonOrOrg("Marc", "Kupietz", "Kupietz, Marc"), 
+        metadata.addRights(derekoRights);
+        ArrayList<Metadata.Contributor> derekoContributors = new ArrayList<>();
+        derekoContributors.add(new Metadata.Contributor(new Metadata.PersonOrOrg("Marc", "Kupietz", "Kupietz, Marc"), 
                 new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.DataCurator))
                 .addAffiliations(new ArrayList<>(List.of(new Affiliation(Optional.empty(), Optional.of("Leibniz-Institut für Deutsche Sprache (IDS)"))))));
-        metadata.addContributors(contributors);
+        metadata.addContributors(derekoContributors);
         metadata.addLanguages(new ArrayList<>(List.of(new Language(languageIdFactory.usingId3("deu")))));
-        ArrayList<Metadata.Date> dates = new ArrayList<>();
-        dates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("1965"), 
+        ArrayList<Metadata.Date> derekoDates = new ArrayList<>();
+        derekoDates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("1965"), 
                 new Metadata.Date.DateType(new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Other), 
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Other"))).setDescription("Start year"));
-        dates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("2022"), 
+        derekoDates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("2022"), 
                 new Metadata.Date.DateType(new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Updated), 
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Updated"))).setDescription("Last update"));
-        dates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("1591").addEndYear(""), 
+        derekoDates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("1591").addEndYear(""), 
                 new Metadata.Date.DateType(new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Other), 
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Other"))).setDescription("Time coverage"));
-        metadata.addDates(dates);
+        metadata.addDates(derekoDates);
         metadata.setPublisher("Leibniz-Institut für Deutsche Sprache (IDS)");
-        ArrayList<Metadata.AlternateIdentifier> alternateIdentifiers = new ArrayList<>(List.of(
+        ArrayList<Metadata.AlternateIdentifier> derekoAlternateIdentifiers = new ArrayList<>(List.of(
                 new Metadata.AlternateIdentifier("https://hdl.handle.net/NOTYET", new ControlledVocabulary.RecordIdentifierScheme(ControlledVocabulary.RecordIdentifierScheme.ERecordItentifierScheme.Handle))
         ));
-        metadata.addAlternativeIdentifiers(alternateIdentifiers);
+        metadata.addAlternativeIdentifiers(derekoAlternateIdentifiers);
         metadata.addFormats(new ArrayList<>(List.of("application/xml")));
         metadata.addFundingReferences(new ArrayList<>(List.of(new Metadata.FundingReference(new Metadata.FundingReference.Funder(Optional.empty(), Optional.of("DFG"))))));
         /*
