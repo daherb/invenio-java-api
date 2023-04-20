@@ -598,5 +598,12 @@ class MetadataTests {
 //            LOG.log(Level.INFO, "{0} - {1}", new Object[]{f.getName(), f.get(derekoMetadata)});
         }
     }
+    
+    @Test
+    void jsonTest() throws IOException {
+        om.readValue(this.getClass().getClassLoader().getResourceAsStream("DeReKo_Invenio.json"), Metadata.class);
+        om.readValue(this.getClass().getClassLoader().getResourceAsStream("IDSBestand_Invenio.json"), Metadata.class);
+        om.readValue(this.getClass().getClassLoader().getResourceAsStream("WDD_Invenio.json"), Metadata.class);
+    }
     private static final Logger LOG = Logger.getLogger(MetadataTests.class.getName());
 }
