@@ -16,6 +16,7 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -88,6 +89,24 @@ public class API {
     }
     
     /**
+     * Gets the body of a HttpResponse if it was successful. Throws an IOException otherwise
+     * @param <T> The body type of the response
+     * @param response the response itself
+     * @return the body
+     * @throws IOException if a HTTP error happens, i.e. a status code >= 400
+     */
+    private<T> T getBody(HttpResponse<T> response) throws IOException {
+        ObjectMapper om = new ObjectMapper();
+        om.findAndRegisterModules();
+        if (response.statusCode() < 400) {
+            return response.body();
+        }
+        else {
+            throw new IOException("HTTP error encountered for request `" + response.request().toString() + "` Status: " + response.statusCode() + " Body: `" + response.body()+ "`");
+        }
+    }
+    
+    /**
      * Creates a draft record (https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#create-a-draft-record)
      * 
      * @param draftRecord The record object combining access, files and metadata fields
@@ -105,7 +124,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(om.writeValueAsString(draftRecord)))
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Record.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Record.class);
         
     }
     
@@ -128,7 +147,7 @@ public class API {
         URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET().build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(),DraftRecord.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())),DraftRecord.class);
     }
     
     /**
@@ -152,7 +171,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .PUT(HttpRequest.BodyPublishers.ofString(om.writeValueAsString(draftRecord)))
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), DraftRecord.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), DraftRecord.class);
         
     }
     
@@ -176,7 +195,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), DraftRecord.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), DraftRecord.class);
     }
     
     /**
@@ -199,7 +218,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), DraftRecord.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), DraftRecord.class);
     }
     
     /**
@@ -243,9 +262,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
-        // LOG.info(body);
-        return om.readValue(body, Files.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Files.class);
     }
     
         /**
@@ -268,8 +285,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
-        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
-        return om.readValue(body, Files.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Files.class);
     }
     
     /**
@@ -294,8 +310,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(om.writeValueAsString(entries)))
                 .build();
-        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
-        return om.readValue(body, Files.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Files.class);
     }
     
     /**
@@ -324,8 +339,7 @@ public class API {
                 .header("Content-Type", "application/octet-stream")
                 .PUT(HttpRequest.BodyPublishers.ofFile(file.toPath()))
                 .build();
-        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
-        return om.readValue(body, Files.FileEntry.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Files.FileEntry.class);
     }
     
     /**
@@ -352,8 +366,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
-        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
-        return om.readValue(body, Files.FileEntry.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Files.FileEntry.class);
     }
     
     /**
@@ -380,8 +393,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
-        return om.readValue(body, Files.FileEntry.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Files.FileEntry.class);
     }
     
     /**
@@ -408,7 +420,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        return getHttpClient().send(request,BodyHandlers.ofInputStream()).body();
+        return getBody(getHttpClient().send(request,BodyHandlers.ofInputStream()));
     }
     
     /**
@@ -459,8 +471,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
-        return om.readValue(body, Record.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Record.class);
     }
     
     /**
@@ -522,7 +533,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Records.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Records.class);
         
     }
     
@@ -545,7 +556,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Files.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Files.class);
     }
     
     /**
@@ -570,7 +581,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Files.FileEntry.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Files.FileEntry.class);
     }
     
     /**
@@ -597,7 +608,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        return getHttpClient().send(request,BodyHandlers.ofInputStream()).body();
+        return getBody(getHttpClient().send(request,BodyHandlers.ofInputStream()));
     }
     
     /**
@@ -621,8 +632,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
-        String body = getHttpClient().send(request,BodyHandlers.ofString()).body();
-        return om.readValue(body, DraftRecord.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), DraftRecord.class);
     }
     
     /**
@@ -645,7 +655,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Records.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Records.class);
     }
     
     /**
@@ -668,7 +678,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Record.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Record.class);
     }
     
     // TODO Access links
@@ -732,7 +742,7 @@ public class API {
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
-        return om.readValue(getHttpClient().send(request,BodyHandlers.ofString()).body(), Records.class);
+        return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Records.class);
         
     }
     
