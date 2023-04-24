@@ -204,7 +204,9 @@ public class RecordsTest {
                         "cc-by-4.0",
                         new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "Creative Commons Attribution 4.0 International"),
                         new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."))
-                        .addProps(ccProps))),
+                        .addProps(ccProps)))
+                .setPublisher("IDS-Repos2")
+                ,
                 new Record.Parent("5k1hr-sxr38"),
                 3,
                 "published",
