@@ -49,6 +49,11 @@ public class FilesOptions {
     public FilesOptions(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public FilesOptions setDefaultPreview(String defaultPreview) {
+        this.defaultPreview = defaultPreview;
+        return this;
+    }
     
     public FilesOptions addOrder(ArrayList<String> order) {
         this.order.addAll(order);
