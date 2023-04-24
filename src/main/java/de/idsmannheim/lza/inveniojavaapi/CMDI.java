@@ -109,25 +109,24 @@ public class CMDI {
         if (!rights.isEmpty()) {
             metadata.addRights(rights);
         }
-        if (cmdiDescription.containsKey("en")) {
-            if (cmdiDescription.containsKey("en") && !cmdiDescription.get("en").isBlank()) {
+        // Use english description if available
+        if (cmdiDescription.containsKey("en") && !cmdiDescription.get("en").isBlank()) {
                 metadata.setDescription(cmdiDescription.get("en"));
-            }
-            // Try to use any value
-            else if (!cmdiDescription.isEmpty()) {
-                metadata.setDescription(cmdiDescription.values().iterator().next());
-            }
-            ArrayList<Metadata.AdditionalDescription> additionalDescriptions = new ArrayList<>();
-            for (String lang : cmdiDescription.keySet().stream().filter((l) -> !(l.equals("en") || l.isBlank())).toList()) {
-                additionalDescriptions.add(
-                        new Metadata.AdditionalDescription(cmdiDescription.get(lang), 
-                                new Metadata.AdditionalDescription.DescriptionType(new ControlledVocabulary.DescriptionTypeId(ControlledVocabulary.DescriptionTypeId.EDescriptionType.Abstract),new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "abstract"))
-                        ).setLang(new Metadata.Language(languageIdFactory.usingId3(languageIdFactory.id2toId3(lang))))
-                );
-            }
-            if (!additionalDescriptions.isEmpty()) {
-                metadata.addAdditionalDescriptions(additionalDescriptions);
-            }
+        }
+        // Try to use any value
+        else if (!cmdiDescription.isEmpty()) {
+            metadata.setDescription(cmdiDescription.values().iterator().next());
+        }
+        ArrayList<Metadata.AdditionalDescription> additionalDescriptions = new ArrayList<>();
+        for (String lang : cmdiDescription.keySet().stream().filter((l) -> !(l.equals("en") || l.isBlank())).toList()) {
+            additionalDescriptions.add(
+                    new Metadata.AdditionalDescription(cmdiDescription.get(lang),
+                            new Metadata.AdditionalDescription.DescriptionType(new ControlledVocabulary.DescriptionTypeId(ControlledVocabulary.DescriptionTypeId.EDescriptionType.Abstract),new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "abstract"))
+                    ).setLang(new Metadata.Language(languageIdFactory.usingId3(languageIdFactory.id2toId3(lang))))
+            );
+        }
+        if (!additionalDescriptions.isEmpty()) {
+            metadata.addAdditionalDescriptions(additionalDescriptions);
         }
         return metadata;
     }
