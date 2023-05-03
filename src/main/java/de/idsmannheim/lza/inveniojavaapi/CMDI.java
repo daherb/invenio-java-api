@@ -72,10 +72,6 @@ public class CMDI {
                         .setRole(new Metadata.Creator.Role(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.DataCollector))));
         }
         Metadata metadata = new Metadata(resourceType, creators, title, publicationDate);
-        // Add optional fields if they exist
-        /* TODO: 
-        - Map missing fields
-        */
         if (cmdiResourceName.isPresent()) {
             metadata.addAdditionalTitles(List.of(new Metadata.AdditionalTitle(cmdiResourceName.get(), 
                     new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle),
@@ -131,6 +127,5 @@ public class CMDI {
         }
         return metadata;
     }
-
     private static final Logger LOG = Logger.getLogger(CMDI.class.getName());
 }

@@ -594,8 +594,6 @@ class MetadataTests {
         for (Field f : Metadata.class.getDeclaredFields()) {
             f.setAccessible(true);
             Assertions.assertEquals(f.get(metadata),f.get(derekoMetadata),"Field " + f.getName() + ": ");
-//            Assertions.assertNotNull(f.get(derekoMetadata));
-//            LOG.log(Level.INFO, "{0} - {1}", new Object[]{f.getName(), f.get(derekoMetadata)});
         }
     }
     

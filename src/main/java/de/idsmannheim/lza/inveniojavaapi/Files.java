@@ -355,10 +355,6 @@ public class Files {
 
     @JsonProperty("entries")
     public Object getEntries() {
-//        if (this.entries.isLeft())
-//            return this.entries.getLeft();
-//        else
-//            return this.entries.get();
         if (!this.entriesMap.isEmpty()) {
             return this.entriesMap;
         }

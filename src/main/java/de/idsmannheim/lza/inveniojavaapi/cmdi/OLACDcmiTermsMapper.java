@@ -7,16 +7,11 @@ package de.idsmannheim.lza.inveniojavaapi.cmdi;
 import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.jdom2.Document;
-import org.jdom2.Element;
 import org.jdom2.Namespace;
-import org.jdom2.filter.ElementFilter;
-import org.jdom2.xpath.XPathFactory;
 
 /**
  *
