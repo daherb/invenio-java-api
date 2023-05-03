@@ -46,6 +46,11 @@ public abstract class CmdiProfileMapping {
     }
     
     /**
+     * Gets the pid of the resoure stored as metadata self link
+     * @return the self link if it exists
+     */
+    public abstract Optional<String> getSelfLink();
+    /**
      * Gets the name of the resource. Used as alternative title in Invenio
      * @return the resource name if it exists
      */

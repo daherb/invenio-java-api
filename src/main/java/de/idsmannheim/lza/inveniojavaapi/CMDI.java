@@ -25,6 +25,7 @@ public class CMDI {
     
     public static Metadata readCmdiMetadata(CmdiProfileMapping mapper) throws IllegalArgumentException, IOException {
         ControlledVocabulary.LanguageIdFactory languageIdFactory = new ControlledVocabulary.LanguageIdFactory();
+        Optional<String> cmdiSelfLink = mapper.getSelfLink();
         Optional<String> cmdiResourceName = mapper.getResourceName();
         Optional<String> cmdiResourceTitle = mapper.getResourceTitle();
         Optional<Metadata.ResourceType> cmdiResourceType = mapper.getResourceType();

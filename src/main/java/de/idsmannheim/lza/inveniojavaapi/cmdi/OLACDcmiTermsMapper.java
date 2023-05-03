@@ -33,6 +33,10 @@ public class OLACDcmiTermsMapper extends CmdiProfileMapping {
         setNamespaces(namespaces);
     }
 
+    @Override
+    public Optional<String> getSelfLink() {
+        return getOptionalText("/cmd:CMD/cmd:Header/cmd:MdSelfLink");
+    }
     
     @Override
     public Optional<String> getResourceName() {

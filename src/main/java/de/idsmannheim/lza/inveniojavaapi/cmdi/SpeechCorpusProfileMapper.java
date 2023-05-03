@@ -34,6 +34,10 @@ public class SpeechCorpusProfileMapper extends CmdiProfileMapping {
         setNamespaces(namespaces);
     }
 
+    @Override
+    public Optional<String> getSelfLink() {
+        return getOptionalText("/cmd1:CMD/cmd1:Header/cmd1:MdSelfLink");
+    }
     
     @Override
     public Optional<String> getResourceName() {
