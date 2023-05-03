@@ -87,7 +87,7 @@ public class Metadata {
     Optional<String> version = Optional.empty();
     @JsonProperty("publisher")
     Optional<String> publisher = Optional.empty();
-    @JsonProperty("alternative_identifiers")
+    @JsonProperty("identifiers")
     final ArrayList<AlternateIdentifier> alternativeIdentifiers = new ArrayList<>();
     @JsonProperty("related_identifiers")
     final ArrayList<RelatedIdentifier> relatedIdentifiers = new ArrayList<>();
