@@ -95,6 +95,8 @@ public class Record {
                 int index;
         @JsonProperty("is_latest")
                 boolean latest;
+        @JsonProperty("is_latest_draft")
+                boolean latest_draft;
         
         public Versions(int index, boolean latest) {
             this.index = index;
@@ -109,6 +111,16 @@ public class Record {
             return latest;
         }
 
+        public boolean isLatestDraft() {
+            return latest_draft;
+        }
+
+        public Versions setLatestDraft(boolean latest_draft) {
+            this.latest_draft = latest_draft;
+            return this;
+        }
+
+        
         @Override
         protected Object clone() {
             return new Versions(index, latest);

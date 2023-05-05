@@ -67,7 +67,11 @@ public class RecordDeserializer extends StdDeserializer<Record> {
             JsonNode node = p.getCodec().readTree(p);
             int index = node.get("index").asInt();
             boolean latest = node.get("is_latest").asBoolean();
-            return new Record.Versions(index, latest);
+            Record.Versions versions = new Record.Versions(index, latest);
+            if (node.has("is_latest_draft")) {
+                versions.setLatestDraft(node.get("is_latest_draft").asBoolean());
+            }
+            return versions;
         }
     }
     
