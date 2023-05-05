@@ -2879,19 +2879,23 @@ public class Metadata {
     /**
      * Overwrites the title
      * @param title the new title
+     * @return the updated metadata
      */
     @JsonIgnore
-    public void setTitle(String title) {
+    public Metadata setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     /**
      * Overwrites the publication date
      * @param newPublicationDate the new publication date
+     * @return the updated metadata
      */
     @JsonIgnore
-    public void setPublicationDate(ExtendedDateTimeFormat0 newPublicationDate) {
+    public Metadata setPublicationDate(ExtendedDateTimeFormat0 newPublicationDate) {
         this.publicationDate = newPublicationDate;
+        return this;
     }
 
     
