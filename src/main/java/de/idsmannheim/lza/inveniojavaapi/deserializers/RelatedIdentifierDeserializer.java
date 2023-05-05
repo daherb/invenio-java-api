@@ -14,7 +14,6 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  *

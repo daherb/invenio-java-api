@@ -15,7 +15,6 @@ import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import de.idsmannheim.lza.inveniojavaapi.Metadata.AdditionalTitle.TitleType;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  *
@@ -69,4 +68,5 @@ public class AdditionalTitleDeserializer extends StdDeserializer<Metadata.Additi
             additionalTitle.setLang(om.readValue(node.get("lang").toString(),Metadata.Language.class));
         return additionalTitle;
     }
+    
 }
