@@ -40,7 +40,7 @@ public class DraftRecord {
     @JsonProperty("metadata")
     Metadata metadata;
     @JsonProperty("parent")
-    Optional<Record.Parent> parent = Optional.empty();
+    Optional<Parent> parent = Optional.empty();
     @JsonProperty("pids")
     HashMap<String,ExternalPid> pids = new HashMap<>();
     @JsonProperty("revision_id")
@@ -81,7 +81,7 @@ public class DraftRecord {
         return this;
     }
 
-    public DraftRecord setParent(Record.Parent parent) {
+    public DraftRecord setParent(Parent parent) {
         this.parent = Optional.of(parent);
         return this;
     }
@@ -143,7 +143,7 @@ public class DraftRecord {
         return metadata;
     }
 
-    public Optional<Record.Parent> getParent() {
+    public Optional<Parent> getParent() {
         return parent;
     }
 
@@ -177,7 +177,7 @@ public class DraftRecord {
             draftRecord.setIsPublished(isPublished.get());
         draftRecord.addLinks((HashMap<String, String>) links.clone());
         if (parent.isPresent())
-            draftRecord.setParent((Record.Parent) parent.get().clone());
+            draftRecord.setParent((Parent) parent.get().clone());
         draftRecord.addPids((HashMap<String, ExternalPid>) pids.clone());
         if (revisionId.isPresent())
             draftRecord.setRevisionId(revisionId.get());

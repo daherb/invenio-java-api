@@ -17,6 +17,7 @@ import de.idsmannheim.lza.inveniojavaapi.Record;
 import de.idsmannheim.lza.inveniojavaapi.ExternalPid;
 import de.idsmannheim.lza.inveniojavaapi.FilesOptions;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
+import de.idsmannheim.lza.inveniojavaapi.Parent;
 import java.io.IOException;
 
 /**
@@ -60,7 +61,7 @@ public class DraftRecordDeserializer extends StdDeserializer<DraftRecord> {
             record.addLinks(om.readerForMapOf(String.class).readValue(node.get("links").toString()));
         }
         if (node.has("parent")) {
-            record.setParent(om.readValue(node.get("parent").toString(), Record.Parent.class));
+            record.setParent(om.readValue(node.get("parent").toString(), Parent.class));
         }
         if (node.has("pids")) {
             record.addPids(om.readerForMapOf(ExternalPid.class).readValue(node.get("pids").toString()));
