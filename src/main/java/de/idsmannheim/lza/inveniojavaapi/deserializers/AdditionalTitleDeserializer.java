@@ -39,8 +39,11 @@ public class AdditionalTitleDeserializer extends StdDeserializer<Metadata.Additi
             JsonNode node = p.getCodec().readTree(p);
             String idText = node.get("id").asText();
             ControlledVocabulary.TitleTypeId id = new ControlledVocabulary.TitleTypeId(idText);
-            Metadata.LocalizedStrings titles = new ObjectMapper().registerModule(new Jdk8Module())
-                    .readValue(node.get("title").toString(), Metadata.LocalizedStrings.class);
+            Metadata.LocalizedStrings titles = new Metadata.LocalizedStrings();
+            if (node.has("title")) {
+                titles.addAll(new ObjectMapper().registerModule(new Jdk8Module())
+                        .readValue(node.get("title").toString(), Metadata.LocalizedStrings.class));
+            }
             return new TitleType(id, titles);
         }
         

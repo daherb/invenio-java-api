@@ -37,8 +37,11 @@ public class AdditionalDescriptionDeserializer extends StdDeserializer<Metadata.
             JsonNode node = p.getCodec().readTree(p);
             String idText = node.get("id").asText();
             ControlledVocabulary.DescriptionTypeId id = new ControlledVocabulary.DescriptionTypeId(idText);
-            Metadata.LocalizedStrings titles = new ObjectMapper().registerModule(new Jdk8Module())
-                    .readValue(node.get("title").toString(), Metadata.LocalizedStrings.class);
+            Metadata.LocalizedStrings titles = new Metadata.LocalizedStrings();
+            if (node.has("title")) {
+                titles.addAll(new ObjectMapper().registerModule(new Jdk8Module())
+                        .readValue(node.get("title").toString(), Metadata.LocalizedStrings.class));
+            }
             return new Metadata.AdditionalDescription.DescriptionType(id, titles);
         }
         

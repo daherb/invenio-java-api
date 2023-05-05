@@ -39,8 +39,11 @@ public class RelatedIdentifierDeserializer extends StdDeserializer<Metadata.Rela
                     .registerModule(new Jdk8Module());
             ControlledVocabulary.RelationTypeId id =
                     new ControlledVocabulary.RelationTypeId(node.get("id").asText());
-            Metadata.LocalizedStrings titles = om.readValue(node.get("title").toString(),
-                    Metadata.LocalizedStrings.class);
+            Metadata.LocalizedStrings titles = new Metadata.LocalizedStrings();
+            if (node.has("title")) {
+                titles.addAll(new ObjectMapper().registerModule(new Jdk8Module())
+                        .readValue(node.get("title").toString(), Metadata.LocalizedStrings.class));
+            }
             return new Metadata.RelatedIdentifier.RelationType(id, titles);
         }
         
