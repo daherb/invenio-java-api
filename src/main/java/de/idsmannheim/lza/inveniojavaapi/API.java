@@ -281,7 +281,7 @@ public class API {
         om.findAndRegisterModules();
         //        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
         String encodedId = id;
-        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/actions/file-import?prettyprint=1", "");
+        URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/actions/files-import?prettyprint=1", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
