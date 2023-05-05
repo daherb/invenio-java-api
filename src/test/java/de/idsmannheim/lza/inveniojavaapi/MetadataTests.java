@@ -604,4 +604,71 @@ class MetadataTests {
         om.readValue(this.getClass().getClassLoader().getResourceAsStream("WDD_Invenio.json"), Metadata.class);
     }
     private static final Logger LOG = Logger.getLogger(MetadataTests.class.getName());
+    
+    @Test
+    void setterTest() {
+        Metadata metadata = new Metadata(
+                resourceType,
+                creators,
+                title,
+                publicationDate
+                        );
+        metadata.addAdditionalTitles(additionalTitles);
+        metadata.addAdditionalDescriptions(additionalDescriptions);
+        metadata.addRights(rights);
+        metadata.addContributors(contributors);
+        metadata.addSubjects(subjects);
+        metadata.addLanguages(languages);
+        metadata.addDates(dates);
+        metadata.addAlternativeIdentifiers(alternateIdentifiers);
+        metadata.addRelatedIdentifiers(relatedIdentifiers);
+        metadata.setLocations(locations);
+        metadata.addFundingReferences(funding);
+        metadata.addReferences(references);
+        metadata.setDescription("<strong>Test</strong>");
+        metadata.setVersion("v1.0.0");
+        metadata.setPublisher("InvenioRDM");
+        metadata.addSizes(List.of("11 pages"));
+        metadata.addFormats(List.of("application/pdf"));
+        // Test all setters
+        // Description
+        Optional<String> oldDescription = metadata.getDescription();
+        Optional<String> newDescription = metadata.setDescription("new description").getDescription();
+        Assertions.assertEquals(oldDescription, Optional.of("<strong>Test</strong>"));
+        Assertions.assertNotEquals(oldDescription, newDescription);
+        Assertions.assertEquals(newDescription, Optional.of("new description"));
+        // Locations
+        Metadata.Location oldLocations = metadata.getLocations();
+        Metadata.Location newLocations = metadata.setLocations(new Metadata.Location(
+                List.of(new Metadata.Location.LocationFeature(Optional.empty(), new ArrayList<>(), Optional.of("A new location"), Optional.empty()))
+        )).getLocations();
+        Assertions.assertEquals(locations, oldLocations);
+        Assertions.assertNotEquals(oldLocations, newLocations);
+        Assertions.assertEquals(new Metadata.Location(
+                List.of(new Metadata.Location.LocationFeature(Optional.empty(), new ArrayList<>(), Optional.of("A new location"), Optional.empty()))
+        ), newLocations);
+        // Publication date
+        Metadata.ExtendedDateTimeFormat0 oldPublicationDate = metadata.getPublicationDate();
+        Metadata.ExtendedDateTimeFormat0 newPublicationDate = metadata.setPublicationDate(new Metadata.ExtendedDateTimeFormat0("1111").addEndYear("2222")).getPublicationDate();
+        Assertions.assertEquals(publicationDate, oldPublicationDate);
+        Assertions.assertNotEquals(oldPublicationDate, newPublicationDate);
+        Assertions.assertEquals(new Metadata.ExtendedDateTimeFormat0("1111").addEndYear("2222"), newPublicationDate);
+        // Publisher
+        Optional<String> oldPublisher = metadata.getPublisher();
+        Optional<String> newPublisher = metadata.setPublisher("new publisher").getPublisher();
+        Assertions.assertEquals(Optional.of("InvenioRDM"), oldPublisher);
+        Assertions.assertNotEquals(oldPublisher, newPublisher);
+        Assertions.assertEquals(Optional.of("new publisher"), newPublisher);
+        //Title
+        String oldTitle = metadata.getTitle();
+        String newTitle = metadata.setTitle("new title").getTitle();
+        Assertions.assertEquals(title, oldTitle);
+        Assertions.assertNotEquals(oldTitle, newTitle);
+        Assertions.assertEquals("new title", newTitle);
+        Optional<String> oldVersion = metadata.getVersion();
+        Optional<String> newVersion = metadata.setVersion("v2").getVersion();
+        Assertions.assertEquals(Optional.of("v1.0.0"), oldVersion);
+        Assertions.assertNotEquals(oldVersion, newVersion);
+        Assertions.assertEquals(Optional.of("v2"), newVersion);
+    }
 }
