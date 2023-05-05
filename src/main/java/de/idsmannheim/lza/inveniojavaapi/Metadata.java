@@ -987,8 +987,8 @@ public class Metadata {
                 this.id = id;
                 if (!titles.isEmpty())
                     this.title.addAll(titles);
-                else
-                    throw new IllegalArgumentException("At least one title required");
+//                else
+//                    throw new IllegalArgumentException("At least one title required");
             }
 
             @Override
@@ -1165,8 +1165,8 @@ public class Metadata {
                 this.id = id;
                 if (!title.isEmpty())
                     this.title.addAll(title);
-                else
-                    throw new IllegalArgumentException("At least one title required");
+//                else
+//                    throw new IllegalArgumentException("At least one title required");
             }
 
             @Override
@@ -1914,9 +1914,9 @@ public class Metadata {
                 if (!titles.isEmpty()) {
                     this.title.addAll(titles);
                 }
-                else {
-                    throw new IllegalArgumentException("At least one title required: " + titles.toString() + " " + String.valueOf(titles.isEmpty()));
-                }
+//                else {
+//                    throw new IllegalArgumentException("At least one title required: " + titles.toString() + " " + String.valueOf(titles.isEmpty()));
+//                }
             }
 
             @Override
