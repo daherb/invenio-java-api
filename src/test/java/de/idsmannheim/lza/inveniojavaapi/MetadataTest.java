@@ -26,7 +26,7 @@ import org.junit.jupiter.api.BeforeAll;
  * Tests for Metadata class
  */
 @SpringBootTest
-class MetadataTests {
+class MetadataTest {
 
     static ObjectMapper om = new ObjectMapper();
     
