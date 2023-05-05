@@ -443,7 +443,7 @@ public class API {
 //        String encodedFilename = URLEncoder.encode(filename,StandardCharsets.UTF_8.toString());
         String encodedFilename = filename;
         URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename, "");
-        LOG.info(uri.toString());
+        // LOG.info(uri.toString());
         HttpRequest request = getHttpRequestBuilder(uri)
                 .DELETE()
                 .build();
@@ -739,6 +739,7 @@ public class API {
             uriString.append("all_versions=").append(allVersions.get().toString().toLowerCase());
         }
         URI uri = new URI(protocol, uriString.toString(), ""); //(protocol, "//" + host + API_RECORDS, "");
+        // LOG.info(uri.toString());
         HttpRequest request = getHttpRequestBuilder(uri)
                 .GET()
                 .build();
