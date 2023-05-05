@@ -31,7 +31,6 @@ public class FilesTest {
     
     @BeforeAll
     static void init() throws IOException {
-        //om.registerModule(new Jdk8Module());
         om.findAndRegisterModules();
     }
     

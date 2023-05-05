@@ -53,7 +53,6 @@ class MetadataTest {
         
     @BeforeAll
     static void init() throws IOException {
-        //om.registerModule(new Jdk8Module());
         om.findAndRegisterModules();
         // Initialize example data
         ArrayList<Identifier> identifiers = new ArrayList<>();
