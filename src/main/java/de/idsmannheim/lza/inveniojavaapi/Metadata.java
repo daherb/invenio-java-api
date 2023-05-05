@@ -65,7 +65,7 @@ public class Metadata {
     @JsonProperty("title")
     String title;
     @JsonProperty("publication_date")
-    final ExtendedDateTimeFormat0 publicationDate;
+    ExtendedDateTimeFormat0 publicationDate;
     // The rest is initialized with an empty value
     @JsonProperty("additional_titles")
     final ArrayList<AdditionalTitle> additionalTitles = new ArrayList<>();
@@ -2883,6 +2883,15 @@ public class Metadata {
     @JsonIgnore
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * Overwrites the publication date
+     * @param newPublicationDate the new publication date
+     */
+    @JsonIgnore
+    public void setPublicationDate(ExtendedDateTimeFormat0 newPublicationDate) {
+        this.publicationDate = newPublicationDate;
     }
 
     
