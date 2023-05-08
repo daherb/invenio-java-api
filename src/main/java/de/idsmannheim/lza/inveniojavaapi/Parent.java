@@ -204,4 +204,11 @@ public class Parent {
         }
         return Objects.equals(this.access, other.access);
     }
+
+    @Override
+    public String toString() {
+        return "Parent{" + "id=" + id + ", access=" + access + '}';
+    }
+    
+    
 }
