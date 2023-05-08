@@ -193,6 +193,7 @@ public class Record {
     @JsonProperty("versions")
             Versions versions;
     
+    // Todo potentially make status and isDraft optional
     public Record(Access access, Date created, FilesOptions files, String id, boolean isDraft, boolean isPublished, Metadata metadata, Parent parent, int revisionId, String status, Date updated, Versions versions) {
         this.access = access;
         this.created = created;
