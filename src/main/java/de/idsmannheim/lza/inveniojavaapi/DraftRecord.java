@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import de.idsmannheim.lza.inveniojavaapi.deserializers.DraftRecordDeserializer;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -22,12 +23,13 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @JsonDeserialize(using = DraftRecordDeserializer.class)
 public class DraftRecord {
-    
+    // Used for formating dates
+    private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
     @JsonProperty("access")
     Access access;
-    @JsonProperty("created")
+    // Annotation at String getter
     Optional<Date> created = Optional.empty();
-    @JsonProperty("expires_at")
+    // Annotation at String getter
     Optional<Date> expiresAt = Optional.empty();
     @JsonProperty("files")
     FilesOptions files;
@@ -45,7 +47,7 @@ public class DraftRecord {
     HashMap<String,ExternalPid> pids = new HashMap<>();
     @JsonProperty("revision_id")
     Optional<Integer> revisionId = Optional.empty();
-    @JsonProperty("updated")
+    // Annotation at String getter
     Optional<Date> updated = Optional.empty();
     @JsonProperty("versions")
     Optional<Record.Versions> versions = Optional.empty();
@@ -118,11 +120,21 @@ public class DraftRecord {
     public Optional<Date> getCreated() {
         return created;
     }
+    
+    @JsonProperty("created")
+    public Optional<String> getCreatedAsString() {
+        return created.map(dateFormater::format);
+    }
 
     public Optional<Date> getExpiresAt() {
         return expiresAt;
     }
 
+    @JsonProperty("expires_at")
+    public Optional<String> getExpiresAtAsString() {
+        return expiresAt.map(dateFormater::format);
+    }
+    
     public FilesOptions getFiles() {
         return files;
     }
@@ -157,6 +169,11 @@ public class DraftRecord {
 
     public Optional<Date> getUpdated() {
         return updated;
+    }
+    
+    @JsonProperty("updated")
+    public Optional<String> getUpdatedAsString() {
+        return updated.map(dateFormater::format);
     }
 
     public Optional<Record.Versions> getVersions() {

@@ -5,6 +5,7 @@
 package de.idsmannheim.lza.inveniojavaapi.deserializers;
 
 import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -19,6 +20,8 @@ import de.idsmannheim.lza.inveniojavaapi.FilesOptions;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import de.idsmannheim.lza.inveniojavaapi.Parent;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -27,7 +30,9 @@ import java.io.IOException;
  * Deserializer for DraftRecord
  */
 public class DraftRecordDeserializer extends StdDeserializer<DraftRecord> {
-     
+    
+    private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+    
     public DraftRecordDeserializer() {
         this(null);
     }
@@ -45,12 +50,20 @@ public class DraftRecordDeserializer extends StdDeserializer<DraftRecord> {
         FilesOptions files = om.readValue(node.get("files").toString(), FilesOptions.class);
         Metadata metadata = om.readValue(node.get("metadata").toString(), Metadata.class);
         DraftRecord record = new DraftRecord(access, files, metadata);
-//        if (node.has("created")) {
-//            record.setCreated(om.readValue(node.get("created").toString(),Date.class));
-//        }
-//        if (node.has("expires_at")) {
-//            record.setExpiresAt(om.readValue(node.get("expires_at").toString(),Date.class));
-//        }
+        if (node.has("created")) {
+            try {
+                record.setCreated(dateFormater.parse(node.get("created").asText()));
+            } catch (ParseException ex) {
+                throw new JsonParseException(p, "Error parsing date", ex);
+            }
+        }
+        if (node.has("expires_at")) {
+            try {
+                record.setExpiresAt(dateFormater.parse(node.get("expires_at").asText()));
+            } catch (ParseException ex) {
+                throw new JsonParseException(p, "Error parsing date", ex);
+            }
+        }
         if (node.has("id")) {
             record.setId(node.get("id").asText());
         }
@@ -69,9 +82,13 @@ public class DraftRecordDeserializer extends StdDeserializer<DraftRecord> {
         if (node.has("revision_id")) {
             record.setRevisionId(node.get("revision_id").asInt());
         }
-//        if (node.has("updated")) {
-//            record.setUpdated(om.readValue(node.get("updated").toString(),Date.class));
-//        }
+        if (node.has("updated")) {
+            try {
+                record.setUpdated(dateFormater.parse(node.get("updated").asText()));
+            } catch (ParseException ex) {
+                throw new JsonParseException(p, "Error parsing date", ex);
+            }
+        }
         if (node.has("versions")) {
             record.setVersions(om.readValue(node.get("versions").toString(),Record.Versions.class));
         }
