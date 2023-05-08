@@ -32,7 +32,7 @@ public class ParentTest {
     }
     
     @Test
-    public void accessTest() throws JsonProcessingException {
+    public void parentTest() throws JsonProcessingException {
         String accessText = "{\n" +
                 "    \"id\": \"fghij-12345\",\n" +
                 "    \"access\": {\n" +
