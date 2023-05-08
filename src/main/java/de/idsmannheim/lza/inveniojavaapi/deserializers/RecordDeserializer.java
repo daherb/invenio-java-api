@@ -5,6 +5,7 @@
 package de.idsmannheim.lza.inveniojavaapi.deserializers;
 
 import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -17,6 +18,8 @@ import de.idsmannheim.lza.inveniojavaapi.FilesOptions;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import de.idsmannheim.lza.inveniojavaapi.Record;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -27,6 +30,8 @@ import java.util.HashMap;
  * Deserializer for Record
  */
 public class RecordDeserializer extends StdDeserializer<Record> {
+    
+    private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
     
     public static class ParentDeserializer extends StdDeserializer<Record.Parent> {
         
@@ -89,23 +94,46 @@ public class RecordDeserializer extends StdDeserializer<Record> {
         ObjectMapper om = new ObjectMapper()
                 .registerModule(new Jdk8Module());
         Access access = om.readValue(node.get("access").toString(), Access.class);
-        Date created = om.readValue(node.get("created").toString(), Date.class);
-        HashMap<String,Object> customFields = om.readerForMapOf(Object.class).readValue(node.get("custom_fields").toString());
+        Date created = null;
+        try {
+            created = dateFormater.parse(node.get("created").asText());
+        }
+        catch (ParseException e) {
+            throw new JsonParseException(p, "Failed parsing date", e);
+        }
         FilesOptions files = om.readValue(node.get("files").toString(), FilesOptions.class);
         String id = node.get("id").asText();
-        boolean isDraft = node.get("is_draft").asBoolean();
+        
+        boolean isDraft = false;
+        if (node.has("is_draft")) {
+            isDraft = node.get("is_draft").asBoolean();
+        }
         boolean isPublished = node.get("is_published").asBoolean();
-        HashMap<String,String> links = om.readerForMapOf(String.class).readValue(node.get("links").toString());
         Metadata metadata = om.readValue(node.get("metadata").toString(), Metadata.class);
         Record.Parent parent = om.readValue(node.get("parent").toString(), Record.Parent.class);
-        HashMap<String,ExternalPid> pids = om.readerForMapOf(ExternalPid.class).readValue(node.get("pids").toString());
         int revisionId = node.get("revision_id").asInt();
-        String status = node.get("status").asText();
-        Date updated = om.readValue(node.get("updated").toString(), Date.class);
+        String status = null;
+        if (node.has("status")) {
+            status = node.get("status").asText();
+        }
+        Date updated = null;
+        try {
+            updated = dateFormater.parse(node.get("updated").asText());
+        }
+        catch (ParseException e) {
+            throw new JsonParseException(p, "Failed parsing date", e);
+        }
         Record.Versions versions = om.readValue(node.get("versions").toString(), Record.Versions.class);
-        return new Record(access, created, files, id, isDraft, isPublished, metadata, parent, revisionId, status, updated, versions)
-                .addCustomFields(customFields)
-                .addLinks(links)
-                .addPids(pids);
+        Record record = new Record(access, created, files, id, isDraft, isPublished, metadata, parent, revisionId, status, updated, versions);
+        if (node.has("custom_fields")) {
+            record.addCustomFields(om.readerForMapOf(Object.class).readValue(node.get("custom_fields").toString()));
+        }
+        if (node.has("links")) {
+            record.addLinks(om.readerForMapOf(String.class).readValue(node.get("links").toString()));
+        }
+        if (node.has("pids")) {
+            record.addPids(om.readerForMapOf(ExternalPid.class).readValue(node.get("pids").toString()));
+        }
+        return record;
     }
 }
