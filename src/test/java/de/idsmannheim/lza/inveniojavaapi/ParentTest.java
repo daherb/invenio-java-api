@@ -33,6 +33,7 @@ public class ParentTest {
     
     @Test
     public void parentTest() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#parent
         String accessText = "{\n" +
                 "    \"id\": \"fghij-12345\",\n" +
                 "    \"access\": {\n" +

@@ -165,6 +165,7 @@ class MetadataTest {
     
     @Test
     void resourceTypeTest() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#resource-type-1
         String resourceTypeText =
                "{\"id\": \"image-photo\"}";
         ResourceType rt2 = om.readValue(resourceTypeText, ResourceType.class);
@@ -175,6 +176,7 @@ class MetadataTest {
     
     @Test
     void creatorsTest() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#creators-1-n
         String creatorsText = 
                 "[{\n" +
                 "    \"person_or_org\": {\n" +
@@ -202,6 +204,7 @@ class MetadataTest {
     
     @Test
     void titleTest() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#title-1
         String titleText = "\"InvenioRDM\"";
         String t2 = om.readValue(titleText, String.class);
         String t3 = om.readValue(om.writeValueAsString(title),String.class);
@@ -211,6 +214,7 @@ class MetadataTest {
     
     @Test
     void publicationDateTest() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#publication-date-1
         String publicationDateText = "\"2018/2020-09\"";
         Metadata.ExtendedDateTimeFormat0 p2 = om.readValue(publicationDateText, Metadata.ExtendedDateTimeFormat0.class);
         Metadata.ExtendedDateTimeFormat0 p3 = 
@@ -221,6 +225,7 @@ class MetadataTest {
     
     @Test
     void additionalTitlesTest() throws JsonProcessingException, IOException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#additional-titles-0-n
         String additionalTitlesText = "[{\n" +
                 "    \"title\": \"A research data management platform\",\n" +
                 "    \"type\": {\n" +
@@ -237,8 +242,12 @@ class MetadataTest {
         Assertions.assertEquals(additionalTitles, at3);
     }
     
+    /*
+    Description is a simple string, so no test needed
+    */
     @Test
     void additionalDescriptionsTest() throws IOException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#additional-descriptions-0-n
         String additionalDescriptionsText = "[{\n" +
                 "    \"description\": \"The description of a research data management platform.\",\n" +
                 "    \"type\": {\n" +
@@ -257,6 +266,7 @@ class MetadataTest {
     
     @Test
     void rightsTest() throws IOException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#rights-licenses-0-n
         String rightsText = "[{\n" +
                 "    \"id\": \"cc-by-4.0\",\n" +
                 "    \"title\": {\"en\": \"Creative Commons Attribution 4.0 International\"},\n" +
@@ -271,6 +281,7 @@ class MetadataTest {
     
     @Test
     void contributorsTest() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#contributors-0-n
         String contributorsText = "[{\n" +
                 "    \"person_or_org\": {\n" +
                 "      \"name\": \"Nielsen, Lars Holm\",\n" +
@@ -296,6 +307,7 @@ class MetadataTest {
     
     @Test
     void subjectsTest() throws MalformedURLException, JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#subjects-0-n
         String subjectsText = "[{\n" +
                 "    \"id\": \"https://id.nlm.nih.gov/mesh/D000001\"\n" +
                 "  }]";
@@ -307,6 +319,7 @@ class MetadataTest {
     
     @Test
     void languagesTest() throws IOException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#languages-0-n
         String languagesText = "[{\"id\": \"dan\"}, {\"id\": \"eng\"}]";
         ArrayList<Metadata.Language> l2 = om.readerForListOf(Metadata.Language.class).readValue(languagesText);
         ArrayList<Metadata.Language> l3 = om.readerForListOf(Metadata.Language.class).readValue(om.writeValueAsString(languages));
@@ -316,6 +329,7 @@ class MetadataTest {
     
     @Test
     void datesTest() throws IOException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#dates-0-n
         String datesText = "[{\n" +
                 "    \"date\": \"1939/1945\",\n" +
                 "    \"type\": {\n" +
@@ -334,11 +348,12 @@ class MetadataTest {
     }
     
     /*
-    Version and Publisher are simple strings
+    Version and Publisher are simple strings, so no tests needed
     */
     
     @Test
     void alternateIdentifiers() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#alternate-identifiers-0-n
         String alternateIdentifiersText = "[{\n" +
                 "    \"identifier\": \"1924MNRAS..84..308E\",\n" +
                 "    \"scheme\": \"bibcode\"\n" +
@@ -351,6 +366,7 @@ class MetadataTest {
     
     @Test
     void relatedIdentifiersTest() throws IOException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n
         String relatedIdentifiersText = "[{\n" +
                 "    \"identifier\": \"10.1234/foo.bar\",\n" +
                 "    \"scheme\": \"doi\",\n" +
@@ -377,8 +393,13 @@ class MetadataTest {
         Assertions.assertEquals(relatedIdentifiers, ri3);
     }
     
+    /*
+    Sizes and formats are simple lists, so no tests needed
+    */
+    
     @Test
     void locationsTest() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#locations-0-n
         String locationsText = "{\n" +
                 "    \"features\": [{\n" +
                 "      \"geometry\": {\n" +
@@ -402,6 +423,7 @@ class MetadataTest {
     
     @Test
     void fundingTest() throws IOException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#funding-references-0-n
         String fundingText = "[{\n" +
                 "      \"funder\": {\n" +
                 "        \"id\": \"00k4n6c32\"\n" +
@@ -435,6 +457,7 @@ class MetadataTest {
     
     @Test
     void referencesTest() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#references-0-n
         String referencesText = "[{\n" +
                 "      \"reference\": \"Nielsen et al,..\",\n" +
                 "      \"identifier\": \"10.1234/foo.bar\",\n" +

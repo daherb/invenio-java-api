@@ -29,6 +29,7 @@ public class FilesOptionsTest {
     
     @Test
     public void filesOptionsTest() throws JsonProcessingException, IOException, IllegalArgumentException, IllegalAccessException {
+        // Taken from own repository data
         String filesOptionsText = "{\n" +
             "    \"default_preview\": \"data-0-0-metadata.cmdi\",\n" +
             "    \"enabled\": true,\n" +

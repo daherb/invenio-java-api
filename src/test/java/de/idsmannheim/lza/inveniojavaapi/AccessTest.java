@@ -31,6 +31,7 @@ public class AccessTest {
     
     @Test
     public void accessTest() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#access
         String accessText = "{\n" +
                 "    \"record\": \"public\",\n" +
                 "    \"files\": \"public\",\n" +

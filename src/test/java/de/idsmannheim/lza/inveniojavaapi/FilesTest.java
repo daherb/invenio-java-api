@@ -36,6 +36,7 @@ public class FilesTest {
     
     @Test
     public void filesTest() throws JsonProcessingException, ParseException, URISyntaxException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#entries-0-n
         String tombstoneStringText = "{\n" +
                 "  \"enabled\": \"true\",\n" +
                 "  \"entries\": {\n" +

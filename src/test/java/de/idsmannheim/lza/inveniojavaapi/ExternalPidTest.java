@@ -32,6 +32,7 @@ public class ExternalPidTest {
     
     @Test
     public void externalPidTest() throws JsonProcessingException {
+        // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#external-pids
         String externalPidsText = "{\n" +
                 "    \"doi\": {\n" +
                 "      \"identifier\": \"10.1234/rdm.5678\",\n" +

@@ -36,6 +36,7 @@ public class RecordsTest {
     
     @Test
     public void recordsTest() throws JsonProcessingException, IOException, IllegalArgumentException, IllegalAccessException {
+        // Taken from own repository data
         String recordsText = "{\n" +
                 "  \"aggregations\": {\n" +
                 "    \"access_status\": {\n" +
