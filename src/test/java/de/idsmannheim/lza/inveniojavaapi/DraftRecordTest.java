@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 public class DraftRecordTest {
     static ObjectMapper om = new ObjectMapper();
     private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
-    
+
     @BeforeAll
     static void init() throws IOException {
         om.findAndRegisterModules();
