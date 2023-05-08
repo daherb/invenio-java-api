@@ -109,7 +109,7 @@ public class Parent {
      * | user  | (1)         | The id of the user owning the record as a whole. |
      *  ------------------------------------------------------------------------
      */
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
     @JsonDeserialize(using = ParentDeserializer.OwnerDeserializer.class)
     public static class Owner {
         @JsonProperty("user")
