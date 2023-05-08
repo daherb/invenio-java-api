@@ -20,6 +20,7 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(using = RecordDeserializer.class)
 public class Record {
+    private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
     
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonDeserialize(using = RecordDeserializer.ParentDeserializer.class)
@@ -226,7 +227,7 @@ public class Record {
     @JsonProperty("created")
     public String getCreatedAsString() {
         if (created != null)
-            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(created);
+            return dateFormater.format(created);
         else
             return null;
     }
@@ -234,7 +235,7 @@ public class Record {
     @JsonProperty("updated")
     public String getUpdatedAsString() {
         if (updated != null)
-            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").format(updated);
+            return dateFormater.format(updated);
         else
             return null;
     }
