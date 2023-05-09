@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +23,6 @@ import org.junit.jupiter.api.Test;
  */
 public class DraftRecordTest {
     static ObjectMapper om = new ObjectMapper();
-    private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
 
     @BeforeAll
     static void init() throws IOException {
@@ -34,6 +32,7 @@ public class DraftRecordTest {
     @Test
     public void draftRecordTest() throws JsonProcessingException, IOException, IllegalArgumentException, IllegalAccessException, ParseException {
         // Taken from https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#get-a-draft-record
+        // with updated date fromat
         String draftRecordText = "{\n" +
                 "  \"access\": {\n" +
                 "    \"record\": \"public\",\n" +
@@ -43,8 +42,8 @@ public class DraftRecordTest {
                 "      \"active\": false\n" +
                 "    }\n" +
                 "  },\n" +
-                "  \"created\": \"2020-11-27 10:52:23.945755\",\n" +
-                "  \"expires_at\": \"2020-11-27 10:52:23.945868\",\n" +
+                "  \"created\": \"2020-11-27T10:52:23.945755+00:00\",\n" +
+                "  \"expires_at\": \"2020-11-27T10:52:23.945868+00:00\",\n" +
                 "  \"files\": {\n" +
                 "    \"enabled\": true\n" +
                 "  },\n" +
@@ -109,7 +108,7 @@ public class DraftRecordTest {
                 "  },\n" +
                 "  \"pids\": {},\n" +
                 "  \"revision_id\": 3,\n" +
-                "  \"updated\": \"2020-11-27 10:52:23.969244\",\n" +
+                "  \"updated\": \"2020-11-27T10:52:23.969244+00:00\",\n" +
                 "  \"versions\": {\n" +
                 "    \"index\": 1,\n" +
                 "    \"is_latest\": false,\n" +
@@ -140,15 +139,15 @@ public class DraftRecordTest {
         Metadata.ExtendedDateTimeFormat0 publicationDate = new Metadata.ExtendedDateTimeFormat0("2020").addStartMonth("06").addStartDay("01");
         Metadata metadata = new Metadata(resourceType, creators, title, publicationDate);
         DraftRecord draftRecord = new DraftRecord(access, files, metadata)
-                .setCreated(dateFormater.parse("2020-11-27 10:52:23.945755"))
-                .setExpiresAt(dateFormater.parse("2020-11-27 10:52:23.945868"))
+                .setCreated(DateFormater.getInstance().parse("2020-11-27T10:52:23.945755+00:00"))
+                .setExpiresAt(DateFormater.getInstance().parse("2020-11-27T10:52:23.945868+00:00"))
                 .setId("{id}")
                 .setIsPublished(Boolean.FALSE)
                 .addLinks(links)
                 .setParent(parent)
                 .addPids(new HashMap<>())
                 .setRevisionId(3)
-                .setUpdated(dateFormater.parse("2020-11-27 10:52:23.969244"))
+                .setUpdated(DateFormater.getInstance().parse("2020-11-27T10:52:23.969244+00:00"))
                 .setVersions(versions);
         DraftRecord dr2 = om.readValue(draftRecordText, DraftRecord.class);
         DraftRecord dr3 = om.readValue(om.writeValueAsString(draftRecord), DraftRecord.class);

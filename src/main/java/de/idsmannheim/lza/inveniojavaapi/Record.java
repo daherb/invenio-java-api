@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import de.idsmannheim.lza.inveniojavaapi.deserializers.RecordDeserializer;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -20,7 +19,6 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonDeserialize(using = RecordDeserializer.class)
 public class Record {
-    private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
     
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonDeserialize(using = RecordDeserializer.ParentDeserializer.class)
@@ -228,7 +226,7 @@ public class Record {
     @JsonProperty("created")
     public String getCreatedAsString() {
         if (created != null)
-            return dateFormater.format(created);
+            return DateFormater.getInstance().format(created);
         else
             return null;
     }
@@ -236,7 +234,7 @@ public class Record {
     @JsonProperty("updated")
     public String getUpdatedAsString() {
         if (updated != null)
-            return dateFormater.format(updated);
+            return DateFormater.getInstance().format(updated);
         else
             return null;
     }

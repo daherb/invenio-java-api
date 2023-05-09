@@ -69,8 +69,8 @@ public class FilesTest {
                 "  \"default_preview\": \"paper.pdf\"\n" +
                 "}"; 
         Files files = new Files(true);
-        Date created = om.readValue("\"2022-10-12T11:08:56.953781+00:00\"", Date.class); // 2022-10-12T11:08:56.953781+00:00
-        Date updated = om.readValue("\"2022-10-12T11:08:56.953781+00:00\"", Date.class);
+        Date created = DateFormater.getInstance().parse("2022-10-12T11:08:56.953781+00:00");
+        Date updated = DateFormater.getInstance().parse("2022-10-12T11:08:56.953781+00:00");
         HashMap<String,Object> metadata = new HashMap<>();
         metadata.put("width", 2302);
         metadata.put("height", 948);

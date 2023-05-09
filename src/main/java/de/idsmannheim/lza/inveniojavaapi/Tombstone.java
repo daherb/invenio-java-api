@@ -100,7 +100,7 @@ public class Tombstone {
     String category;
     @JsonProperty("removed_by")
     User removedBy;
-    @JsonProperty("timestamp")
+    // Annotation on String getter
     Date timestamp;
 
     public Tombstone(String reason, String category, User removedBy, Date timestamp) {
@@ -110,6 +110,11 @@ public class Tombstone {
         this.timestamp = timestamp;
     }
 
+    @JsonProperty("timestamp")
+    public String getTimestampAsString() {
+        return DateFormater.getInstance().format(timestamp);
+    }
+    
     @Override
     protected Object clone() {
         return new Tombstone(reason, category, (User) removedBy.clone(), (Date) timestamp.clone());

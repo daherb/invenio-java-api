@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import de.idsmannheim.lza.inveniojavaapi.deserializers.DraftRecordDeserializer;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
@@ -23,8 +22,6 @@ import java.util.Optional;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @JsonDeserialize(using = DraftRecordDeserializer.class)
 public class DraftRecord {
-    // Used for formating dates
-    private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
     @JsonProperty("access")
     Access access;
     // Annotation at String getter
@@ -123,7 +120,7 @@ public class DraftRecord {
     
     @JsonProperty("created")
     public Optional<String> getCreatedAsString() {
-        return created.map(dateFormater::format);
+        return created.map(DateFormater.getInstance()::format);
     }
 
     public Optional<Date> getExpiresAt() {
@@ -132,7 +129,7 @@ public class DraftRecord {
 
     @JsonProperty("expires_at")
     public Optional<String> getExpiresAtAsString() {
-        return expiresAt.map(dateFormater::format);
+        return expiresAt.map(DateFormater.getInstance()::format);
     }
     
     public FilesOptions getFiles() {
@@ -173,7 +170,7 @@ public class DraftRecord {
     
     @JsonProperty("updated")
     public Optional<String> getUpdatedAsString() {
-        return updated.map(dateFormater::format);
+        return updated.map(DateFormater.getInstance()::format);
     }
 
     public Optional<Record.Versions> getVersions() {

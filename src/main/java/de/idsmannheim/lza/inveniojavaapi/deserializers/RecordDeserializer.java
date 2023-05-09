@@ -13,13 +13,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.Access;
+import de.idsmannheim.lza.inveniojavaapi.DateFormater;
 import de.idsmannheim.lza.inveniojavaapi.ExternalPid;
 import de.idsmannheim.lza.inveniojavaapi.FilesOptions;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
 import de.idsmannheim.lza.inveniojavaapi.Record;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -30,8 +30,6 @@ import java.util.HashMap;
  * Deserializer for Record
  */
 public class RecordDeserializer extends StdDeserializer<Record> {
-    
-    private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
     
     public static class ParentDeserializer extends StdDeserializer<Record.Parent> {
         
@@ -96,10 +94,10 @@ public class RecordDeserializer extends StdDeserializer<Record> {
         Access access = om.readValue(node.get("access").toString(), Access.class);
         Date created = null;
         try {
-            created = dateFormater.parse(node.get("created").asText());
+            created = DateFormater.getInstance().parse(node.get("created").asText());
         }
         catch (ParseException e) {
-            throw new JsonParseException(p, "Failed parsing date", e);
+            throw new JsonParseException(p, "Exception while parsing date", e);
         }
         FilesOptions files = om.readValue(node.get("files").toString(), FilesOptions.class);
         String id = node.get("id").asText();
@@ -118,10 +116,10 @@ public class RecordDeserializer extends StdDeserializer<Record> {
         }
         Date updated = null;
         try {
-            updated = dateFormater.parse(node.get("updated").asText());
+            updated = DateFormater.getInstance().parse(node.get("updated").asText());
         }
         catch (ParseException e) {
-            throw new JsonParseException(p, "Failed parsing date", e);
+            throw new JsonParseException(p, "Exception while parsing date", e);
         }
         Record.Versions versions = om.readValue(node.get("versions").toString(), Record.Versions.class);
         Record record = new Record(access, created, files, id, isDraft, isPublished, metadata, parent, revisionId, status, updated, versions);

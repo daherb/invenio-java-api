@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.idsmannheim.lza.inveniojavaapi.Record.Versions;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,7 +24,6 @@ import org.junit.jupiter.api.Test;
  */
 public class RecordTest {
     static ObjectMapper om = new ObjectMapper();
-    private final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
     
     @BeforeAll
     static void init() throws IOException {
@@ -35,6 +33,7 @@ public class RecordTest {
     @Test
     public void recordTest() throws JsonProcessingException, IOException, IllegalArgumentException, IllegalAccessException {
         // Taken from https://inveniordm.docs.cern.ch/reference/rest_api_drafts_records/#get-a-record
+        // updated date format
         String recordText = "{\n" +
                 "  \"access\": {\n" +
                 "    \"record\": \"restricted\",\n" +
@@ -44,8 +43,8 @@ public class RecordTest {
                 "      \"active\": false\n" +
                 "    }\n" +
                 "  },\n" +
-                "  \"created\": \"2020-11-27 10:52:23.945755\",\n" +
-                "  \"expires_at\": \"2020-11-27 10:52:23.945868\",\n" +
+                "  \"created\": \"2020-11-27T10:52:23.945755+00:00\",\n" +
+                "  \"expires_at\": \"2020-11-27T10:52:23.945868+00:00\",\n" +
                 "  \"files\": {\n" +
                 "    \"enabled\": true\n" +
                 "  },\n" +
@@ -115,7 +114,7 @@ public class RecordTest {
                 "  },\n" +
                 "  \"pids\": {},\n" +
                 "  \"revision_id\": 3,\n" +
-                "  \"updated\": \"2020-11-27 10:52:23.969244\",\n" +
+                "  \"updated\": \"2020-11-27T10:52:23.969244+00:00\",\n" +
                 "  \"versions\": {\n" +
                 "    \"index\": 1,\n" +
                 "    \"is_latest\": true,\n" +
@@ -124,8 +123,8 @@ public class RecordTest {
                 "}"; 
         try {
             Access access = new Access(Access.AccessType.Restricted, Access.AccessType.Restricted).setEmbargo(new Access.Embargo());
-            Date created = dateFormater.parse("2020-11-27 10:52:23.945755");
-            Date expiresAt = dateFormater.parse("2020-11-27 10:52:23.945868"); // Where should that go
+            Date created = DateFormater.getInstance().parse("2020-11-27T10:52:23.945755+00:00");
+            Date expiresAt = DateFormater.getInstance().parse("2020-11-27T10:52:23.945868+00:00"); // Where should that go
             FilesOptions files = new FilesOptions(true);
             String id = "{id}";
             boolean isDraft = false;
@@ -146,7 +145,7 @@ public class RecordTest {
             Record.Parent parent = new Record.Parent("{parent-id}");
             int revisionId = 3;
             String status = null;
-            Date updated = dateFormater.parse("2020-11-27 10:52:23.969244");
+            Date updated = DateFormater.getInstance().parse("2020-11-27T10:52:23.969244+00:00");
             Versions versions = new Versions(1, true);
             Record record = new Record(access, created, files, id, isDraft, isPublished, metadata, parent, revisionId, status, updated, versions);
             HashMap<String,String> links = new HashMap<>();

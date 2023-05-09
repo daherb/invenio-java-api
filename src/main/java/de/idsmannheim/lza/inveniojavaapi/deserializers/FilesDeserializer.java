@@ -5,15 +5,17 @@
 package de.idsmannheim.lza.inveniojavaapi.deserializers;
 
 import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import de.idsmannheim.lza.inveniojavaapi.DateFormater;
 import de.idsmannheim.lza.inveniojavaapi.Files;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,8 +49,14 @@ public class FilesDeserializer extends StdDeserializer<Files> {
             if (node.has("checksum") && node.get("checksum") != null)
                 checksum = node.get("checksum").asText();
             Date created = null;
-            if (node.has("created") && node.get("created") != null)
-                created = om.readValue(node.get("created").toString(), Date.class);
+            if (node.has("created") && node.get("created") != null) {
+                try {
+                    created = DateFormater.getInstance().parse(node.get("created").asText());
+                }
+                catch(ParseException e) {
+                    throw new JsonParseException(p, "Exception while parsing date", e);
+                }
+            }
             String fileId = null;
             if (node.has("file_id") && node.get("file_id") != null)
                 fileId = node.get("file_id").asText();
@@ -66,8 +74,14 @@ public class FilesDeserializer extends StdDeserializer<Files> {
             if (node.has("storage_class") && node.get("storage_class") != null)
                 storageClass = node.get("storage_class").asText();
             Date updated = null;
-            if (node.has("updated") && node.get("updated") != null)
-                updated = om.readValue(node.get("updated").toString(), Date.class);
+            if (node.has("updated") && node.get("updated") != null) {
+                try {
+                    updated = DateFormater.getInstance().parse(node.get("updated").asText());
+                }
+                catch(ParseException e) {
+                    throw new JsonParseException(p, "Exception while parsing date", e);
+                }
+            }
             String versionId = null;
             if (node.has("version_id") && node.get("version_id") != null)
                 versionId = node.get("version_id").asText();

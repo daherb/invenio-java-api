@@ -5,14 +5,17 @@
 package de.idsmannheim.lza.inveniojavaapi.deserializers;
 
 import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import de.idsmannheim.lza.inveniojavaapi.DateFormater;
 import de.idsmannheim.lza.inveniojavaapi.Tombstone;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -53,7 +56,13 @@ public class TombstoneDeserializer extends StdDeserializer<Tombstone> {
         String reason = node.get("reason").asText();
         String category = node.get("category").asText();
         Tombstone.User removedBy = om.readValue(node.get("removed_by").toString(), Tombstone.User.class);
-        Date timestamp = om.readValue(node.get("timestamp").toString(), Date.class);
+        Date timestamp;
+        try {
+            timestamp = DateFormater.getInstance().parse(node.get("timestamp").asText());
+        }
+        catch(ParseException e) {
+            throw new JsonParseException(p, "Exception while parsing date", e);
+        }
         return new Tombstone(reason, category, removedBy, timestamp);
     }
     

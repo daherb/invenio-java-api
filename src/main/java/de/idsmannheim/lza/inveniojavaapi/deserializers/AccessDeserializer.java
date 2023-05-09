@@ -5,6 +5,7 @@
 package de.idsmannheim.lza.inveniojavaapi.deserializers;
 
 import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,7 +14,9 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import de.idsmannheim.lza.inveniojavaapi.Access;
 import de.idsmannheim.lza.inveniojavaapi.Access.AccessType;
+import de.idsmannheim.lza.inveniojavaapi.DateFormater;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +44,13 @@ public class AccessDeserializer extends StdDeserializer<Access> {
                 .registerModule(new Jdk8Module());
             boolean active = node.get("active").asBoolean();
             if (active) {
-                Date until = om.readValue(node.get("until").toString(), Date.class);
+                Date until;
+                try {
+                    until = DateFormater.getInstance().parse(node.get("until").asText());
+                }
+                catch(ParseException e) {
+                    throw new JsonParseException(p, "Exception while parsing date", e);
+                }
                 Optional<String> reason = Optional.empty();
                 return new Access.Embargo(until, reason);
             }

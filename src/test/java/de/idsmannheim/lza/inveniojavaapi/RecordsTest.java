@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.idsmannheim.lza.inveniojavaapi.Records.Aggregation;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -35,7 +35,7 @@ public class RecordsTest {
     }
     
     @Test
-    public void recordsTest() throws JsonProcessingException, IOException, IllegalArgumentException, IllegalAccessException {
+    public void recordsTest() throws JsonProcessingException, IOException, IllegalArgumentException, IllegalAccessException, ParseException {
         // Taken from own repository data
         String recordsText = "{\n" +
                 "  \"aggregations\": {\n" +
@@ -190,7 +190,7 @@ public class RecordsTest {
         ControlledVocabulary.LanguageIdFactory languageIdFactory = new ControlledVocabulary.LanguageIdFactory();
         hitList.add(new Record(
                 new Access(Access.AccessType.Public,Access.AccessType.Public).setEmbargo(new Access.Embargo()).setStatus("metadata-only"),
-                om.readValue("\"2023-01-11T12:52:28.945163+00:00\"", Date.class),
+                DateFormater.getInstance().parse("2023-01-11T12:52:28.945163+00:00"),
                 new FilesOptions(false),
                 "vxacz-xhj42",
                 false,
@@ -210,7 +210,7 @@ public class RecordsTest {
                 new Record.Parent("5k1hr-sxr38"),
                 3,
                 "published",
-                om.readValue("\"2023-01-11T12:52:29.031012+00:00\"", Date.class),
+                DateFormater.getInstance().parse("2023-01-11T12:52:29.031012+00:00"),
                 new Record.Versions(1,true))
                 .addLinks(hitLinks)
                 .addPids(pids)
