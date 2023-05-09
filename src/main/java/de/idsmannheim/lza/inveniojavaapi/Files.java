@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
-import io.vavr.control.Either;
 import java.text.SimpleDateFormat;
 
 /**
