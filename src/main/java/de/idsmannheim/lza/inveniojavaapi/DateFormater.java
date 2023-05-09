@@ -39,7 +39,13 @@ public class DateFormater{
      * @throws ParseException 
      */
     public Date parse(String s) throws ParseException {
-        return dateFormat.parse(s);
+        try {
+            return dateFormat.parse(s);
+        }
+        catch (ParseException e) {
+            // Try to fix the date
+            return dateFormat.parse(s.replace(' ', 'T') + "+00:00");
+        }
     }
     
     /**
