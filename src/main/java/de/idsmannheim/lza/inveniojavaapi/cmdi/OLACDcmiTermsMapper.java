@@ -13,7 +13,8 @@ import org.jdom2.Document;
 import org.jdom2.Namespace;
 
 /**
- *
+ * Mapping from the OLAC-DcmiTerms-ref CMDI profile
+ * This profile uses default namespaces which cause problems with CMDI and consequently
  * @author Herbert Lange <lange@ids-mannheim.de>
  */
 public class OLACDcmiTermsMapper extends CmdiProfileMapping {
