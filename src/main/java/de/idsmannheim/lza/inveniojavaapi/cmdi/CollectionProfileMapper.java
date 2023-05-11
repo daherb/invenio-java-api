@@ -6,7 +6,6 @@ package de.idsmannheim.lza.inveniojavaapi.cmdi;
 
 import de.idsmannheim.lza.inveniojavaapi.ControlledVocabulary;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
