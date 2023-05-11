@@ -5,6 +5,9 @@
             "person_or_org": {
                 "name": "Leibniz-Institut für Deutsche Sprache (IDS)",
                 "type": "organizational"
+            },
+            "role" : {
+                "id" : "datacollector"
             }
         }
     ],
@@ -34,7 +37,7 @@
                 "given_name": "Marc",
                 "family_name": "Kupietz"
             },
-            "role": "datacurator",
+            "role": {"id": "datacurator"},
             "affiliations": [
                 {"name": "Leibniz-Institut für Deutsche Sprache (IDS)"}
             ]
