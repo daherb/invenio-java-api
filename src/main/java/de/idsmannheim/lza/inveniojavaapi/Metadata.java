@@ -1431,10 +1431,16 @@ public class Metadata {
      * | affiliations  | (0-n)       | Affilations if person_or_org.type is    |
      * |               |             | personal.                               |
      *  -----------------------------------------------------------------------
-   
-    * 
-    * Note that Creators and Contributors may use different controlled
-    * vocabularies for the role field.
+     *
+     * The role field is as follows:
+     *  ____________________________________________________________________
+     * | Field | Cardinality | Description                                  |
+     * |-------+-------------+----------------------------------------------|
+     * | id    | (1, CV)     | The role's controlled vocabulary identifier. |
+     *  --------------------------------------------------------------------
+     * 
+     * Note that Creators and Contributors may use different controlled
+     * vocabularies for the role field.
      */
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonDeserialize(using = ContributorDeserializer.class)

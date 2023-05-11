@@ -5,6 +5,7 @@
 package de.idsmannheim.lza.inveniojavaapi;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -278,7 +279,7 @@ public class ControlledVocabulary {
             }
         }
         @Override
-        @JsonValue
+        @JsonProperty("id")
         public String toString() {
             return role.toString().toLowerCase();
         }

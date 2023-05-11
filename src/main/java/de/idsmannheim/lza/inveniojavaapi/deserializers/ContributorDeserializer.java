@@ -35,7 +35,7 @@ public class ContributorDeserializer extends StdDeserializer<Metadata.Contributo
         ObjectMapper om = new ObjectMapper()
                 .registerModule(new Jdk8Module());
         Metadata.PersonOrOrg personOrOrg = om.readValue(node.get("person_or_org").toString(), Metadata.PersonOrOrg.class);
-        ControlledVocabulary.Role role = new ControlledVocabulary.Role(node.get("role").asText());
+        ControlledVocabulary.Role role = new ControlledVocabulary.Role(node.get("role").get("id").asText());
         Metadata.Contributor contributor = new Metadata.Contributor(personOrOrg, role);
         if (node.has("affiliations")) {
             contributor.addAffiliations(om.readerForListOf(Metadata.Affiliation.class)

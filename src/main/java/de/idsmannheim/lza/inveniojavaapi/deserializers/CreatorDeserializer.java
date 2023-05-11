@@ -53,7 +53,7 @@ public class CreatorDeserializer extends StdDeserializer<Creator> {
                 .registerModule(new Jdk8Module());
         PersonOrOrg personOrOrg = new ObjectMapper().readValue(node.get("person_or_org").toString(), PersonOrOrg.class);
         Creator creator = new Creator(personOrOrg);
-        if (node.has("role") && node.get("role").isTextual()) {
+        if (node.has("role")) {
              creator.setRole(om.readValue(node.get("role").toString(),Creator.Role.class));
         }
         if (node.has("affiliations")) {
