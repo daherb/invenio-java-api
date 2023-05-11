@@ -31,7 +31,7 @@ public class CMDI {
         Optional<Metadata.ResourceType> cmdiResourceType = mapper.getResourceType();
         Optional<String> cmdiVersion = mapper.getVersion();
         // LifeCycleStatus ignored
-        Optional<Metadata.ExtendedDateTimeFormat0> cmdiPublicationDate = mapper.getPublicationDate();
+        Optional<String> cmdiPublicationDate = mapper.getPublicationDate();
         // LastUpdated ignored
         Optional<String> cmdiLegalOwner = mapper.getLegalOwner();
         // Genre ignored
@@ -55,8 +55,8 @@ public class CMDI {
                 .orElse(new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.Other)));
         // Potentially not always present. Use current year if missing
         // Try to parse the publication date
-        Metadata.ExtendedDateTimeFormat0 publicationDate = cmdiPublicationDate
-                .orElse(new Metadata.ExtendedDateTimeFormat0(String.valueOf(Calendar.getInstance().get(Calendar.YEAR))));
+        Metadata.ExtendedDateTimeFormat0 publicationDate = Metadata.ExtendedDateTimeFormat0.parseDateToExtended(cmdiPublicationDate
+                .orElse(String.valueOf(Calendar.getInstance().get(Calendar.YEAR))));
         // Either title or the string "n/a"
         String title = cmdiResourceTitle.orElse("n/a");
         // Either add rightsholders or creators as creators

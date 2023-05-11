@@ -64,14 +64,8 @@ private final List<Namespace> namespaces = List.of(
     }
 
     @Override
-    public Optional<Metadata.ExtendedDateTimeFormat0> getPublicationDate() {
-        return getOptionalText("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate")
-                .map((d) -> {
-                    if (!d.isEmpty())
-                        return Metadata.ExtendedDateTimeFormat0.parseDateToExtended(d);
-                    else
-                        return new Metadata.ExtendedDateTimeFormat0(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
-                });
+    public Optional<String> getPublicationDate() {
+        return getOptionalText("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate");
     }
 
     @Override

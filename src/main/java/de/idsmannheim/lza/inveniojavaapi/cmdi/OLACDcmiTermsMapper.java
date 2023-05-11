@@ -62,14 +62,8 @@ public class OLACDcmiTermsMapper extends CmdiProfileMapping {
     }
 
     @Override
-    public Optional<Metadata.ExtendedDateTimeFormat0> getPublicationDate() {
-        return getOptionalText("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:issued")
-                .map((d) -> {
-                    if (!d.isEmpty())
-                        return Metadata.ExtendedDateTimeFormat0.parseDateToExtended(d);
-                    else
-                        return new Metadata.ExtendedDateTimeFormat0(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
-                });
+    public Optional<String> getPublicationDate() {
+        return getOptionalText("/*[local-name()='CMD']/*[local-name()='Components']/*[local-name()='OLAC-DcmiTerms-ref']/*[local-name()='issued']");
     }
 
     @Override

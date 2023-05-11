@@ -78,7 +78,7 @@ public abstract class CmdiProfileMapping {
      * Gets the publication date. Used as publication date in Invenio
      * @return the publication date if it exists
      */
-    public abstract Optional<Metadata.ExtendedDateTimeFormat0> getPublicationDate();
+    public abstract Optional<String> getPublicationDate();
     
     /**
      * Gets the legal owner of the resource. Used as the rights holder creators in Invenio
