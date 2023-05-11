@@ -30,7 +30,7 @@ public class OLACDcmiTermsMapper extends CmdiProfileMapping {
 
     @Override
     public Optional<String> getSelfLink() {
-        return getOptionalText("/cmd:CMD/cmd:Header/cmd:MdSelfLink");
+        return getOptionalText("/*[local-name()='CMD']/*[local-name()='Header']/*[local-name()='MdSelfLink']");
     }
     
     @Override
@@ -40,12 +40,12 @@ public class OLACDcmiTermsMapper extends CmdiProfileMapping {
 
     @Override
     public Optional<String> getResourceTitle() {
-        return getOptionalText("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:title");
+        return getOptionalText("/*[local-name()='CMD']/*[local-name()='Components']/*[local-name()='OLAC-DcmiTerms-ref']/*[local-name()='title']");
     }
 
     @Override
     public Optional<Metadata.ResourceType> getResourceType() {
-        return getOptionalText("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:type")
+        return getOptionalText("/*[local-name()='CMD']/*[local-name()='Components']/*[local-name()='OLAC-DcmiTerms-ref']/*[local-name()='type']")
                 .map((t) -> {
                     if (t.equals("collection")) {
                         return new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.PublicationAnnotationCollection));
@@ -68,7 +68,7 @@ public class OLACDcmiTermsMapper extends CmdiProfileMapping {
 
     @Override
     public Optional<String> getLegalOwner() {
-        return getOptionalText("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:publisher");
+        return getOptionalText("/*[local-name()='CMD']/*[local-name()='Components']/*[local-name()='OLAC-DcmiTerms-ref']/*[local-name()='publisher']");
     }
 
     @Override
@@ -78,21 +78,21 @@ public class OLACDcmiTermsMapper extends CmdiProfileMapping {
 
     @Override
     public List<String> getCreators() {
-        return getTextList("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:creator");
+        return getTextList("/*[local-name()='CMD']/*[local-name()='Components']/*[local-name()='OLAC-DcmiTerms-ref']/*[local-name()='creator']");
     }
 
     @Override
     public List<String> getSubjectLanguages() {
-        return getTextList("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:language");
+        return getTextList("/*[local-name()='CMD']/*[local-name()='Components']/*[local-name()='OLAC-DcmiTerms-ref']/*[local-name()='language']");
     }
 
     @Override
     public List<String> getLicenses() {
-        return getTextList("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:rights");
+        return getTextList("/*[local-name()='CMD']/*[local-name()='Components']/*[local-name()='OLAC-DcmiTerms-ref']/*[local-name()='rights']");
     }
     
     @Override
     public Map<String, String> getDescription() {
-        return getLangMap("/cmd:CMD/cmd:Components/cmd:OLAC-DcmiTerms-ref/cmd:Description");
+        return getLangMap("/*[local-name()='CMD']/*[local-name()='Components']/*[local-name()='OLAC-DcmiTerms-ref']/*[local-name()='description']");
     }
 }
