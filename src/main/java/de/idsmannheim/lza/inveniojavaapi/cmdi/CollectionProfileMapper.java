@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.jdom2.Document;
 import org.jdom2.Namespace;
@@ -76,8 +77,9 @@ private final List<Namespace> namespaces = List.of(
     // TODO both currently not what we want to have
     @Override
     public Optional<String> getLocation() {
-        return getOptionalElement("/cmd1:CMD/cmd1:Components/cmdp:CollectionProfile/cmdp:GeneralInfo/cmdp:Location|/cmd1:CMD/cmd1:Components/cmdp:CollectionProfile/cmdp:GeneralInfo/cmdp:Institution/cmdp:Organisation/cmdp:Location")
-                .map((e) -> CmdiProfileMapping.getAllText(e).stream().collect(Collectors.joining("\n")));
+        return getElementList("/cmd1:CMD/cmd1:Components/cmdp:CollectionProfile/cmdp:GeneralInfo/cmdp:Location|/cmd1:CMD/cmd1:Components/cmdp:CollectionProfile/cmdp:GeneralInfo/cmdp:Institution/cmdp:Organisation/cmdp:Location")
+                .stream().map((e) -> CmdiProfileMapping.getAllText(e).stream().collect(Collectors.joining("\n")))
+                .filter(Predicate.not(String::isBlank)).findAny();
     }
 
     @Override

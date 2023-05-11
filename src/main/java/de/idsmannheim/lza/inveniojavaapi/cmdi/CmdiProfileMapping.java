@@ -116,22 +116,32 @@ public abstract class CmdiProfileMapping {
      */
     public abstract Map<String,String> getDescription();
     
-    Optional<Element> getOptionalElement(String xpath) {
-        return Optional.ofNullable(XPathFactory.instance()
+    /**
+     * Returns the Element if it exists
+     * @param xpath the path to the element
+     * @return Either the Optional of the Element or Nothing if it doesn't exist
+     */
+    List<Element> getElementList(String xpath) {
+        return XPathFactory.instance()
                 .compile(xpath,
-                new ElementFilter(), new HashMap<>(), namespaces).evaluateFirst(cmdiDocument));
+                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument);
     }
     
+    /**
+     * Returns the text of an Element it it exists
+     * @param xpath the path to the element
+     * @return Either the Optional of the text or Nothing if the Element doesn't exist. The String can be empty if the Element exists but has no text
+     */
     Optional<String> getOptionalText(String xpath) {
-        return getOptionalElement(xpath)
-                .map(Element::getText);
+        return getElementList(xpath).stream()
+                .map(Element::getText).filter(Predicate.not(String::isBlank)).findAny();
     }
     
     List<String> getTextList(String xpath) {
         return XPathFactory.instance()
                 .compile(xpath,
                 new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)
-                .stream().map(Element::getText).toList();
+                .stream().map(e -> String.join(", ",CmdiProfileMapping.getAllText(e))).filter(Predicate.not(String::isBlank)).toList();
     }
     Map<String,String> getLangMap(String xpath) {
         HashMap<String, String> descriptions = new HashMap<>();

@@ -75,8 +75,9 @@ private final List<Namespace> namespaces = List.of(
 
     @Override
     public Optional<String> getLocation() {
-        return getOptionalElement("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Location")
-                .map((e) -> CmdiProfileMapping.getAllText(e).stream().collect(Collectors.joining("\n")));
+        return getElementList("/cmd1:CMD/cmd1:Components/cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Location")
+                .stream().map((e) -> CmdiProfileMapping.getAllText(e).stream().collect(Collectors.joining("\n")))
+                .findAny();
     }
 
     @Override

@@ -75,8 +75,9 @@ public class SpeechCorpusProfileMapper extends CmdiProfileMapping {
 
     @Override
     public Optional<String> getLocation() {
-        return getOptionalElement("/cmd1:CMD/cmd1:Components/cmdp:SpeechCorpusProfile/cmdp:GeneralInfo/cmdp:Location")
-                .map((e) -> CmdiProfileMapping.getAllText(e).stream().collect(Collectors.joining("\n")));
+        return getElementList("/cmd1:CMD/cmd1:Components/cmdp:SpeechCorpusProfile/cmdp:GeneralInfo/cmdp:Location")
+                .stream().map((e) -> CmdiProfileMapping.getAllText(e).stream().collect(Collectors.joining(", ")))
+                        .findAny();
     }
 
     @Override
