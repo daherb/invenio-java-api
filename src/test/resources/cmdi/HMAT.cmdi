@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type='text/xsl' href='/cmdixsl/templates.xsl'?>
+<cmd:CMD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:cmd="http://www.clarin.eu/cmd/1"
+   xmlns:cmdp="http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1527668176128" CMDVersion="1.2"
+   xsi:schemaLocation="http://www.clarin.eu/cmd/1 https://infra.clarin.eu/CMDI/1.x/xsd/cmd-envelop.xsd http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1527668176128 https://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.1/profiles/clarin.eu:cr1:p_1527668176128/1.2/xsd">
+   <cmd:Header>
+      <cmd:MdCreator></cmd:MdCreator>
+      <cmd:MdCreationDate>2023-02-20</cmd:MdCreationDate> <!-- current date -->
+      <cmd:MdSelfLink></cmd:MdSelfLink>
+      <cmd:MdProfile>clarin.eu:cr1:p_1527668176128</cmd:MdProfile>
+      <cmd:MdCollectionDisplayName>Institut für Deutsche Sprache, CLARIN-D Zentrum, Mannheim</cmd:MdCollectionDisplayName>
+   </cmd:Header>
+   <cmd:Resources>
+      
+      <cmd:ResourceProxyList>
+         <cmd:ResourceProxy id="bla1">
+            <cmd:ResourceType mimetype="text/html">LandingPage</cmd:ResourceType>
+            <cmd:ResourceRef/>
+         </cmd:ResourceProxy>
+         <cmd:ResourceProxy id="bla2">
+            <cmd:ResourceType mimetype="application/x-cmdi+xml">Metadata</cmd:ResourceType>
+            <cmd:ResourceRef/>
+         </cmd:ResourceProxy>
+         
+         <cmd:ResourceProxy id="bla3"> <!-- 26 Audiodateien: ./Audiodateien/HMAT_E_000XX/HMAT_E_000XX_SE_01_A_01_DF_01.WAV -->
+            <cmd:ResourceType mimetype="audio/wav">Resource</cmd:ResourceType>
+            <cmd:ResourceRef/>
+         </cmd:ResourceProxy>
+         
+         <cmd:ResourceProxy id="bla4"> <!-- 2 Worddokumente: ./Einverständniserklärungen/Map_task_Erklaerungsbogen_korr.doc UND ./Einverständniserklärungen/Map_task_Erklaerungsbogen_korr_Minderjaehrige.doc -->
+            <cmd:ResourceType mimetype="application/doc">Resource</cmd:ResourceType>
+            <cmd:ResourceRef/>
+         </cmd:ResourceProxy>
+         
+         <cmd:ResourceProxy id="bla5"> <!-- 26 XML-Dateien: ./Ereignismetadaten/HMAT_E_000XX.xml -->
+            <cmd:ResourceType mimetype="application/xml">Resource</cmd:ResourceType>
+            <cmd:ResourceRef/>
+         </cmd:ResourceProxy>
+         
+         <cmd:ResourceProxy id="bla6"> <!-- 1 XML-Datei: ./Korpusmetadaten/HMAT.xml -->
+            <cmd:ResourceType mimetype="application/xml">Resource</cmd:ResourceType>
+            <cmd:ResourceRef/>
+         </cmd:ResourceProxy>
+         
+         <cmd:ResourceProxy id="bla7"> <!-- 28 XML-Dateien: ./Sprechermetadaten/HMAT_S_000XX.xml -->
+            <cmd:ResourceType mimetype="application/xml">Resource</cmd:ResourceType>
+            <cmd:ResourceRef/>
+         </cmd:ResourceProxy>
+         
+         <cmd:ResourceProxy id="bla8"> <!-- 26 XML-Dateien: ./Transkripte ISO-TEI/HMAT_E_000XX_SE_01_T_01_DF_01.xml -->
+            <cmd:ResourceType mimetype="application/xml">Resource</cmd:ResourceType>
+            <cmd:ResourceRef/>
+         </cmd:ResourceProxy>
+         
+         <cmd:ResourceProxy id="bla9"> <!-- 2 Videodateien: ./Videodaten/HMAT_E_000XX/HMAT_E_000XX_SE_01_V_01_DF_01.mp4 -->
+            <cmd:ResourceType mimetype="video/mp4">Resource</cmd:ResourceType>
+            <cmd:ResourceRef/>
+         </cmd:ResourceProxy>
+         
+         <cmd:ResourceProxy id="bla10"> <!-- 30 PDF-Dateien: ./Zusatzmaterialien/HMAT_E_000XX_SE_01_Z_01_DF_01.pdf UND ./Zusatzmaterialien/HMAT_Z_0X_MapTaskKarte_Xx.pdf-->
+            <cmd:ResourceType mimetype="application/pdf">Resource</cmd:ResourceType>
+            <cmd:ResourceRef/>
+         </cmd:ResourceProxy>
+      </cmd:ResourceProxyList>
+      
+      <cmd:JournalFileProxyList>
+         <cmd:JournalFileProxy>
+            <cmd:JournalFileRef/>
+         </cmd:JournalFileProxy>
+      </cmd:JournalFileProxyList>
+      
+      <cmd:ResourceRelationList>
+      </cmd:ResourceRelationList>
+   </cmd:Resources>
+   
+   <cmd:IsPartOfList>
+      <cmd:IsPartOf/>
+   </cmd:IsPartOfList>
+   
+   <cmd:Components>
+      <cmdp:SpeechCorpusProfile>
+         <cmdp:GeneralInfo>
+            <cmdp:ResourceName xml:lang="en">Hamburg Maptask Corpus (HaMaTaC)</cmdp:ResourceName>
+            <cmdp:ResourceName xml:lang="de">Hamburg Maptask Corpus (HaMaTaC)</cmdp:ResourceName>
+            <cmdp:ResourceTitle xml:lang="en">Hamburg Maptask Corpus (HaMaTaC)</cmdp:ResourceTitle>
+            <cmdp:ResourceClass>Corpus</cmdp:ResourceClass>
+            <cmdp:Version>Erstes Release in der DGD (vorher: HZSK)</cmdp:Version>
+            <cmdp:LifeCycleStatus>published</cmdp:LifeCycleStatus>
+            <cmdp:StartYear>2001</cmdp:StartYear>
+            <cmdp:CompletionYear>2011</cmdp:CompletionYear>
+            <cmdp:PublicationDate>17-05-2021</cmdp:PublicationDate>
+            <cmdp:LastUpdate/>
+            <cmdp:TimeCoverage/>
+            <cmdp:LegalOwner xml:lang="de">Institut für Deutsche Sprache</cmdp:LegalOwner>
+            <cmdp:FieldOfResearch/>
+            <cmdp:Location>
+               <cmdp:Address>Postfach 10 16 21, D-68016 Mannheim</cmdp:Address>
+               <cmdp:Telephone>+49 (0)621 1581 0</cmdp:Telephone>
+               <cmdp:Email>agd@ids-mannheim.de</cmdp:Email>
+               <cmdp:Region></cmdp:Region>
+               <cmdp:Country>
+                  <cmdp:CountryName xml:lang="de"></cmdp:CountryName>
+                  <cmdp:CountryName xml:lang="en"></cmdp:CountryName>
+                  <cmdp:CountryCoding>DE</cmdp:CountryCoding>
+               </cmdp:Country>
+            </cmdp:Location>
+            <cmdp:Descriptions>
+               <cmdp:Description xml:lang="de">
+                  Das Hamburg Maptask Corpus wurde zwischen Oktober 2009
+                  und September 2010 im Projekt Z2 "Computergestützte Erfassungs- und Analysemethoden
+                  multilingualer Daten am SFB "Mehrsprachigkeit" an der Universität Hamburg erstellt. Im Juni 2013
+                  wurde das Korpus um zwei Aufnahmen mit Video erweitert. Hauptmotivation für die Erstellung des
+                  Korpus war das Bereitstellen von Datensätzen zum Testen und Demonstrieren der Funktionalitäten
+                  des EXMARaLDA-Systems, insbesondere mit Blick auf das Annotieren und Teilen von Daten. Als
+                  Elizitations-Experiment für die Aufnahmen wurden die Map Tasks aus dem "Deutsch Heute"-Korpus
+                  verwendet. Die Map Tasks wurden mit 25 DeutschlernerInnen mit unterschiedlich fortgeschrittenen
+                  Deutschkenntnissen und einer L1-Sprecherin duchgeführt. Die Erstsprachen der SprecherInnen
+                  decken ein breites Spektrum an Sprachen ab, das von romanischen sprachen (Französisch,
+                  Galizisch, Spanisch) über slawische Sprachen (Russisch, Polnisch, Bulgarisch) zu iranischen
+                  Sprachen (Farsi/Dari) reicht und auch nicht-indoeuropäische Sprachen (Türkisch, Arabisch,
+                  Chinesisch, Japanisch, Thai, Vietnamesisch) umfasst. Da die SprecherInnen über studentische
+                  Hilfskräfte rekrutiert wurden, sind sie größtenteils zwischen 17 und 40 Jahren alt und haben ein
+                  höheres Bildungsniveau. Frühere Versionen des Korpus wurden am Hamburger Zentrum für Sprachkorpora (HZSK)
+                  archiviert und sind auch über das Zentrum für Nachhaltiges Forschungsdatenmanagement der Universität Hamburg verfügbar.
+               </cmdp:Description>
+               <cmdp:Description xml:lang="en">
+                  The Hamburg Map Task Corpus was created between
+                  October 2009 and September 2010 in the project Z2 ‚Computer assisted methods for the creation
+                  and analysis of multilingual data’ of the Research Centre on Multilingualism at the University
+                  of Hamburg. In June 2013, the corpus was extended with two recordings on video. The main
+                  motivation for creating the corpus was to provide a set of data for testing and demonstrating
+                  the capabilities of the EXMARaLDA system, in particular with respect to annotation and data
+                  sharing. The map task designed for the corpus "Deutsch Heute" was chosen as the basic experiment
+                  for the corpus. The map task was performed by 25 learners of German with varying proficiency and
+                  on L1 speaker. The speakers’ L1 cover a broad spectrum of languages, including Romance languages
+                  (French, Galician, Spanish), Slavic languages (Russian, Polish, Bulgarian), Iranian languages
+                  (Farsi/Dari) and diverse languages from Non-Indo-European families (Turkish, Arabic, Chinese,
+                  Japanese, Thai, Vietnamese). Since speakers were selected and contacted by student assistants in
+                  the project, most of them are between 17 and 40 years old and have a higher education. Earlier
+                  versions of the corpus were archived at the Hamburger Zentrum für Sprachkorpora and are also 
+                  available via the Zentrum für Nachhaltiges Forschungsdatenmanagement at the University of Hamburg
+               </cmdp:Description>
+            </cmdp:Descriptions>
+            <cmdp:tags>
+               <cmdp:tag>gesprochene deutsche Sprache</cmdp:tag>
+               <cmdp:tag>Maptask</cmdp:tag>
+               <cmdp:tag>Lernerkorpus</cmdp:tag>
+            </cmdp:tags>
+            <cmdp:ModalityInfo>
+               <cmdp:Modalities>spoken</cmdp:Modalities>
+            </cmdp:ModalityInfo>
+         </cmdp:GeneralInfo>
+         <cmdp:Project>
+            <cmdp:ProjectName>Computergestützte Erfassungs- und Analysemethoden multilingualer Daten (Z2)</cmdp:ProjectName>
+            <cmdp:ProjectTitle xml:lang="de">Computergestützte Erfassungs- und Analysemethoden multilingualer Daten (Z2)</cmdp:ProjectTitle>
+            <cmdp:ProjectID></cmdp:ProjectID>
+            <cmdp:Url></cmdp:Url>
+            <cmdp:Funder>
+               <cmdp:fundingAgency>Drittmittelprojekt ; gefördert von der Deutschen Forschungsgemeinschaft (DFG)</cmdp:fundingAgency>
+            </cmdp:Funder>
+            <cmdp:Institution>
+               <cmdp:Department xml:lang="de">Sonderforschungsbereich 538 Mehrsprachigkeit</cmdp:Department>
+               <cmdp:Url></cmdp:Url>
+               <cmdp:Organisation>
+                  <cmdp:name></cmdp:name>
+                  <cmdp:AuthoritativeIDs>
+                     <cmdp:AuthoritativeID>
+                        <cmdp:id></cmdp:id>
+                        <cmdp:issuingAuthority>VIAF</cmdp:issuingAuthority>
+                     </cmdp:AuthoritativeID>
+                     <cmdp:AuthoritativeID>
+                        <cmdp:id></cmdp:id>
+                        <cmdp:issuingAuthority>VIAF</cmdp:issuingAuthority>
+                     </cmdp:AuthoritativeID>
+                  </cmdp:AuthoritativeIDs>
+               </cmdp:Organisation>
+               <cmdp:Descriptions>
+                  <cmdp:Description xml:lang="de">
+                  </cmdp:Description>
+                  <cmdp:Description xml:lang="en">
+                  </cmdp:Description>
+               </cmdp:Descriptions>
+            </cmdp:Institution> 
+            <cmdp:Cooperations>
+               <cmdp:Descriptions>
+                  <cmdp:Description/>
+               </cmdp:Descriptions>
+               <cmdp:Cooperation>
+                  <cmdp:CooperationPartner/>
+                  <cmdp:Department/>
+                  <cmdp:Organisation/>
+                  <cmdp:Url targetLang=""/>
+                  <cmdp:Descriptions>
+                     <cmdp:Description/>
+                  </cmdp:Descriptions>
+               </cmdp:Cooperation>
+            </cmdp:Cooperations>
+
+            <cmdp:Person>
+               <cmdp:firstName>Thomas</cmdp:firstName>
+               <cmdp:lastName>Schmidt</cmdp:lastName>
+               <cmdp:role>Leiter</cmdp:role>
+               <cmdp:AuthoritativeIDs>
+                  <cmdp:AuthoritativeID>
+                     <cmdp:id></cmdp:id>
+                     <cmdp:issuingAuthority>VIAF</cmdp:issuingAuthority>
+                  </cmdp:AuthoritativeID>
+                  <cmdp:AuthoritativeID>
+                     <cmdp:id></cmdp:id>
+                     <cmdp:issuingAuthority>VIAF</cmdp:issuingAuthority>
+                  </cmdp:AuthoritativeID>
+               </cmdp:AuthoritativeIDs>
+            </cmdp:Person>
+            <cmdp:Descriptions>
+               <cmdp:Description/>
+            </cmdp:Descriptions>
+         </cmdp:Project>
+         <cmdp:Publications>
+            <cmdp:Publication>
+               <cmdp:PublicationTitle>
+                  Hedeland, Hanna/Schmidt, Thomas (2012): Technological and methodological challenges in creating, annotating and sharing a learner corpus of spoken German. In: Schmidt, Thomas/Wörner, Kai (Hrsg.): Multilingual Corpora and Multilingual Corpus Analysis. (= Hamburg Studies on Multilingualism 14). Amsterdam: Benjamins, 2012. S. 25-46.   
+               </cmdp:PublicationTitle>
+               <cmdp:resolvablePID/>
+               <cmdp:Author/>
+               <cmdp:Descriptions>
+                  <cmdp:Description/>
+               </cmdp:Descriptions>
+            </cmdp:Publication>
+         </cmdp:Publications>
+         <cmdp:Creation>
+            <cmdp:Topic/>
+            <cmdp:Creators>
+               <cmdp:Person>
+                  <cmdp:firstName></cmdp:firstName>
+                  <cmdp:lastName></cmdp:lastName>
+                  <cmdp:role></cmdp:role>
+               </cmdp:Person>
+               <cmdp:Descriptions>
+                  <cmdp:Description/>
+               </cmdp:Descriptions>
+            </cmdp:Creators>
+            <cmdp:CreationToolInfo>
+               <cmdp:CreationTool/>
+               <cmdp:ToolType/>
+               <cmdp:Version/>
+               <cmdp:Url/>
+               <cmdp:Descriptions>
+                  <cmdp:Description/>
+               </cmdp:Descriptions>
+            </cmdp:CreationToolInfo>
+            <cmdp:Source>
+               <cmdp:OriginalSource/>
+               <cmdp:SourceType/>
+               <cmdp:MediaFiles id="">
+                  <cmdp:MediaFile>
+                     <cmdp:CatalogueLink/>
+                     <cmdp:Type>Unknown</cmdp:Type>
+                     <cmdp:Format xml:lang="en"></cmdp:Format>
+                     <cmdp:Size/>
+                     <cmdp:Quality>Unknown</cmdp:Quality>
+                     <cmdp:RecordingConditions/>
+                     <cmdp:Position>
+                        <cmdp:PositionType/>
+                        <cmdp:StartPosition/>
+                        <cmdp:EndPosition/>
+                     </cmdp:Position>
+                     <cmdp:Access>
+                        <cmdp:Availability></cmdp:Availability>
+                        <cmdp:DistributionMedium/>
+                        <cmdp:CatalogueLink/>
+                        <cmdp:Price/>
+                        <cmdp:Licence src=""/>
+                        <cmdp:Contact>
+                           <cmdp:firstname/>
+                           <cmdp:lastname/>
+                           <cmdp:email/>
+                           <cmdp:role/>
+                           <cmdp:Address>
+                              <cmdp:street/>
+                              <cmdp:ZIPCode/>
+                              <cmdp:city/>
+                           </cmdp:Address>
+                        </cmdp:Contact>
+                        <cmdp:Descriptions>
+                           <cmdp:Description/>
+                        </cmdp:Descriptions>
+                     </cmdp:Access>
+                     <cmdp:Descriptions>
+                        <cmdp:Description/>
+                     </cmdp:Descriptions>
+                     <cmdp:Keys>
+                        <cmdp:Key Name=""/>
+                     </cmdp:Keys>
+                  </cmdp:MediaFile>
+                  <cmdp:Descriptions>
+                     <cmdp:Description/>
+                  </cmdp:Descriptions>
+               </cmdp:MediaFiles>
+
+               <cmdp:Descriptions>
+                  <cmdp:Description/>
+               </cmdp:Descriptions>
+            </cmdp:Source>
+            <cmdp:Descriptions>
+               <cmdp:Description/>
+            </cmdp:Descriptions>
+         </cmdp:Creation>
+         
+         <cmdp:Documentations>
+            <cmdp:Documentation>
+               <cmdp:DocumentationLanguages>
+                  <cmdp:DocumentationLanguage>
+                     <cmdp:Language>
+                        <cmdp:LanguageName/>
+                        <cmdp:ISO639>
+                           <cmdp:iso-639-3-code>eng</cmdp:iso-639-3-code>
+                        </cmdp:ISO639>
+                     </cmdp:Language>
+                  </cmdp:DocumentationLanguage>
+               </cmdp:DocumentationLanguages>
+            </cmdp:Documentation>
+         </cmdp:Documentations>
+         
+         <cmdp:SpeechCorpusContext>
+            <cmdp:Modalities>speech</cmdp:Modalities>
+            <cmdp:MediaType>Face-to-face</cmdp:MediaType>
+            <cmdp:SpeechCorpus>
+               <cmdp:DurationOfEffectiveSpeech>3 Stunden, 26 Minuten</cmdp:DurationOfEffectiveSpeech>
+               <cmdp:DurationOfFullDatabase></cmdp:DurationOfFullDatabase>
+               <cmdp:NumberOfSpeakers>28</cmdp:NumberOfSpeakers>
+               <cmdp:RecordingEnvironment>other</cmdp:RecordingEnvironment>
+               <cmdp:SpeakerDemographics/>
+               <cmdp:Quality>Unknown</cmdp:Quality>
+               <cmdp:RecordingPlatformHardware></cmdp:RecordingPlatformHardware>
+               <cmdp:RecordingPlatformSoftware/>
+               <cmdp:SpeechTechnicalMetadata>
+                  <cmdp:SamplingFrequency>48000</cmdp:SamplingFrequency>
+                  <cmdp:NumberOfChannels>2</cmdp:NumberOfChannels>
+                  <cmdp:BitResolution>16</cmdp:BitResolution>
+                  <cmdp:SpeechCoding>pcm</cmdp:SpeechCoding>
+               </cmdp:SpeechTechnicalMetadata>
+               <cmdp:Descriptions>
+                  <cmdp:Description LanguageID="de">
+                     Es handelt sich um eine elizitierte Spielinteraktion, bei der jedem der zwei Gesprächsbeteiligten eine Karte vorliegt, auf der Gegenstände oder Personen abgebildet sind. Auf der Karte eines Gesprächsteilnehmers befindet sich zudem ein Weg, der dem anderen nicht bekannt ist. Dieser kann den Weg wegen eines Sichtschutzes nicht sehen. Der erste Gesprächsteilnehmer beschreibt diesen Weg, der andere zeichnet ihn in seine Karte ein. Anschließend vergleichen sie die Wege. Dann werden die Rollen getauscht.
+                  </cmdp:Description>
+                  <cmdp:Description LanguageID="de">
+                     25 mehrsprachige junge Erwachsene, für die Deutsch nicht L1 ist, eine L1-Sprecherin, zwei AufnahmeleiterInnen
+                  </cmdp:Description>
+               </cmdp:Descriptions>
+            </cmdp:SpeechCorpus>
+            <cmdp:Multilinguality>
+               <cmdp:Multilinguality>Monolingual</cmdp:Multilinguality>
+            </cmdp:Multilinguality>
+            <cmdp:AnnotationTypes>
+               <cmdp:AnnotationType>
+                  <cmdp:AnnotationType>Unknown</cmdp:AnnotationType>
+                  <cmdp:Description>
+                     <cmdp:Description LanguageID=""/>
+                  </cmdp:Description>
+               </cmdp:AnnotationType>
+               <cmdp:Description>
+                  <cmdp:Description LanguageID=""/>
+               </cmdp:Description>
+            </cmdp:AnnotationTypes>
+            <cmdp:SubjectLanguages>
+               <cmdp:NumberOfLanguages>1</cmdp:NumberOfLanguages>
+               <cmdp:SubjectLanguage>
+                  <cmdp:DominantLanguage>true</cmdp:DominantLanguage>
+                  <cmdp:Language>
+                     <cmdp:LanguageName xml:lang="en"></cmdp:LanguageName>
+                     <cmdp:ISO639>
+                        <cmdp:iso-639-3-code>deu</cmdp:iso-639-3-code>
+                     </cmdp:ISO639>
+                  </cmdp:Language>
+               </cmdp:SubjectLanguage>
+            </cmdp:SubjectLanguages>
+            <cmdp:TypeSpecificSizeInfo/>
+         </cmdp:SpeechCorpusContext>
+         
+         <cmdp:Access>
+            <cmdp:Availability xml:lang="de">Anhören von Aufnahmeausschnitten in DGD</cmdp:Availability>
+            <cmdp:DistributionMedium>Archiv für Gesprochenes Deutsch</cmdp:DistributionMedium>
+            <cmdp:CatalogueLink>http://dgd.ids-mannheim.de</cmdp:CatalogueLink>
+            <cmdp:Licence src=""/>
+            <cmdp:Contact>
+               <cmdp:firstname></cmdp:firstname>
+               <cmdp:lastname></cmdp:lastname>
+               <cmdp:email>agd@ids-mannheim.de</cmdp:email>
+               <cmdp:role></cmdp:role>
+               <cmdp:Address>
+                  <cmdp:street></cmdp:street>
+                  <cmdp:ZIPCode></cmdp:ZIPCode>
+                  <cmdp:city></cmdp:city>
+               </cmdp:Address>
+            </cmdp:Contact>
+            <cmdp:DeploymentToolInfo>
+               <cmdp:DeploymentTool/>
+               <cmdp:ToolType/>
+               <cmdp:Version/>
+               <cmdp:Url/>
+               <cmdp:Descriptions>
+                  <cmdp:Description/>
+               </cmdp:Descriptions>
+            </cmdp:DeploymentToolInfo>
+            <cmdp:Descriptions>
+               <cmdp:Description/>
+            </cmdp:Descriptions>
+         </cmdp:Access>
+         
+         <cmdp:ResourceProxyListInfo>
+            <cmdp:ResourceProxyInfo xmlns:ns1="http://www.clarin.eu/cmd/1" ns1:ref="bla1">                    
+               <cmdp:ResProxItemName/>
+               <cmdp:ResProxFileName>path/to/bla1</cmdp:ResProxFileName>
+               <cmdp:SizeInfo>
+                  <cmdp:TotalSize> 
+                     <cmdp:Size>0000</cmdp:Size>
+                     <cmdp:SizeUnit>B</cmdp:SizeUnit>
+                  </cmdp:TotalSize>
+               </cmdp:SizeInfo>
+               <cmdp:Checksums>
+                  <cmdp:md5/> 
+                  <cmdp:sha1/>
+                  <cmdp:sha256/>                   
+               </cmdp:Checksums>                
+            </cmdp:ResourceProxyInfo>
+         
+            <cmdp:ResourceProxyInfo xmlns:ns1="http://www.clarin.eu/cmd/1" ns1:ref="bla2">                    
+               <cmdp:ResProxItemName/>
+               <cmdp:ResProxFileName>path/to/bla2</cmdp:ResProxFileName>
+               <cmdp:SizeInfo>
+                  <cmdp:TotalSize> 
+                     <cmdp:Size>0000</cmdp:Size>
+                     <cmdp:SizeUnit>B</cmdp:SizeUnit>
+                  </cmdp:TotalSize>
+               </cmdp:SizeInfo>
+               <cmdp:Checksums>
+                  <cmdp:md5/> 
+                  <cmdp:sha1/>
+                  <cmdp:sha256/>                   
+               </cmdp:Checksums>                
+            </cmdp:ResourceProxyInfo>
+
+            <cmdp:ResourceProxyInfo xmlns:ns1="http://www.clarin.eu/cmd/1" ns1:ref="bla3">                    
+               <cmdp:ResProxItemName/>
+               <cmdp:ResProxFileName>path/to/bla3</cmdp:ResProxFileName>
+               <cmdp:SizeInfo>
+                  <cmdp:TotalSize> 
+                     <cmdp:Size>0000</cmdp:Size>
+                     <cmdp:SizeUnit>B</cmdp:SizeUnit>
+                  </cmdp:TotalSize>
+               </cmdp:SizeInfo>
+               <cmdp:Checksums>
+                  <cmdp:md5/> 
+                  <cmdp:sha1/>
+                  <cmdp:sha256/>                   
+               </cmdp:Checksums>                
+            </cmdp:ResourceProxyInfo>
+
+            <cmdp:ResourceProxyInfo xmlns:ns1="http://www.clarin.eu/cmd/1" ns1:ref="bla4">                    
+               <cmdp:ResProxItemName/>
+               <cmdp:ResProxFileName>path/to/bla4</cmdp:ResProxFileName>
+               <cmdp:SizeInfo>
+                  <cmdp:TotalSize> 
+                     <cmdp:Size>0000</cmdp:Size>
+                     <cmdp:SizeUnit>B</cmdp:SizeUnit>
+                  </cmdp:TotalSize>
+               </cmdp:SizeInfo>
+               <cmdp:Checksums>
+                  <cmdp:md5/> 
+                  <cmdp:sha1/>
+                  <cmdp:sha256/>                   
+               </cmdp:Checksums>                
+            </cmdp:ResourceProxyInfo>
+
+            <cmdp:ResourceProxyInfo xmlns:ns1="http://www.clarin.eu/cmd/1" ns1:ref="bla5">                    
+               <cmdp:ResProxItemName/>
+               <cmdp:ResProxFileName>path/to/bla5</cmdp:ResProxFileName>
+               <cmdp:SizeInfo>
+                  <cmdp:TotalSize> 
+                     <cmdp:Size>0000</cmdp:Size>
+                     <cmdp:SizeUnit>B</cmdp:SizeUnit>
+                  </cmdp:TotalSize>
+               </cmdp:SizeInfo>
+               <cmdp:Checksums>
+                  <cmdp:md5/> 
+                  <cmdp:sha1/>
+                  <cmdp:sha256/>                   
+               </cmdp:Checksums>                
+            </cmdp:ResourceProxyInfo>
+
+            <cmdp:ResourceProxyInfo xmlns:ns1="http://www.clarin.eu/cmd/1" ns1:ref="bla6">                    
+               <cmdp:ResProxItemName/>
+               <cmdp:ResProxFileName>path/to/bla6</cmdp:ResProxFileName>
+               <cmdp:SizeInfo>
+                  <cmdp:TotalSize> 
+                     <cmdp:Size>0000</cmdp:Size>
+                     <cmdp:SizeUnit>B</cmdp:SizeUnit>
+                  </cmdp:TotalSize>
+               </cmdp:SizeInfo>
+               <cmdp:Checksums>
+                  <cmdp:md5/> 
+                  <cmdp:sha1/>
+                  <cmdp:sha256/>                   
+               </cmdp:Checksums>                
+            </cmdp:ResourceProxyInfo>
+
+            <cmdp:ResourceProxyInfo xmlns:ns1="http://www.clarin.eu/cmd/1" ns1:ref="bla7">                    
+               <cmdp:ResProxItemName/>
+               <cmdp:ResProxFileName>path/to/bla7</cmdp:ResProxFileName>
+               <cmdp:SizeInfo>
+                  <cmdp:TotalSize> 
+                     <cmdp:Size>0000</cmdp:Size>
+                     <cmdp:SizeUnit>B</cmdp:SizeUnit>
+                  </cmdp:TotalSize>
+               </cmdp:SizeInfo>
+               <cmdp:Checksums>
+                  <cmdp:md5/> 
+                  <cmdp:sha1/>
+                  <cmdp:sha256/>                   
+               </cmdp:Checksums>                
+            </cmdp:ResourceProxyInfo>
+
+            <cmdp:ResourceProxyInfo xmlns:ns1="http://www.clarin.eu/cmd/1" ns1:ref="bla8">                    
+               <cmdp:ResProxItemName/>
+               <cmdp:ResProxFileName>path/to/bla8</cmdp:ResProxFileName>
+               <cmdp:SizeInfo>
+                  <cmdp:TotalSize> 
+                     <cmdp:Size>0000</cmdp:Size>
+                     <cmdp:SizeUnit>B</cmdp:SizeUnit>
+                  </cmdp:TotalSize>
+               </cmdp:SizeInfo>
+               <cmdp:Checksums>
+                  <cmdp:md5/> 
+                  <cmdp:sha1/>
+                  <cmdp:sha256/>                   
+               </cmdp:Checksums>                
+            </cmdp:ResourceProxyInfo>
+
+            <cmdp:ResourceProxyInfo xmlns:ns1="http://www.clarin.eu/cmd/1" ns1:ref="bla9">                    
+               <cmdp:ResProxItemName/>
+               <cmdp:ResProxFileName>path/to/bla9</cmdp:ResProxFileName>
+               <cmdp:SizeInfo>
+                  <cmdp:TotalSize> 
+                     <cmdp:Size>0000</cmdp:Size>
+                     <cmdp:SizeUnit>B</cmdp:SizeUnit>
+                  </cmdp:TotalSize>
+               </cmdp:SizeInfo>
+               <cmdp:Checksums>
+                  <cmdp:md5/> 
+                  <cmdp:sha1/>
+                  <cmdp:sha256/>                   
+               </cmdp:Checksums>                
+            </cmdp:ResourceProxyInfo>
+
+            <cmdp:ResourceProxyInfo xmlns:ns1="http://www.clarin.eu/cmd/1" ns1:ref="bla10">                    
+               <cmdp:ResProxItemName/>
+               <cmdp:ResProxFileName>path/to/bla10</cmdp:ResProxFileName>
+               <cmdp:SizeInfo>
+                  <cmdp:TotalSize> 
+                     <cmdp:Size>0000</cmdp:Size>
+                     <cmdp:SizeUnit>B</cmdp:SizeUnit>
+                  </cmdp:TotalSize>
+               </cmdp:SizeInfo>
+               <cmdp:Checksums>
+                  <cmdp:md5/> 
+                  <cmdp:sha1/>
+                  <cmdp:sha256/>                   
+               </cmdp:Checksums>                
+            </cmdp:ResourceProxyInfo>
+         </cmdp:ResourceProxyListInfo> 
+         
+      </cmdp:SpeechCorpusProfile>
+   </cmd:Components>
+</cmd:CMD>

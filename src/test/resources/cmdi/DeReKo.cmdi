@@ -1,0 +1,1547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type='text/xsl' href='/cmdixsl/templates.xsl'?>
+<cmd:CMD xmlns:cmd="http://www.clarin.eu/cmd/1"
+    xmlns:cmdp="http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1659015263839"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" CMDVersion="1.2"
+    xsi:schemaLocation="http://www.clarin.eu/cmd/1 https://infra.clarin.eu/CMDI/1.x/xsd/cmd-envelop.xsd      
+    http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1659015263839     https://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.x/profiles/clarin.eu:cr1:p_1659015263839/xsd">
+
+    <cmd:Header>
+        <cmd:MdCreator>Manual Creation</cmd:MdCreator>
+        <cmd:MdCreationDate>2023-01-21</cmd:MdCreationDate>
+        <cmd:MdSelfLink>https://hdl.handle.net/NOTYET</cmd:MdSelfLink>
+        <cmd:MdProfile>clarin.eu:cr1:p_1659015263839</cmd:MdProfile>
+        <cmd:MdCollectionDisplayName>IDS Sprachressourcen</cmd:MdCollectionDisplayName>
+    </cmd:Header>
+    <cmd:Resources>
+
+        <cmd:ResourceProxyList>
+            <!--         <cmd:ResourceProxy id="">
+            <cmd:ResourceType></cmd:ResourceType>
+            <cmd:ResourceRef></cmd:ResourceRef>
+        </cmd:ResourceProxy>-->
+            <!-- Bestandteile von DeReKo nach https://www.ids-mannheim.de/digspra/kl/projekte/korpora/archiv-1/ -->
+            <cmd:ResourceProxy id="DeReKoSigle-a">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@a</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-aan">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@aan</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-aaz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@aaz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-abm">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@abm</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-abo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@abo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-aez">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@aez</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-afz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@afz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-agz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@agz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-aho">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@aho</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-alz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@alz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-art">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@art</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-atz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@atz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-auf">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@auf</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-auh">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@auh</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-azm">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@azm</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-b">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@b</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-baz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@baz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bdz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bdz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bee">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bee</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bei">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bei</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-beo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@beo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bez">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bez</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bih">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bih</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bil">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bil</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bio">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bio</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bio-pub">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bio-pub</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bkr">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bkr</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bku">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bku</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bla">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bla</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bli">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bli</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bmo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bmo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bna">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bna</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bot">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bot</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-boz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@boz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-brg">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@brg</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-brm">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@brm</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bru">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bru</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-brw">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@brw</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-brz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@brz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bsz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bsz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bue">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bue</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bun">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bun</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bup">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bup</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bvz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bvz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bwa">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bwa</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bze">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bze</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bzg">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bzg</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-bzk">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@bzk</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-c">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@c</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-cap">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@cap</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-chk">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@chk</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-cid">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@cid</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-cio">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@cio</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-cit">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@cit</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-cou">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@cou</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ct">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ct</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ctb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ctb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dae">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dae</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dak">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dak</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-daz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@daz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-db">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@db</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dbt">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dbt</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dck">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dck</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dec">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dec</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dgb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dgb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dgl">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dgl</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dib">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dib</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dkg">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dkg</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dki">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dki</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dnn">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dnn</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dog">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dog</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dol">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dol</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dpa">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dpa</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dpr">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dpr</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dsz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dsz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dtz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dtz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dvz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dvz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-dww">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@dww</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-e">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@e</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-edf">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@edf</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-eft">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@eft</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ein">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ein</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-elf">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@elf</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-elo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@elo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-elt">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@elt</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ene">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ene</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ep">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ep</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ett">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ett</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-eut">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@eut</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-euw">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@euw</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-eze">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@eze</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-f">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@f</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-fis">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@fis</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-flt">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@flt</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-fmt">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@fmt</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-fnp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@fnp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-fnz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@fnz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-foc">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@foc</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-fom">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@fom</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-fpc">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@fpc</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-fra">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@fra</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-frt">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@frt</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-fsp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@fsp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-fsp-pub">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@fsp-pub</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-fuw">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@fuw</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gal">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gal</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gaz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gaz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ge">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ge</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-geo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@geo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ges">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ges</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gfds">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gfds</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ggt">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ggt</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-giz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@giz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gng">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gng</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gob">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gob</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-goe">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@goe</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gr">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gr</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gri">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gri</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gsp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gsp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gta">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gta</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gtb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gtb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-gwp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@gwp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-h">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@h</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-haa">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@haa</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hab">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hab</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hat">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hat</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-haz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@haz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hdz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hdz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hfz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hfz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hgz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hgz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hhz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hhz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hi">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hi</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hik">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hik</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hmp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hmp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hna">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hna</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hor">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hor</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hrz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hrz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-hst">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@hst</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-i">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@i</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-iko">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@iko</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-imw">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@imw</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-imz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@imz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-itb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@itb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-itt">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@itt</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ix">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ix</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-jue">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@jue</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-k">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@k</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-kaz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@kaz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-kfz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@kfz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-khh">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@khh</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-kic">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@kic</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-kir">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@kir</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-kjl">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@kjl</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-kn">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@kn</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-kru">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@kru</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ksa">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ksa</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ksp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ksp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ktz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ktz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-kur">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@kur</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-kxp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@kxp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-l">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@l</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-lab">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@lab</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-lah">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@lah</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-lan">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@lan</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-laz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@laz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-lhz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@lhz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-lim">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@lim</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-lit">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@lit</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-lmd">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@lmd</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-lmz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@lmz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ln">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ln</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-log">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@log</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-loz-div">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@loz-div</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-loz-div-pub">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@loz-div-pub</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-loz-hes">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@loz-hes</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-loz-les">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@loz-les</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-loz-wam">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@loz-wam</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-lru">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@lru</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ltb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ltb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-lvz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@lvz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-m">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@m</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mag">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mag</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-maz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@maz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mdr">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mdr</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-meg">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@meg</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mep">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mep</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mew">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mew</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mib">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mib</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mid">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mid</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mk1">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mk1</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mk2">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mk2</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mld">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mld</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mme">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mme</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mpo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mpo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-msp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@msp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mt">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mt</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mtk">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mtk</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mtz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mtz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mut">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mut</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-muv">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@muv</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mwa">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mwa</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mwo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mwo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-mze">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@mze</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-n">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@n</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nbk">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nbk</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ndo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ndo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ndy">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ndy</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-neo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@neo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-neu">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@neu</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-new">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@new</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ng">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ng</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ngz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ngz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nku">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nku</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nlz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nlz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nnn">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nnn</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nnp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nnp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-non">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@non</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-now">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@now</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-noz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@noz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-npr">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@npr</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nun">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nun</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nuz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nuz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nvb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nvb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nvt">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nvt</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nwe">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nwe</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nws">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nws</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nwt">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nwt</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nwz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nwz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nzf">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nzf</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nzs">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nzs</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-nzz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@nzz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-o">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@o</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-oaz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@oaz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ohz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ohz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-osz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@osz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-otz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@otz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ovz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ovz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-p">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@p</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-paz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@paz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-pco">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@pco</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ph">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ph</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-pha">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@pha</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-pmm">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@pmm</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-pnn">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@pnn</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-pnp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@pnp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-pp-">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@pp-</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-prf">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@prf</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-r">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@r</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-rbs">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@rbs</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-rei">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@rei</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-rga">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@rga</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-rhp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@rhp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-rhz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@rhz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-rlh">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@rlh</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-rn">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@rn</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-rpo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@rpo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-rue">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@rue</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-rvz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@rvz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-s">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@s</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-saz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@saz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-sbl">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@sbl</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-sbz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@sbz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-sch">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@sch</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-sct">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@sct</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-scv">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@scv</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-scw">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@scw</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-scz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@scz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-sid">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@sid</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-sku">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@sku</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-smp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@smp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-soa">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@soa</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-sol">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@sol</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-soz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@soz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-spk">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@spk</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-spz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@spz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-sta">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@sta</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-stb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@stb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-ste">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@ste</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-stg">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@stg</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-stn">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@stn</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-stz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@stz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-svz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@svz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-swp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@swp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-sze">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@sze</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-t">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@t</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tai">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tai</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tas">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tas</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tbz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tbz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tet">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tet</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tew">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tew</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tha">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tha</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-thb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@thb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-thm">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@thm</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tlz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tlz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tnz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tnz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-toz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@toz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tre">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tre</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tru">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tru</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tsp">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tsp</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tvd">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tvd</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-tvf">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@tvf</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-twi">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@twi</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-u">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@u</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-uan">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@uan</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-umb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@umb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-v">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@v</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-vbw">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@vbw</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-vdi">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@vdi</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-vru">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@vru</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-vsw">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@vsw</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-vzs">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@vzs</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-w">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@w</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-was">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@was</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wbl">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wbl</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wdd">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wdd</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-weo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@weo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wez">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wez</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wfb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wfb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wiz">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wiz</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wkb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wkb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wkd">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wkd</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wku">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wku</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wkv">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wkv</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wor">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wor</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wpd">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wpd</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wtb">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wtb</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wud">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wud</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-wwo">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@wwo</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-x">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@x</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-z">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@z</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-zca">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@zca</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-zcw">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@zcw</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-zge">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@zge</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-zrf">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@zrf</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+            <cmd:ResourceProxy id="DeReKoSigle-zwi">
+                <cmd:ResourceType>Metadata</cmd:ResourceType>
+                <cmd:ResourceRef>https://hdl.handle.net/DEREKOPREFIX-UND-ID-ZU-SIGLE@zwi</cmd:ResourceRef>
+            </cmd:ResourceProxy>
+        </cmd:ResourceProxyList>
+        <cmd:JournalFileProxyList>
+            <cmd:JournalFileProxy>
+                <cmd:JournalFileRef/>
+            </cmd:JournalFileProxy>
+        </cmd:JournalFileProxyList>
+        <cmd:ResourceRelationList> </cmd:ResourceRelationList>
+    </cmd:Resources>
+    <cmd:IsPartOfList>
+        <cmd:IsPartOf><!-- IDS Gesamtbestand-->https://hdl.handle.net/IDSGESAMTBESTANDPID</cmd:IsPartOf>
+    </cmd:IsPartOfList>
+    <cmd:Components>
+        <cmdp:CollectionProfile>
+            <cmdp:GeneralInfo>
+                <cmdp:ResourceName xml:lang="de">DeReKo</cmdp:ResourceName>
+                <cmdp:ResourceTitle xml:lang="de">Deutsches Referenzkorpus</cmdp:ResourceTitle>
+                <cmdp:ResourceClass>Corpus</cmdp:ResourceClass>
+                <cmdp:Version/>
+                <cmdp:LifeCycleStatus>released</cmdp:LifeCycleStatus>
+                <cmdp:StartYear>1965</cmdp:StartYear>
+                <cmdp:PublicationDate/>
+                <cmdp:LastUpdate>2022</cmdp:LastUpdate>
+                <cmdp:TimeCoverage>1591/</cmdp:TimeCoverage>
+                <cmdp:LegalOwner/>
+                <cmdp:Genre>divers</cmdp:Genre>
+                <cmdp:FieldOfResearch/>
+                <cmdp:Location/>
+                <cmdp:Descriptions>
+                    <cmdp:Description xml:lang="de">
+                     Die Korpora geschriebener Gegenwartssprache des IDS
+                     - bilden mit 53 Milliarden Wörtern (Stand 08.03.2022) die weltweit größte linguistisch motivierte Sammlung elektronischer Korpora mit geschriebenen deutschsprachigen Texten aus der Gegenwart und der neueren Vergangenheit.
+                     - sind über COSMAS II und KorAP kostenlos abfragbar
+                     - enthalten belletristische, wissenschaftliche und populärwissenschaftliche Texte, eine große Zahl von Zeitungstexten sowie eine breite Palette weiterer Textarten und werden kontinuierlich weiterentwickelt.
+                     - werden im Hinblick auf Umfang, Variabilität, Qualität und Aktualität akquiriert und erlauben in der Nutzungsphase über COSMAS II und v.a. KorAP die Komposition virtueller Korpora, die repräsentativ oder auf spezielle Aufgabenstellungen zugeschnitten sind.
+                     - enthalten ausschließlich urheberrechtlich abgesichertes Material.
+                 </cmdp:Description>
+                </cmdp:Descriptions>
+                <cmdp:tags>
+                    <cmdp:tag>Referenzkorpus</cmdp:tag>
+                    <cmdp:tag>Korpus</cmdp:tag>
+                    <cmdp:tag>Deutsch</cmdp:tag>
+                    <cmdp:tag>Deutschsprachige Texte</cmdp:tag>
+                    <cmdp:tag>elektronische Korpora</cmdp:tag>
+                    <cmdp:tag>geschriebene Sprache</cmdp:tag>
+                </cmdp:tags>
+
+                <cmdp:ModalityInfo>
+                    <cmdp:Modalities Referenz="https://gnd.dnb.org/08/15" >spoken</cmdp:Modalities>
+                    <cmdp:Modalities>written</cmdp:Modalities>
+                    <cmdp:Modalities>multimodal</cmdp:Modalities>
+                    <cmdp:Modalities>transcribed</cmdp:Modalities>
+                    <cmdp:Modalities>other</cmdp:Modalities>
+                </cmdp:ModalityInfo>
+
+                <cmdp:Institution>
+                    <cmdp:Organisation>
+                        <cmdp:name>Leibniz-Institut für Deutsche Sprache (IDS)</cmdp:name>
+                        <cmdp:Location>
+                            <cmdp:AuthoritativeIDs>
+                                <cmdp:AuthoritativeID>
+                                    <cmdp:id>118318106X</cmdp:id>
+                                    <cmdp:issuingAuthority>GND</cmdp:issuingAuthority>
+
+                                </cmdp:AuthoritativeID>
+                                <cmdp:AuthoritativeID>
+                                    <cmdp:id>156585213</cmdp:id>
+                                    <cmdp:issuingAuthority>VIAF</cmdp:issuingAuthority>
+                                </cmdp:AuthoritativeID>
+                                <cmdp:AuthoritativeID>
+                                    <cmdp:id>n80067129</cmdp:id>
+                                    <cmdp:issuingAuthority>LCCN</cmdp:issuingAuthority>
+                                </cmdp:AuthoritativeID>
+                            </cmdp:AuthoritativeIDs>
+                        </cmdp:Location>
+                    </cmdp:Organisation>
+                    <cmdp:Descriptions>
+                        <cmdp:Description/>
+                    </cmdp:Descriptions>
+                </cmdp:Institution>
+                <cmdp:Licenses>
+                    <cmdp:defaultlicense>restricted</cmdp:defaultlicense>
+                    <cmdp:containsLicenses>
+
+                        <cmdp:containsLicense>CC-BY</cmdp:containsLicense>
+                        <cmdp:containsLicense>CC-BY-NC</cmdp:containsLicense>
+                        <cmdp:containsLicense>CC-0</cmdp:containsLicense>
+                        <cmdp:containsLicense>Proprietory</cmdp:containsLicense>
+                        <cmdp:containsLicense>Restricted</cmdp:containsLicense>
+                        <cmdp:containsLicense>Other</cmdp:containsLicense>
+                    </cmdp:containsLicenses>
+                </cmdp:Licenses>
+                <cmdp:Contact>
+                    <cmdp:firstname>Marc</cmdp:firstname>
+                    <cmdp:lastname>Kupietz</cmdp:lastname>
+                    <cmdp:email>corpora@ids-mannheim.de</cmdp:email>
+                    <cmdp:role/>
+                    <cmdp:Address>
+                        <cmdp:street>>R5</cmdp:street>
+                        <cmdp:ZIPCode/>
+                        <cmdp:city>Mannheim</cmdp:city>
+                    </cmdp:Address>
+                </cmdp:Contact>
+
+
+                <cmdp:SubjectLanguage>
+                    <cmdp:Language>
+                        <cmdp:LanguageName/>
+                        <cmdp:ISO639>
+                            <cmdp:iso-639-3-code>deu</cmdp:iso-639-3-code>
+                        </cmdp:ISO639>
+                    </cmdp:Language>
+                </cmdp:SubjectLanguage>
+            </cmdp:GeneralInfo>
+            <cmdp:Documentations>
+                <cmdp:Documentation/>
+            </cmdp:Documentations>
+            <cmdp:collectionSpecific>
+                <cmdp:Annotations>
+                    <cmdp:annotation>Satz</cmdp:annotation>
+                    <cmdp:annotation>Paragraph</cmdp:annotation>
+                    <cmdp:annotation>Textspanne</cmdp:annotation>
+                    <cmdp:annotation>POS</cmdp:annotation>
+                    <cmdp:annotation>Konstitutenten</cmdp:annotation>
+                    <cmdp:annotation>Named Entities</cmdp:annotation>
+                    <cmdp:annotation>Lemma</cmdp:annotation>
+                    <cmdp:annotation>Morphosyntaktisch</cmdp:annotation>
+                    <cmdp:annotation>Morphologisch</cmdp:annotation>
+                    <cmdp:annotation>Orthographie</cmdp:annotation>
+                    <cmdp:annotation>Dependenz</cmdp:annotation>
+                </cmdp:Annotations>
+                <cmdp:collectionTypes>
+                    <cmdp:type>Sprachkorpora</cmdp:type>
+                </cmdp:collectionTypes>
+                <cmdp:datatypes>
+                    <cmdp:datatype>
+                        <cmdp:mediaType>application/xml</cmdp:mediaType>
+                        <cmdp:typeName>I5</cmdp:typeName>
+                        <cmdp:XMLschemaRef/>
+                    </cmdp:datatype>
+                </cmdp:datatypes>
+                <cmdp:Funder>
+                    <cmdp:fundingAgency>DFG</cmdp:fundingAgency>
+                    <cmdp:fundingReferenceNumber/>
+                    <cmdp:AuthoritativeIDs>
+                        <cmdp:AuthoritativeID>
+                            <cmdp:id>n80067129</cmdp:id>
+                            <cmdp:issuingAuthority>LCCN</cmdp:issuingAuthority>
+                        </cmdp:AuthoritativeID>
+                    </cmdp:AuthoritativeIDs>
+                    <cmdp:project>
+                        <cmdp:projectName/>
+                        <cmdp:grantNumber/>
+                    </cmdp:project>
+                    <cmdp:project>
+                        <cmdp:projectName/>
+                        <cmdp:grantNumber/>
+                    </cmdp:project>
+                </cmdp:Funder>
+                <cmdp:PointsOfAccess>
+                    <cmdp:PoA>
+                        <cmdp:PoAProtocol>OAI-PMH</cmdp:PoAProtocol>
+                        <cmdp:PoAIRI>http://repos.ids-mannheim.de/oaiprovider/</cmdp:PoAIRI>
+                    </cmdp:PoA>
+                    <cmdp:PoA>
+                        <cmdp:PoAProtocol>FCS</cmdp:PoAProtocol>
+                        <cmdp:PoAIRI>http://clarin.ids-mannheim.de/cosmassru</cmdp:PoAIRI>
+                    </cmdp:PoA>
+                    <cmdp:PoA>
+                        <cmdp:PoAProtocol>FCS</cmdp:PoAProtocol>
+                        <cmdp:PoAIRI>http://clarin.ids-mannheim.de/digibibsru</cmdp:PoAIRI>
+                    </cmdp:PoA>
+                    <cmdp:PoA>
+                        <cmdp:PoAProtocol>FCS</cmdp:PoAProtocol>
+                        <cmdp:PoAIRI>http://clarin.ids-mannheim.de/korapsru</cmdp:PoAIRI>
+                    </cmdp:PoA>
+                    <cmdp:PoA>
+                        <cmdp:PoAProtocol>FCS</cmdp:PoAProtocol>
+                        <cmdp:PoAIRI>https://clarin.ids-mannheim.de/dgdsru</cmdp:PoAIRI>
+                    </cmdp:PoA>
+                </cmdp:PointsOfAccess>
+            </cmdp:collectionSpecific>
+        </cmdp:CollectionProfile>
+    </cmd:Components>
+</cmd:CMD>

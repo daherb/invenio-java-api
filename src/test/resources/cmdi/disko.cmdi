@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="/xslt/clarin.eu-v1.xsl"?>
+<CMD xmlns="http://www.clarin.eu/cmd/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" CMDVersion="1.1" xsi:schemaLocation="http://www.clarin.eu/cmd/  http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/profiles/clarin.eu:cr1:p_1366895758244/xsd">
+	<Header>
+		<MdCreator>IDS</MdCreator>
+		<MdCreationDate>2022-07-25</MdCreationDate>
+		<MdSelfLink>http://hdl.handle.net/10932/00-0534-6404-3CE0-0001-3</MdSelfLink>
+		<MdProfile>clarin.eu:cr1:p_1366895758244</MdProfile>
+		<MdCollectionDisplayName>Leibniz-Institut f&#xFC;r Deutsche Sprache, CLARIN-D Zentrum, Mannheim</MdCollectionDisplayName>
+	</Header>
+	<Resources>
+		<ResourceProxyList>
+			<ResourceProxy id="r1">
+				<ResourceType mimetype="application/pdf">Resource</ResourceType>
+				<ResourceRef>http://repos.ids-mannheim.de/corpora/DISKO/docs/DISKO_Handbuch.pdf</ResourceRef>
+			</ResourceProxy>
+			<ResourceProxy id="r2">
+				<ResourceType mimetype="application/zip">Resource</ResourceType>
+				<ResourceRef>http://repos.ids-mannheim.de/corpora/DISKO/data/DISKO.zip</ResourceRef>
+			</ResourceProxy>
+                        <ResourceProxy id="r3">
+                                <ResourceType mimetype="text/plain">Resource</ResourceType>
+                                <ResourceRef>http://repos.ids-mannheim.de/corpora/DISKO/docs/DISKO_Lizenz.txt</ResourceRef>
+                        </ResourceProxy>
+		</ResourceProxyList>
+		<JournalFileProxyList/>
+		<ResourceRelationList/>
+		<IsPartOfList/>
+	</Resources>
+	<Components>
+		<OLAC-DcmiTerms-ref>
+			<coverage>2020</coverage>
+			<creator>Dr. Katrin Wisniewski (Gesamtleitung); Prof. Dr. Wolfgang Lenhard; Elisabeth Muntschick, Annette Portmann, Frederic Papmahl, Lydia Thumser, Corinna Schrömges, Anna Grimmer, Elena Pyatigorskaya, Matthias Schwendemann</creator>
+			<description xml:lang="de">Bei DISKO handelt es sich um ein schriftliches Lernerkorpus, 
+			das in mehrere Subkorpora gegliedert ist. Alle Subkorpora enthalten Texte, die in diagnostischen 
+			Verfahren zur Feststellung der sogenannten „sprachlichen Studierfähigkeit“ erhoben wurden. 
+			Details zu den Subkorpora finden sich im Korpushandbuch (Muntschick et al. 2020).
+			</description>
+			<description xml:lang="en">
+			DISKO is a corpus of written learners language in an academic setting.
+			</description>
+			<format>application/zip</format>
+			<hasPart ref="r1">Handbuch</hasPart>
+			<hasPart ref="r2">Daten</hasPart>
+			<hasPart ref="r3">Lizenz</hasPart>
+			<identifier>http://hdl.handle.net/10932/00-0534-6404-3CE0-0001-3</identifier>
+			<issued>2022-07-25</issued>
+			<language olac-language="DEU">deu</language>
+			<publisher>Universität Leipzig: Herder-Institut; Julius-Maximilians-Universität Würzburg: Pädagogische Psychologie</publisher>
+			<rights>http://repos.ids-mannheim.de/corpora/DISKO/data/DISKO_Lizenz.txt</rights>
+			<title xml:lang="de">Deutsch im Studium: Lernerkorpus (DISKO)</title>
+			<type>collection</type>
+		</OLAC-DcmiTerms-ref>
+	</Components>
+</CMD>
