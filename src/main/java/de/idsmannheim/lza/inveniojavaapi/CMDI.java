@@ -115,7 +115,12 @@ public class CMDI {
         }
         // Try to use any value
         else if (!cmdiDescription.isEmpty()) {
-            metadata.setDescription(cmdiDescription.values().iterator().next());
+            // Get first available language
+            String lang = cmdiDescription.keySet().iterator().next();
+            String description = cmdiDescription.get(lang);
+            metadata.setDescription(description);
+            // Remove the description to avoid adding it again as an additional one
+            cmdiDescription.remove(lang);
         }
         ArrayList<Metadata.AdditionalDescription> additionalDescriptions = new ArrayList<>();
         for (String lang : cmdiDescription.keySet().stream().filter((l) -> !(l.equals("en") || l.isBlank())).toList()) {
