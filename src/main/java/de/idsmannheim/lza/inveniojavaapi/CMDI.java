@@ -75,7 +75,10 @@ public class CMDI {
         if (cmdiResourceName.isPresent()) {
             metadata.addAdditionalTitles(List.of(new Metadata.AdditionalTitle(cmdiResourceName.get(), 
                     new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle),
-                            new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "Alternative title")))));
+                            new Metadata.LocalizedStrings()
+                                    .add(new Metadata.Language(languageIdFactory.usingId2("en")), "Alternative title")
+                                    .add(new Metadata.Language(languageIdFactory.usingId2("de")), "Alternativer Titel")
+                    ))));
         }
         if (cmdiVersion.isPresent()) {
             metadata.setVersion(cmdiVersion.get());
