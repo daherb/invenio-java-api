@@ -282,6 +282,7 @@ class MetadataTest {
     @Test
     void contributorsTest() throws JsonProcessingException {
         // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#contributors-0-n
+        // And updated to match new role format
         String contributorsText = "[{\n" +
                 "    \"person_or_org\": {\n" +
                 "      \"name\": \"Nielsen, Lars Holm\",\n" +
@@ -293,7 +294,7 @@ class MetadataTest {
                 "        \"identifier\": \"0000-0001-8135-3489\"\n" +
                 "      }]\n" +
                 "    },\n" +
-                "    \"role\": \"editor\",\n" +
+                "    \"role\": {\"id\": \"editor\"},\n" +
                 "    \"affiliations\": [{\n" +
                 "      \"id\": \"01ggx4157\",\n" +
                 "      \"name\": \"CERN\"\n" +
@@ -565,7 +566,7 @@ class MetadataTest {
     void derekoMetadataTest() throws IOException, IllegalArgumentException, IllegalAccessException {
         ResourceType derekoResourceTypeesourceType = new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.PublicationAnnotationCollection));
         ArrayList<Metadata.Creator> derekoCreators = new ArrayList<>();
-        derekoCreators.add(new Creator(new Metadata.PersonOrOrg("Leibniz-Institut für Deutsche Sprache (IDS)")));
+        derekoCreators.add(new Creator(new Metadata.PersonOrOrg("Leibniz-Institut für Deutsche Sprache (IDS)")).setRole(new Creator.Role(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.DataCollector))));
         String derekoTitle = "Deutsches Referenzkorpus";
         Metadata.ExtendedDateTimeFormat0 derekoPublicationDate = new Metadata.ExtendedDateTimeFormat0("2022");
         Metadata metadata = new Metadata(derekoResourceTypeesourceType, derekoCreators, derekoTitle, derekoPublicationDate);
