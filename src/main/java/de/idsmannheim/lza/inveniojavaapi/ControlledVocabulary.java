@@ -444,16 +444,16 @@ public class ControlledVocabulary {
         Optional<String> id2 = Optional.empty();
         Optional<String> id3 = Optional.empty();
         
-        private LanguageId() throws IOException {
+        private LanguageId() {
             
         }
         
-        private LanguageId setId2(String id2) throws IllegalArgumentException {
+        private LanguageId setId2(String id2) {
             this.id2 = Optional.of(id2);
             return this;
         }
         
-        private LanguageId setId3(String id3) throws IllegalArgumentException{
+        private LanguageId setId3(String id3) {
             this.id3 = Optional.of(id3);
             return this;
             
@@ -471,17 +471,12 @@ public class ControlledVocabulary {
 
         @Override
         protected Object clone() throws CloneNotSupportedException {
-            try {
-                LanguageId languageId = new LanguageId();
-                if (id2.isPresent())
-                    languageId.setId2(id2.get());
-                if (id3.isPresent())
-                    languageId.setId3(id3.get());
-                return languageId;
-            }
-            catch (IOException e) {
-                throw new CloneNotSupportedException("Encountered exception when cloning. " + e.toString());
-            }
+            LanguageId languageId = new LanguageId();
+            if (id2.isPresent())
+                languageId.setId2(id2.get());
+            if (id3.isPresent())
+                languageId.setId3(id3.get());
+            return languageId;
         }
 
         
@@ -518,21 +513,25 @@ public class ControlledVocabulary {
 
         ArrayList<LanguageId.LanguageInfo> languages = new ArrayList<>();
         
-        public LanguageIdFactory() throws IOException {
+        public LanguageIdFactory() {
             ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
-            
-            TreeNode tree = objectMapper.createParser(this.getClass().getClassLoader()
-                    .getResourceAsStream("languages.yaml"))
-                    .readValueAsTree();
-            for (int ct = 0 ; ct < tree.size(); ct++) {
-                Optional<String> id2 = 
-                        tree.get(ct).get("props").get("alpha_2").toString().replace("\"", "").isBlank() 
-                        ? Optional.empty() 
-                        : Optional.of(tree.get(ct).get("props").get("alpha_2").toString().replace("\"", ""));
-                LanguageId.LanguageInfo langInfo = new LanguageId.LanguageInfo(tree.get(ct).get("id").toString().replace("\"", ""),
-                        id2,
-                        tree.get(ct).get("title").get("en").toString().replace("\"", ""));
-                languages.add(langInfo);
+            try {
+                TreeNode tree = objectMapper.createParser(this.getClass().getClassLoader()
+                        .getResourceAsStream("languages.yaml"))
+                        .readValueAsTree();
+                for (int ct = 0 ; ct < tree.size(); ct++) {
+                    Optional<String> id2 =
+                            tree.get(ct).get("props").get("alpha_2").toString().replace("\"", "").isBlank()
+                            ? Optional.empty()
+                            : Optional.of(tree.get(ct).get("props").get("alpha_2").toString().replace("\"", ""));
+                    LanguageId.LanguageInfo langInfo = new LanguageId.LanguageInfo(tree.get(ct).get("id").toString().replace("\"", ""),
+                            id2,
+                            tree.get(ct).get("title").get("en").toString().replace("\"", ""));
+                    languages.add(langInfo);
+                }
+            }
+            catch (IOException e) {
+                
             }
         }
         
