@@ -90,7 +90,7 @@ public class Metadata {
     @JsonProperty("identifiers")
     final ArrayList<AlternateIdentifier> alternativeIdentifiers = new ArrayList<>();
     @JsonProperty("related_identifiers")
-    final ArrayList<RelatedIdentifier> relatedIdentifiers = new ArrayList<>();
+    ArrayList<RelatedIdentifier> relatedIdentifiers = new ArrayList<>();
     @JsonProperty("sizes")
     final ArrayList<String> sizes = new ArrayList<>();
     @JsonProperty("formats")
@@ -3110,6 +3110,22 @@ public class Metadata {
             */
             List<RelatedIdentifier> relatedIdentifiers) {
         this.relatedIdentifiers.addAll(relatedIdentifiers);
+        return this;
+    }
+    
+    public Metadata setRelatedIdentifiers(
+            /**
+            * Related identifiers/works (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#related-identifiersworks-0-n)
+            * 
+            * Identifiers of related resources.
+            * 
+            * This field is compatible with 12. Related Identifiers in DataCite.
+            * The field however does not support the subfields 
+            * 12.c relatedMetadataScheme, 12.d schemeURI and 12.e schemeType 
+            * used for linking to additional metadata.
+            */
+            List<RelatedIdentifier> relatedIdentifiers) {
+        this.relatedIdentifiers = new ArrayList<>(relatedIdentifiers);
         return this;
     }
     
