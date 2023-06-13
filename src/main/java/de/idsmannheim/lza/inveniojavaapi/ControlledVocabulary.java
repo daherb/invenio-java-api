@@ -506,7 +506,10 @@ public class ControlledVocabulary {
             return Objects.equals(this.id3, other.id3);
         }
         
-        
+        /**
+         * Static field for English
+         */
+        public static LanguageId EN = new LanguageId().setId2("en");
     }
 
     public static class LanguageIdFactory {
