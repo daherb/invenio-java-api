@@ -96,8 +96,6 @@ public class API {
      * @throws IOException if a HTTP error happens, i.e. a status code >= 400
      */
     private<T> T getBody(HttpResponse<T> response) throws IOException {
-        ObjectMapper om = new ObjectMapper();
-        om.findAndRegisterModules();
         if (response.statusCode() < 400) {
             return response.body();
         }
