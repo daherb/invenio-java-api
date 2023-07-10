@@ -574,7 +574,7 @@ class MetadataTest {
         derekoAdditionalTitles.add(new Metadata.AdditionalTitle("DeReKo", 
                 new Metadata.AdditionalTitle.TitleType(new ControlledVocabulary.TitleTypeId(ControlledVocabulary.TitleTypeId.ETitleType.AlternativeTitle),
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("de")), "Alternativer Titel")
-                .add(new Language(languageIdFactory.usingId2("en")),"Alternative title"))));
+                .add(new Language(languageIdFactory.usingId2("en")),"Alternative title"))).setLang(new Language(languageIdFactory.usingId3("deu"))));
         metadata.addAdditionalTitles(derekoAdditionalTitles);
         metadata.setDescription("Die Korpora geschriebener Gegenwartssprache des IDS - bilden mit 53 Milliarden Wörtern (Stand 08.03.2022) die weltweit größte linguistisch motivierte Sammlung elektronischer Korpora mit geschriebenen deutschsprachigen Texten aus der Gegenwart und der neueren Vergangenheit. - sind über COSMAS II und KorAP kostenlos abfragbar - enthalten belletristische, wissenschaftliche und populärwissenschaftliche Texte, eine große Zahl von Zeitungstexten sowie eine breite Palette weiterer Textarten und werden kontinuierlich weiterentwickelt. - werden im Hinblick auf Umfang, Variabilität, Qualität und Aktualität akquiriert und erlauben in der Nutzungsphase über COSMAS II und v.a. KorAP die Komposition virtueller Korpora, die repräsentativ oder auf spezielle Aufgabenstellungen zugeschnitten sind. - enthalten ausschließlich urheberrechtlich abgesichertes Material.");
         ArrayList<Metadata.License> derekoRights = new ArrayList<>(List.of(
