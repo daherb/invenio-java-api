@@ -23,7 +23,7 @@
         {"id": "cc-by-4.0"},
         {"id": "cc-by-nc-4.0"},
         {"id": "cc0-1.0"},
-        {"title": {"en": "Proprietory"},"description": {"en": "Proprietary data without public access."}, "link": "https://example.com/"},
+        {"title": {"en": "Proprietory"}},
         {"title": {"en": "Restricted"}},
         {"title": {"en": "Other"}}
     ],
