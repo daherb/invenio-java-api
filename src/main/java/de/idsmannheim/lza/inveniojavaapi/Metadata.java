@@ -1326,15 +1326,18 @@ public class Metadata {
         @JsonProperty("props")
         HashMap<String,String> props = new HashMap<>();
         
-        public License(String id, LocalizedStrings title,
-            LocalizedStrings description) {
+        public License(String id) {
             this.id = Optional.of(id);
+        }
+        
+        public License(LocalizedStrings title, LocalizedStrings description) {
+            if (id.isEmpty() && title.isEmpty())
+                throw new IllegalArgumentException("Either id or title have to be given");
             this.title.addAll(title);
             this.description.addAll(description);
         }
         
-        public License(Optional<String> id, LocalizedStrings title,
-            LocalizedStrings description) {
+        public License(Optional<String> id, LocalizedStrings title, LocalizedStrings description) {
             if (id.isEmpty() && title.isEmpty())
                 throw new IllegalArgumentException("Either id or title have to be given");
             this.id = id;
