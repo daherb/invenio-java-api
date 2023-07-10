@@ -34,7 +34,7 @@
                 "given_name": "Marc",
                 "family_name": "Kupietz"
             },
-            "role": {"id" : "editor"},
+            "role": {"id": "editor"},
             "affiliations": [
                 {"name": "Leibniz-Institut für Deutsche Sprache (IDS)"}
             ]
