@@ -6,7 +6,6 @@ package de.idsmannheim.lza.inveniojavaapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import de.idsmannheim.lza.inveniojavaapi.cmdi.CollectionProfileMapper;
 import de.idsmannheim.lza.inveniojavaapi.cmdi.OLACDcmiTermsMapper;
 import de.idsmannheim.lza.inveniojavaapi.cmdi.SpeechCorpusProfileMapper;
