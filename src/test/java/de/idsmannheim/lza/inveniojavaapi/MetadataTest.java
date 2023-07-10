@@ -78,7 +78,7 @@ class MetadataTest {
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), 
                                 "Methods")))
                 .setLang(new Language(languageIdFactory.usingId3("eng"))));
-        rights.add(new Metadata.License("cc-by-4.0", 
+        rights.add(new Metadata.License(Optional.of("cc-by-4.0"), 
                 new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), 
                         "Creative Commons Attribution 4.0 International"),
                 new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), 
@@ -578,12 +578,12 @@ class MetadataTest {
         metadata.addAdditionalTitles(derekoAdditionalTitles);
         metadata.setDescription("Die Korpora geschriebener Gegenwartssprache des IDS - bilden mit 53 Milliarden Wörtern (Stand 08.03.2022) die weltweit größte linguistisch motivierte Sammlung elektronischer Korpora mit geschriebenen deutschsprachigen Texten aus der Gegenwart und der neueren Vergangenheit. - sind über COSMAS II und KorAP kostenlos abfragbar - enthalten belletristische, wissenschaftliche und populärwissenschaftliche Texte, eine große Zahl von Zeitungstexten sowie eine breite Palette weiterer Textarten und werden kontinuierlich weiterentwickelt. - werden im Hinblick auf Umfang, Variabilität, Qualität und Aktualität akquiriert und erlauben in der Nutzungsphase über COSMAS II und v.a. KorAP die Komposition virtueller Korpora, die repräsentativ oder auf spezielle Aufgabenstellungen zugeschnitten sind. - enthalten ausschließlich urheberrechtlich abgesichertes Material.");
         ArrayList<Metadata.License> derekoRights = new ArrayList<>(List.of(
-                new Metadata.License("CC-BY", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
-                new Metadata.License("CC-BY-NC", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
-                new Metadata.License("CC-0", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
-                new Metadata.License("Proprietory", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
-                new Metadata.License("Restricted", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings()),
-                new Metadata.License("Other", new Metadata.LocalizedStrings(), new Metadata.LocalizedStrings())
+                new Metadata.License("cc-by-4.0"),
+                new Metadata.License("cc-by-nc-4.0"),
+                new Metadata.License("cc0-1.0"),
+                new Metadata.License(new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageId.EN), "Proprietory"), new Metadata.LocalizedStrings()),
+                new Metadata.License(new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageId.EN), "Restricted"), new Metadata.LocalizedStrings()),
+                new Metadata.License(new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageId.EN), "Other"), new Metadata.LocalizedStrings())
         ));
         metadata.addRights(derekoRights);
         ArrayList<Metadata.Contributor> derekoContributors = new ArrayList<>();
