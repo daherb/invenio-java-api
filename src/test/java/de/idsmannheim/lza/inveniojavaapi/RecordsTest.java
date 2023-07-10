@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -201,7 +202,7 @@ public class RecordsTest {
                         "Blank", 
                         new Metadata.ExtendedDateTimeFormat0("2023").addStartMonth("01").addStartDay("11")
                 ).addRights(Collections.singletonList(new Metadata.License(
-                        "cc-by-4.0",
+                        Optional.of("cc-by-4.0"),
                         new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "Creative Commons Attribution 4.0 International"),
                         new Metadata.LocalizedStrings().add(new Metadata.Language(languageIdFactory.usingId2("en")), "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."))
                         .addProps(ccProps)))
