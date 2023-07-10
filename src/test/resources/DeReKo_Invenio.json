@@ -22,12 +22,12 @@
     ],
     "description": "Die Korpora geschriebener Gegenwartssprache des IDS - bilden mit 53 Milliarden Wörtern (Stand 08.03.2022) die weltweit größte linguistisch motivierte Sammlung elektronischer Korpora mit geschriebenen deutschsprachigen Texten aus der Gegenwart und der neueren Vergangenheit. - sind über COSMAS II und KorAP kostenlos abfragbar - enthalten belletristische, wissenschaftliche und populärwissenschaftliche Texte, eine große Zahl von Zeitungstexten sowie eine breite Palette weiterer Textarten und werden kontinuierlich weiterentwickelt. - werden im Hinblick auf Umfang, Variabilität, Qualität und Aktualität akquiriert und erlauben in der Nutzungsphase über COSMAS II und v.a. KorAP die Komposition virtueller Korpora, die repräsentativ oder auf spezielle Aufgabenstellungen zugeschnitten sind. - enthalten ausschließlich urheberrechtlich abgesichertes Material.",
     "rights": [
-        {"id": "CC-BY"},
-        {"id": "CC-BY-NC"},
-        {"id": "CC-0"},
-        {"id": "Proprietory"},
-        {"id": "Restricted"},
-        {"id": "Other"}
+        {"id": "cc-by-4.0"},
+        {"id": "cc-by-nc-4.0"},
+        {"id": "cc0-1.0"},
+        {"title": {"en": "Proprietory"},"description": {"en": "Proprietary data without public access."}, "link": "https://example.com/"},
+        {"title": {"en": "Restricted"}},
+        {"title": {"en": "Other"}}
     ],
     "contributors": [
         {
@@ -64,7 +64,7 @@
             "description": "Last update"
         },
         {
-            "date": "1591/",
+            "date": "1591/2023",
             "type": {
                 "id": "other",
                 "title": {"en": "Other"}
