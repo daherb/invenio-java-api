@@ -19,12 +19,12 @@
     ],
     "description": "",
     "rights": [
-        {"id": "CC-BY"},
-        {"id": "CC-BY-NC"},
-        {"id": "CC-0"},
-        {"id": "Proprietory"},
-        {"id": "Restricted"},
-        {"id": "Other"}
+        {"id": "cc-by-4.0"},
+        {"id": "cc-by-nc-4.0"},
+        {"id": "cc0-1.0"},
+        {"title": {"en": "Proprietory"}},
+        {"title": {"en": "Restricted"}},
+        {"title": {"en": "Other"}}
     ],
     "contributors": [
         {
