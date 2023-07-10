@@ -566,7 +566,8 @@ class MetadataTest {
     void derekoMetadataTest() throws IOException, IllegalArgumentException, IllegalAccessException {
         ResourceType derekoResourceTypeesourceType = new Metadata.ResourceType(new ControlledVocabulary.ResourceType(ControlledVocabulary.ResourceType.EResourceType.PublicationAnnotationCollection));
         ArrayList<Metadata.Creator> derekoCreators = new ArrayList<>();
-        derekoCreators.add(new Creator(new Metadata.PersonOrOrg("Leibniz-Institut für Deutsche Sprache (IDS)")).setRole(new Creator.Role(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.DataCollector))));
+        derekoCreators.add(new Creator(new Metadata.PersonOrOrg("Leibniz-Institut für Deutsche Sprache (IDS)")));
+            // .setRole(new Creator.Role(new ControlledVocabulary.Role(ControlledVocabulary.Role.ERole.DataCollector))));
         String derekoTitle = "Deutsches Referenzkorpus";
         Metadata.ExtendedDateTimeFormat0 derekoPublicationDate = new Metadata.ExtendedDateTimeFormat0("2022");
         Metadata metadata = new Metadata(derekoResourceTypeesourceType, derekoCreators, derekoTitle, derekoPublicationDate);
