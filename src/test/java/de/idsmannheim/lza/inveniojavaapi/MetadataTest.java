@@ -599,7 +599,7 @@ class MetadataTest {
         derekoDates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("2022"), 
                 new Metadata.Date.DateType(new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Updated), 
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Updated"))).setDescription("Last update"));
-        derekoDates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("1591").addEndYear(""), 
+        derekoDates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("1591").addEndYear("2023"), 
                 new Metadata.Date.DateType(new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Other), 
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Other"))).setDescription("Time coverage"));
         metadata.addDates(derekoDates);
