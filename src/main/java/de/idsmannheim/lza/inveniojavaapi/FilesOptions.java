@@ -54,6 +54,10 @@ public class FilesOptions {
         this.defaultPreview = defaultPreview;
         return this;
     }
+
+    public String getDefaultPreview() {
+        return defaultPreview;
+    }
     
     public FilesOptions addOrder(ArrayList<String> order) {
         this.order.addAll(order);
