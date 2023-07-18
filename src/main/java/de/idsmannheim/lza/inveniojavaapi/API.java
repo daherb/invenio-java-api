@@ -6,7 +6,6 @@ package de.idsmannheim.lza.inveniojavaapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +21,12 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.function.Supplier;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.vfs2.FileSystemException;
+import org.apache.commons.vfs2.FileSystemManager;
+import org.apache.commons.vfs2.VFS;
 
 /**
  * Class encapsulating the API calls using the Invenio REST API
@@ -316,7 +320,7 @@ public class API {
      * 
      * @param id Identifier of the record, e.g. 4d0ns-ntd89
      * @param filename Name of the file.
-     * @param file The file object for the file content
+     * @param fileUri The URI for the file content
      * @return The file entry for the uploaded file
      * @throws java.net.URISyntaxException 
      * @throws java.security.NoSuchAlgorithmException 
@@ -325,7 +329,7 @@ public class API {
      * @throws java.io.FileNotFoundException 
      * @throws java.lang.InterruptedException 
      */
-    public Files.FileEntry uploadDraftFile(String id, String filename, File file) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, FileNotFoundException, IOException, InterruptedException {
+    public Files.FileEntry uploadDraftFile(String id, String filename, URI fileUri) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, JsonProcessingException, FileNotFoundException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
 //        String encodedId = URLEncoder.encode(id,StandardCharsets.UTF_8.toString());
@@ -335,8 +339,21 @@ public class API {
         URI uri = new URI(protocol, "//" + host + API_RECORDS + "/" + encodedId + "/draft/files/" + encodedFilename + "/content", "");
         HttpRequest request = getHttpRequestBuilder(uri)
                 .header("Content-Type", "application/octet-stream")
-                .PUT(HttpRequest.BodyPublishers.ofFile(file.toPath()))
-                .build();
+                //.PUT(HttpRequest.BodyPublishers.ofFile(file.toPath()))
+                .PUT(HttpRequest.BodyPublishers.ofInputStream(new Supplier<InputStream>() {
+            @Override
+            public InputStream get() {
+                try {
+                    FileSystemManager manager = VFS.getManager();
+                    // Resolve uri and return input strean
+                    return manager.resolveFile(fileUri).getContent().getInputStream();
+                } catch (FileSystemException ex) {
+                    Logger.getLogger(API.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                // Return null if stream could not be returned
+                return null;
+            }
+        })).build();
         return om.readValue(getBody(getHttpClient().send(request,BodyHandlers.ofString())), Files.FileEntry.class);
     }
     
