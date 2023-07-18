@@ -77,6 +77,20 @@ public class InvenioJavaApiApplication {
         
     }
     
+    private String generateSchema() throws JsonMappingException, JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
+        mapper.acceptJsonFormatVisitor(Metadata.class, visitor);
+        JsonSchema schema = visitor.finalSchema();
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(schema);
+    }
+    
+    
+    private String generateSchema4() {
+        SchemaMapper schemaMapper = new SchemaMapper();
+        JSONObject jsonObject = schemaMapper.toJsonSchema4(Metadata.class, true);
+        return jsonObject.toString(4);
+    }
 //    public static void demo(APITools tools) throws IOException, JDOMException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, InterruptedException, FileNotFoundException, JsonProcessingException, UnsupportedEncodingException {
 //        LOG.info("Starting demo");
 //        System.out.println("Press key");
