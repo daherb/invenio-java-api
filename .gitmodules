@@ -1,3 +1,0 @@
-[submodule "src/main/resources/schema"]
-	path = src/main/resources/schema
-	url = https://github.com/datacite/schema/
