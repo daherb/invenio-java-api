@@ -23,7 +23,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -34,13 +33,8 @@
             <artifactId>jackson-dataformat-yaml</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -53,23 +47,6 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>io.vavr</groupId>
-            <artifactId>vavr</artifactId>
-            <version>1.0.0-alpha-4</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.jdom</groupId>
-            <artifactId>jdom</artifactId>
-            <version>2.0.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
             <type>jar</type>
@@ -78,27 +55,16 @@
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>
         </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.5</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>de.ids-mannheim.lza</groupId>
-            <artifactId>xml-magic</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
+        <!-- dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-jsonSchema</artifactId>
             <type>jar</type>
-        </dependency>
-        <dependency>
+        </dependency -->
+        <!-- dependency>
             <groupId>pl.zientarski</groupId>
             <artifactId>JSONschema4-mapper</artifactId>
             <version>0.0.1</version>
-        </dependency>
+        </dependency -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-vfs2</artifactId>
@@ -111,8 +77,8 @@
             <id>JSONschema4-mapper SNAPSHOTS repository</id>
             <url>https://raw.github.com/wodzuu/JSONschema4-mapper/mvn-repo/</url>
         </repository>
+        
     </repositories>
-
     <build>
         <plugins>
 <!--            <plugin>
@@ -151,5 +117,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
