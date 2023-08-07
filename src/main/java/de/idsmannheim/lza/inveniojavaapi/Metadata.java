@@ -319,6 +319,18 @@ public class Metadata {
             }
             return Objects.equals(this.affiliations, other.affiliations);
         }
+
+        public PersonOrOrg getPersonOrOrg() {
+            return personOrOrg;
+        }
+
+        public Optional<Role> getRole() {
+            return role;
+        }
+
+        public ArrayList<Affiliation> getAffiliations() {
+            return affiliations;
+        }
         
         
     }
@@ -406,6 +418,14 @@ public class Metadata {
                     return false;
                 }
                 return Objects.equals(this.scheme, other.scheme);
+            }
+
+            public ControlledVocabulary.PersonOrOrgIdentifierScheme getScheme() {
+                return scheme;
+            }
+
+            public String getIdentifier() {
+                return identifier;
             }
             
             
@@ -529,7 +549,22 @@ public class Metadata {
             }
             return Objects.equals(this.identifiers, other.identifiers);
         }
-        
+
+        public String getGivenName() {
+            return givenName;
+        }
+
+        public String getFamilyName() {
+            return familyName;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public ArrayList<Identifier> getIdentifiers() {
+            return identifiers;
+        }
         
     }
     
@@ -596,6 +631,14 @@ public class Metadata {
                 return false;
             }
             return Objects.equals(this.name, other.name);
+        }
+
+        public Optional<ControlledVocabulary.OrganizationalOrInstitutionalId> getId() {
+            return id;
+        }
+
+        public Optional<String> getName() {
+            return name;
         }
         
         
@@ -1109,8 +1152,18 @@ public class Metadata {
             }
             return Objects.equals(this.lang, other.lang);
         }
-        
-        
+
+        public String getTitle() {
+            return title;
+        }
+
+        public TitleType getType() {
+            return type;
+        }
+
+        public Optional<Language> getLang() {
+            return lang;
+        }
     }
     
     /**
@@ -1586,7 +1639,14 @@ public class Metadata {
         public String toString() {
             return "Subject{" + "id=" + id + ", subject=" + subject + '}';
         }
-        
+
+        public Optional<URL> getId() {
+            return id;
+        }
+
+        public Optional<String> getSubject() {
+            return subject;
+        }
         
     }
     /**
@@ -1842,6 +1902,15 @@ public class Metadata {
             return Objects.equals(this.scheme, other.scheme);
         }
 
+        public String getIdentifier() {
+            return identifier;
+        }
+
+        public ControlledVocabulary.RecordIdentifierScheme getScheme() {
+            return scheme;
+        }
+
+        
         @Override
         public String toString() {
             return "AlternateIdentifier{" + "identifier=" + identifier + ", scheme=" + scheme + '}';
