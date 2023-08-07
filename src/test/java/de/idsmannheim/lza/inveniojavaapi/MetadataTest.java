@@ -582,9 +582,9 @@ class MetadataTest {
                 new Metadata.License("cc-by-4.0"),
                 new Metadata.License("cc-by-nc-4.0"),
                 new Metadata.License("cc0-1.0"),
-                new Metadata.License(new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageId.EN), "Proprietory"), new Metadata.LocalizedStrings()),
-                new Metadata.License(new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageId.EN), "Restricted"), new Metadata.LocalizedStrings()),
-                new Metadata.License(new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageId.EN), "Other"), new Metadata.LocalizedStrings())
+                // new Metadata.License(new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageId.EN), "Proprietory"), new Metadata.LocalizedStrings()),
+                new Metadata.License(new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageId.EN), "Restricted"), new Metadata.LocalizedStrings())
+                //new Metadata.License(new Metadata.LocalizedStrings().add(new Language(ControlledVocabulary.LanguageId.EN), "Other"), new Metadata.LocalizedStrings())
         ));
         metadata.addRights(derekoRights);
         ArrayList<Metadata.Contributor> derekoContributors = new ArrayList<>();
@@ -600,13 +600,13 @@ class MetadataTest {
         derekoDates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("2022"), 
                 new Metadata.Date.DateType(new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Updated), 
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Updated"))).setDescription("Last update"));
-        derekoDates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("1591").addEndYear("2023"), 
+        derekoDates.add(new Metadata.Date(new Metadata.ExtendedDateTimeFormat0("1591").addEndYear("2021"), 
                 new Metadata.Date.DateType(new ControlledVocabulary.DateTypeId(ControlledVocabulary.DateTypeId.EDateType.Other), 
                         new Metadata.LocalizedStrings().add(new Language(languageIdFactory.usingId2("en")), "Other"))).setDescription("Time coverage"));
         metadata.addDates(derekoDates);
         metadata.setPublisher("Leibniz-Institut für Deutsche Sprache (IDS)");
         ArrayList<Metadata.AlternateIdentifier> derekoAlternateIdentifiers = new ArrayList<>(List.of(
-                new Metadata.AlternateIdentifier("https://hdl.handle.net/NOTYET", new ControlledVocabulary.RecordIdentifierScheme(ControlledVocabulary.RecordIdentifierScheme.ERecordItentifierScheme.Handle))
+                new Metadata.AlternateIdentifier("https://hdl.handle.net/NOTYET", new ControlledVocabulary.RecordIdentifierScheme(ControlledVocabulary.RecordIdentifierScheme.ERecordItentifierScheme.DOI))
         ));
         metadata.addAlternativeIdentifiers(derekoAlternateIdentifiers);
         metadata.addFormats(new ArrayList<>(List.of("application/xml")));
