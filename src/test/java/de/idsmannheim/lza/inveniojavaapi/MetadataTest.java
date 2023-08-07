@@ -623,9 +623,12 @@ class MetadataTest {
     
     @Test
     void jsonTest() throws IOException {
+        // Collection metadata
         om.readValue(this.getClass().getClassLoader().getResourceAsStream("DeReKo_Invenio.json"), Metadata.class);
         om.readValue(this.getClass().getClassLoader().getResourceAsStream("IDSBestand_Invenio.json"), Metadata.class);
         om.readValue(this.getClass().getClassLoader().getResourceAsStream("WDD_Invenio.json"), Metadata.class);
+        // Text corpus profile metadata
+         om.readValue(this.getClass().getClassLoader().getResourceAsStream("NGANW_Invenio.json"), Metadata.class);
     }
     
     @Test
