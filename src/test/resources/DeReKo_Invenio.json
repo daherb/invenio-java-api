@@ -1,86 +1,45 @@
 {
-    "resource_type": {"id": "publication-annotationcollection"},
-    "creators": [
-        {
-            "person_or_org": {
-                "name": "Leibniz-Institut für Deutsche Sprache (IDS)",
-                "type": "organizational"
+            "resource_type": {              
+            "id": "publication-annotationcollection"},"creators": [{
+              "person_or_org": {
+                "name": "Leibniz-Institut für Deutsche Sprache (IDS)","type": "organizational"}}],"title": "Deutsches Referenzkorpus","publication_date": "2022",
+        "additional_titles": [{
+        "title": "DeReKo",
+        "type": {"id": "alternative-title",
+        "title": {"de": "Alternativer Titel", "en" : "Alternative title"}},
+        "lang": {"id": "deu"}
+        }],"description": "Die Korpora geschriebener Gegenwartssprache des IDS - bilden mit 53 Milliarden Wörtern (Stand 08.03.2022) die weltweit größte linguistisch motivierte Sammlung elektronischer Korpora mit geschriebenen deutschsprachigen Texten aus der Gegenwart und der neueren Vergangenheit. - sind über COSMAS II und KorAP kostenlos abfragbar - enthalten belletristische, wissenschaftliche und populärwissenschaftliche Texte, eine große Zahl von Zeitungstexten sowie eine breite Palette weiterer Textarten und werden kontinuierlich weiterentwickelt. - werden im Hinblick auf Umfang, Variabilität, Qualität und Aktualität akquiriert und erlauben in der Nutzungsphase über COSMAS II und v.a. KorAP die Komposition virtueller Korpora, die repräsentativ oder auf spezielle Aufgabenstellungen zugeschnitten sind. - enthalten ausschließlich urheberrechtlich abgesichertes Material.","rights": [{"id": "cc-by-4.0"},{"id": "cc-by-nc-4.0"},{"id": "cc0-1.0"},{"title": {"en": "Restricted"}}],    
+            "contributors": [{
+              "person_or_org": {
+                "name": "Kupietz, Marc","type": "personal",
+                "given_name": "Marc","family_name": "Kupietz"},
+              "role": {"id": "datacurator"},
+              "affiliations": [{
+                "name": "Leibniz-Institut für Deutsche Sprache (IDS)"}]}],"languages": [{"id": "deu"}],"dates": [{"date": "1965",
+            "type": {
+            "id": "other",
+            "title": {
+            "en": "Other"
             }
-        }
-    ],
-    "title": "Deutsches Referenzkorpus",
-    "publication_date": "2022",
-    "additional_titles": [
-        {
-            "title": "DeReKo",
-            "type": {"id": "alternative-title",
-            "title": {"de" : "Alternativer Titel", "en" : "Alternative title"}},
-            "lang": {"id": "deu"}
-        }
-    ],
-    "description": "Die Korpora geschriebener Gegenwartssprache des IDS - bilden mit 53 Milliarden Wörtern (Stand 08.03.2022) die weltweit größte linguistisch motivierte Sammlung elektronischer Korpora mit geschriebenen deutschsprachigen Texten aus der Gegenwart und der neueren Vergangenheit. - sind über COSMAS II und KorAP kostenlos abfragbar - enthalten belletristische, wissenschaftliche und populärwissenschaftliche Texte, eine große Zahl von Zeitungstexten sowie eine breite Palette weiterer Textarten und werden kontinuierlich weiterentwickelt. - werden im Hinblick auf Umfang, Variabilität, Qualität und Aktualität akquiriert und erlauben in der Nutzungsphase über COSMAS II und v.a. KorAP die Komposition virtueller Korpora, die repräsentativ oder auf spezielle Aufgabenstellungen zugeschnitten sind. - enthalten ausschließlich urheberrechtlich abgesichertes Material.",
-    "rights": [
-        {"id": "cc-by-4.0"},
-        {"id": "cc-by-nc-4.0"},
-        {"id": "cc0-1.0"},
-        {"title": {"en": "Proprietory"}},
-        {"title": {"en": "Restricted"}},
-        {"title": {"en": "Other"}}
-    ],
-    "contributors": [
-        {
-            "person_or_org": {
-                "name": "Kupietz, Marc",
-                "type": "personal",
-                "given_name": "Marc",
-                "family_name": "Kupietz"
             },
-            "role": {"id": "datacurator"},
-            "affiliations": [
-                {"name": "Leibniz-Institut für Deutsche Sprache (IDS)"}
-            ]
-        }
-    ],
-    "languages": [
-        {"id": "deu"}
-    ],
-    "dates": [
-        {
-            "date": "1965",
+            "description": "Start year"},{"date": "2022",
             "type": {
-                "id": "other",
-                "title": {"en": "Other"}
+            "id": "updated",
+            "title": {
+            "en": "Updated"
+            }
             },
-            "description": "Start year"
-        },
-        {
-            "date": "2022",
+            "description": "Last update"},{"date": "1591/2021",
             "type": {
-                "id": "updated",
-                "title": {"en": "Updated"}
+            "id": "other",
+            "title": {
+            "en": "Other"
+            }
             },
-            "description": "Last update"
-        },
-        {
-            "date": "1591/2023",
-            "type": {
-                "id": "other",
-                "title": {"en": "Other"}
-            },
-            "description": "Time coverage"
-        }
-    ],
-    "publisher": "Leibniz-Institut für Deutsche Sprache (IDS)",
-    "identifiers": [
-        {
-            "identifier": "https://hdl.handle.net/NOTYET",
-            "scheme": "handle"
-        }
-    ],
-    "formats": ["application/xml"],
-    "funding": [
-        {
-            "funder": {"name": "DFG"}
-        }
-    ]
-}
+            "description": "Time coverage"}],"publisher": "Leibniz-Institut für Deutsche Sprache (IDS)","identifiers": [{
+        "identifier": "https://hdl.handle.net/NOTYET",
+        "scheme": "doi"
+        }],"formats": ["application/xml"],"funding": [{
+        "funder": {
+        "name": "DFG"
+        }}]}
