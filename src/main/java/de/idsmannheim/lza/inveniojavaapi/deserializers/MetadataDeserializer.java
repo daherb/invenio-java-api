@@ -83,7 +83,7 @@ public class MetadataDeserializer extends StdDeserializer<Metadata> {
             metadata.setPublisher(node.get("publisher").asText());
         }
         if (node.has("identifiers")) {
-            metadata.addAlternativeIdentifiers(om.readerForListOf(Metadata.AlternateIdentifier.class).readValue(node.get("identifiers").toString()));
+            metadata.addAlternateIdentifiers(om.readerForListOf(Metadata.AlternateIdentifier.class).readValue(node.get("identifiers").toString()));
         }
         if (node.has("related_identifiers")) {
             metadata.addRelatedIdentifiers(om.readerForListOf(Metadata.RelatedIdentifier.class).readValue(node.get("related_identifiers").toString()));

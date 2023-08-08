@@ -88,7 +88,7 @@ public class Metadata {
     @JsonProperty("publisher")
     Optional<String> publisher = Optional.empty();
     @JsonProperty("identifiers")
-    final ArrayList<AlternateIdentifier> alternativeIdentifiers = new ArrayList<>();
+    final ArrayList<AlternateIdentifier> alternateIdentifiers = new ArrayList<>();
     @JsonProperty("related_identifiers")
     ArrayList<RelatedIdentifier> relatedIdentifiers = new ArrayList<>();
     @JsonProperty("sizes")
@@ -3144,7 +3144,7 @@ public class Metadata {
         return this;
     }
     
-    public Metadata addAlternativeIdentifiers(
+    public Metadata addAlternateIdentifiers(
             /**
              * Alternate identifiers (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#alternate-identifiers-0-n)
              * 
@@ -3165,7 +3165,7 @@ public class Metadata {
              * including the same DOI in this field.
              */
             List<AlternateIdentifier> alternateIdentifiers) {
-        this.alternativeIdentifiers.addAll(alternateIdentifiers);
+        this.alternateIdentifiers.addAll(alternateIdentifiers);
         return this;
     }
     
@@ -3357,8 +3357,8 @@ public class Metadata {
         return publisher;
     }
 
-    public List<AlternateIdentifier> getAlternativeIdentifiers() {
-        return alternativeIdentifiers;
+    public List<AlternateIdentifier> getAlternateIdentifiers() {
+        return alternateIdentifiers;
     }
 
     public List<RelatedIdentifier> getRelatedIdentifiers() {
@@ -3401,7 +3401,7 @@ public class Metadata {
             newMetadata.setVersion(version.get());
         if (publisher.isPresent())
             newMetadata.setPublisher(publisher.get());
-        newMetadata.addAlternativeIdentifiers((List<AlternateIdentifier>) alternativeIdentifiers.clone());
+        newMetadata.addAlternateIdentifiers((List<AlternateIdentifier>) alternateIdentifiers.clone());
         newMetadata.addRelatedIdentifiers((List<RelatedIdentifier>) relatedIdentifiers.clone());
         newMetadata.addSizes((List<String>) sizes.clone());
         newMetadata.addFormats((List<String>) formats.clone());
@@ -3430,7 +3430,7 @@ public class Metadata {
         hash = 53 * hash + Objects.hashCode(this.dates);
         hash = 53 * hash + Objects.hashCode(this.version);
         hash = 53 * hash + Objects.hashCode(this.publisher);
-        hash = 53 * hash + Objects.hashCode(this.alternativeIdentifiers);
+        hash = 53 * hash + Objects.hashCode(this.alternateIdentifiers);
         hash = 53 * hash + Objects.hashCode(this.relatedIdentifiers);
         hash = 53 * hash + Objects.hashCode(this.sizes);
         hash = 53 * hash + Objects.hashCode(this.formats);
@@ -3494,7 +3494,7 @@ public class Metadata {
         if (!Objects.equals(this.publisher, other.publisher)) {
             return false;
         }
-        if (!Objects.equals(this.alternativeIdentifiers, other.alternativeIdentifiers)) {
+        if (!Objects.equals(this.alternateIdentifiers, other.alternateIdentifiers)) {
             return false;
         }
         if (!Objects.equals(this.relatedIdentifiers, other.relatedIdentifiers)) {
@@ -3517,7 +3517,7 @@ public class Metadata {
 
     @Override
     public String toString() {
-        return "Metadata{" + "resourceType=" + resourceType + ", creators=" + creators + ", title=" + title + ", publicationDate=" + publicationDate + ", additionalTitles=" + additionalTitles + ", description=" + description + ", additionalDescriptions=" + additionalDescriptions + ", rights=" + rights + ", contributors=" + contributors + ", subjects=" + subjects + ", languages=" + languages + ", dates=" + dates + ", version=" + version + ", publisher=" + publisher + ", alternativeIdentifiers=" + alternativeIdentifiers + ", relatedIdentifiers=" + relatedIdentifiers + ", sizes=" + sizes + ", formats=" + formats + ", locations=" + locations + ", fundingReferences=" + fundingReferences + ", references=" + references + '}';
+        return "Metadata{" + "resourceType=" + resourceType + ", creators=" + creators + ", title=" + title + ", publicationDate=" + publicationDate + ", additionalTitles=" + additionalTitles + ", description=" + description + ", additionalDescriptions=" + additionalDescriptions + ", rights=" + rights + ", contributors=" + contributors + ", subjects=" + subjects + ", languages=" + languages + ", dates=" + dates + ", version=" + version + ", publisher=" + publisher + ", alternateIdentifiers=" + alternateIdentifiers + ", relatedIdentifiers=" + relatedIdentifiers + ", sizes=" + sizes + ", formats=" + formats + ", locations=" + locations + ", fundingReferences=" + fundingReferences + ", references=" + references + '}';
     }
     
 

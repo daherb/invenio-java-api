@@ -545,7 +545,7 @@ class MetadataTest {
         metadata.addSubjects(subjects);
         metadata.addLanguages(languages);
         metadata.addDates(dates);
-        metadata.addAlternativeIdentifiers(alternateIdentifiers);
+        metadata.addAlternateIdentifiers(alternateIdentifiers);
         metadata.addRelatedIdentifiers(relatedIdentifiers);
         metadata.setLocations(locations);
         metadata.addFundingReferences(funding);
@@ -608,7 +608,7 @@ class MetadataTest {
         ArrayList<Metadata.AlternateIdentifier> derekoAlternateIdentifiers = new ArrayList<>(List.of(
                 new Metadata.AlternateIdentifier("https://hdl.handle.net/NOTYET", new ControlledVocabulary.RecordIdentifierScheme(ControlledVocabulary.RecordIdentifierScheme.ERecordItentifierScheme.DOI))
         ));
-        metadata.addAlternativeIdentifiers(derekoAlternateIdentifiers);
+        metadata.addAlternateIdentifiers(derekoAlternateIdentifiers);
         metadata.addFormats(new ArrayList<>(List.of("application/xml")));
         metadata.addFundingReferences(new ArrayList<>(List.of(new Metadata.FundingReference(new Metadata.FundingReference.Funder(Optional.empty(), Optional.of("DFG"))))));
         /*
@@ -646,7 +646,7 @@ class MetadataTest {
         metadata.addSubjects(subjects);
         metadata.addLanguages(languages);
         metadata.addDates(dates);
-        metadata.addAlternativeIdentifiers(alternateIdentifiers);
+        metadata.addAlternateIdentifiers(alternateIdentifiers);
         metadata.addRelatedIdentifiers(relatedIdentifiers);
         metadata.setLocations(locations);
         metadata.addFundingReferences(funding);
