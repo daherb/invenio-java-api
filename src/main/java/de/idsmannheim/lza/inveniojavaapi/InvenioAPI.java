@@ -32,7 +32,7 @@ import org.apache.commons.vfs2.VFS;
  * Class encapsulating the API calls using the Invenio REST API
  * @author Herbert Lange <lange@ids-mannheim.de>
  */
-public class API {
+public class InvenioAPI {
     
     public enum Protocol { HTTP, HTTPS };
     
@@ -48,7 +48,7 @@ public class API {
      * @param host the host to connect to
      * @param token the API token
      */
-    public API(String host, String token) {
+    public InvenioAPI(String host, String token) {
         this.token = token;
         this.host = host;
     }
@@ -58,7 +58,7 @@ public class API {
      * @param protocol
      * @return 
      */
-    public API setProtocol(Protocol protocol) {
+    public InvenioAPI setProtocol(Protocol protocol) {
         this.protocol = protocol.toString().toLowerCase();
         return this;
     }
@@ -348,7 +348,7 @@ public class API {
                     // Resolve uri and return input strean
                     return manager.resolveFile(fileUri).getContent().getInputStream();
                 } catch (FileSystemException ex) {
-                    Logger.getLogger(API.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(InvenioAPI.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 // Return null if stream could not be returned
                 return null;
@@ -762,5 +762,5 @@ public class API {
         
     }
     
-    private static final Logger LOG = Logger.getLogger(API.class.getName());
+    private static final Logger LOG = Logger.getLogger(InvenioAPI.class.getName());
 }
