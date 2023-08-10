@@ -807,6 +807,30 @@ public class Metadata {
             return Objects.equals(this.endDay, other.endDay);
         }
 
+        public String getStartYear() {
+            return startYear;
+        }
+
+        public Optional<String> getStartMonth() {
+            return startMonth;
+        }
+
+        public Optional<String> getStartDay() {
+            return startDay;
+        }
+
+        public Optional<String> getEndYear() {
+            return endYear;
+        }
+
+        public Optional<String> getEndMonth() {
+            return endMonth;
+        }
+
+        public Optional<String> getEndDay() {
+            return endDay;
+        }
+
         /**
          * Method to parse a date in ISO format and convert into Extended Date Time Format
          * @param dateString the date or date range as a string
@@ -1258,6 +1282,14 @@ public class Metadata {
             public String toString() {
                 return "DescriptionType{" + "id=" + id + ", title=" + title + '}';
             }
+
+            public ControlledVocabulary.DescriptionTypeId getId() {
+                return id;
+            }
+
+            public LocalizedStrings getTitle() {
+                return title;
+            }
             
             
         }
@@ -1327,6 +1359,18 @@ public class Metadata {
         @Override
         public String toString() {
             return "AdditionalDescription{" + "description=" + description + ", type=" + type + ", lang=" + lang + '}';
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public DescriptionType getType() {
+            return type;
+        }
+
+        public Optional<Language> getLang() {
+            return lang;
         }
         
         
@@ -1456,6 +1500,26 @@ public class Metadata {
         public String toString() {
             return "License{" + "id=" + id + ", title=" + title + ", description=" + description + ", link=" + link + '}';
         }
+
+        public Optional<String> getId() {
+            return id;
+        }
+
+        public LocalizedStrings getTitle() {
+            return title;
+        }
+
+        public LocalizedStrings getDescription() {
+            return description;
+        }
+
+        public Optional<URL> getLink() {
+            return link;
+        }
+
+        public HashMap<String, String> getProps() {
+            return props;
+        }
         
         
     }
@@ -1560,6 +1624,18 @@ public class Metadata {
         @Override
         public String toString() {
             return "Contributor{" + "personOrOrg=" + personOrOrg + ", role=" + role + ", affiliations=" + affiliations + '}';
+        }
+
+        public PersonOrOrg getPersonOrOrg() {
+            return personOrOrg;
+        }
+
+        public ControlledVocabulary.Role getRole() {
+            return role;
+        }
+
+        public ArrayList<Affiliation> getAffiliations() {
+            return affiliations;
         }
         
         
@@ -1754,6 +1830,14 @@ public class Metadata {
             public String toString() {
                 return "DateType{" + "id=" + id + ", title=" + title + '}';
             }
+
+            public ControlledVocabulary.DateTypeId getId() {
+                return id;
+            }
+
+            public LocalizedStrings getTitle() {
+                return title;
+            }
             
             
         }
@@ -1817,6 +1901,30 @@ public class Metadata {
         @Override
         public String toString() {
             return "Date{" + "date=" + date + ", type=" + type + ", description=" + description + '}';
+        }
+
+        public ExtendedDateTimeFormat0 getDate() {
+            return date;
+        }
+
+        public void setDate(ExtendedDateTimeFormat0 date) {
+            this.date = date;
+        }
+
+        public DateType getType() {
+            return type;
+        }
+
+        public void setType(DateType type) {
+            this.type = type;
+        }
+
+        public Optional<String> getDescription() {
+            return description;
+        }
+
+        public void setDescription(Optional<String> description) {
+            this.description = description;
         }
         
         
@@ -2097,6 +2205,7 @@ public class Metadata {
                 return "RelatedResourceType{" + "id=" + id + ", title=" + title + '}';
             }
             
+            
         }
         
         @JsonProperty("identifier")
@@ -2314,6 +2423,14 @@ public class Metadata {
             public String toString() {
                 return "LocationIdentifier{" + "identifier=" + identifier + ", scheme=" + scheme + '}';
             }
+
+            public String getIdentifier() {
+                return identifier;
+            }
+
+            public String getScheme() {
+                return scheme;
+            }
             
             
         }
@@ -2364,6 +2481,15 @@ public class Metadata {
             public String toString() {
                 return "LocationGeometry{" + "type=" + type + ", coordinates=" + coordinates + '}';
             }
+
+            public String getType() {
+                return type;
+            }
+
+            public ArrayList<Object> getCoordinates() {
+                return coordinates;
+            }
+            
             
         }
         
@@ -2451,6 +2577,22 @@ public class Metadata {
             public String toString() {
                 return "LocationFeature{" + "geometry=" + geometry + ", identifiers=" + identifiers + ", place=" + place + ", description=" + description + '}';
             }
+
+            public Optional<LocationGeometry> getGeometry() {
+                return geometry;
+            }
+
+            public List<LocationIdentifier> getIdentifiers() {
+                return identifiers;
+            }
+
+            public Optional<String> getPlace() {
+                return place;
+            }
+
+            public Optional<String> getDescription() {
+                return description;
+            }
             
             
         }
@@ -2497,7 +2639,10 @@ public class Metadata {
         public String toString() {
             return "Location{" + "features=" + features + '}';
         }
-        
+
+        public ArrayList<LocationFeature> getFeatures() {
+            return features;
+        }
         
     }
     
@@ -2614,6 +2759,14 @@ public class Metadata {
             public String toString() {
                 return "Funder{" + "id=" + id + ", name=" + name + '}';
             }
+
+            public Optional<ControlledVocabulary.FunderId> getId() {
+                return id;
+            }
+
+            public Optional<String> getName() {
+                return name;
+            }
             
             
         }
@@ -2701,6 +2854,22 @@ public class Metadata {
             public String toString() {
                 return "Award{" + "id=" + id + ", title=" + title + ", number=" + number + ", identifiers=" + identifiers + '}';
             }
+
+            public Optional<ControlledVocabulary.AwardId> getId() {
+                return id;
+            }
+
+            public LocalizedStrings getTitle() {
+                return title;
+            }
+
+            public Optional<String> getNumber() {
+                return number;
+            }
+
+            public ArrayList<AlternateIdentifier> getIdentifiers() {
+                return identifiers;
+            }
             
             
         }
@@ -2760,6 +2929,15 @@ public class Metadata {
         public String toString() {
             return "FundingReference{" + "funder=" + funder + ", award=" + award + '}';
         }
+
+        public Funder getFunder() {
+            return funder;
+        }
+
+        public Optional<Award> getAward() {
+            return award;
+        }
+        
         
     }
     

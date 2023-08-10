@@ -142,6 +142,10 @@ public class ControlledVocabulary {
             final ResourceType other = (ResourceType) obj;
             return this.resourceType == other.resourceType;
         }
+
+        public EResourceType getResourceType() {
+            return resourceType;
+        }
         
         
     }
@@ -734,6 +738,10 @@ public class ControlledVocabulary {
             final DescriptionTypeId other = (DescriptionTypeId) obj;
             return this.type == other.type;
         }
+
+        public EDescriptionType getType() {
+            return type;
+        }
         
         
     }
@@ -806,6 +814,10 @@ public class ControlledVocabulary {
             final DateTypeId other = (DateTypeId) obj;
             return this.dateType == other.dateType;
         }
+
+        public EDateType getDateType() {
+            return dateType;
+        }
         
         
     }
@@ -866,6 +878,10 @@ public class ControlledVocabulary {
             }
             final RecordIdentifierScheme other = (RecordIdentifierScheme) obj;
             return this.scheme == other.scheme;
+        }
+
+        public ERecordItentifierScheme getScheme() {
+            return scheme;
         }
         
         
@@ -933,6 +949,10 @@ public class ControlledVocabulary {
             final RelationTypeId other = (RelationTypeId) obj;
             return this.relation == other.relation;
         }
+
+        public ERelationTypeId getRelation() {
+            return relation;
+        }
         
         
     }
@@ -996,6 +1016,10 @@ public class ControlledVocabulary {
             }
             final RelatedRecordIdentifierScheme other = (RelatedRecordIdentifierScheme) obj;
             return this.scheme == other.scheme;
+        }
+
+        public ERelatedRecordIdentifierScheme getScheme() {
+            return scheme;
         }
         
         
@@ -1107,6 +1131,14 @@ public class ControlledVocabulary {
                 }
                 return Objects.equals(this.name, other.name);
             }
+
+            public String getId() {
+                return id;
+            }
+
+            public Optional<String> getName() {
+                return name;
+            }
             
             
         }
@@ -1174,7 +1206,10 @@ public class ControlledVocabulary {
         public String toString() {
             return id;
         }
-        
+
+        public String getId() {
+            return id;
+        }
         
     }
     
