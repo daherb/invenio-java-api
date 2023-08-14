@@ -4,20 +4,19 @@
  */
 package de.idsmannheim.lza.inveniojavaapi.cmdi;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.idsmannheim.lza.inveniojavaapi.Metadata;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Predicate;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
+import javax.xml.transform.stream.StreamSource;
+import net.sf.saxon.s9api.Processor;
+import net.sf.saxon.s9api.SaxonApiException;
+import net.sf.saxon.s9api.Serializer;
+import net.sf.saxon.s9api.Xslt30Transformer;
 import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.Namespace;
-import org.jdom2.filter.ElementFilter;
-import org.jdom2.xpath.XPathFactory;
+import org.jdom2.transform.JDOMSource;
 
 /**
  *
@@ -26,136 +25,31 @@ import org.jdom2.xpath.XPathFactory;
  * @author Herbert Lange <lange@ids-mannheim.de>
  */
 public abstract class CmdiProfileMapping {
-    
-    final Document cmdiDocument;
-    List<Namespace> namespaces;
+    protected final Document cmdiDocument;
+    protected InputStream xslStream;
     
     public CmdiProfileMapping(Document d) {
-        cmdiDocument = d;
+        this.cmdiDocument = d;
     }
     
-    public void setNamespaces(List<Namespace> ns) {
-        namespaces = ns;
-    }
-
-    // Gets all text from an element and its children
-    public static List<String> getAllText(Element e) {
-        List<String> result = new ArrayList<>(List.of(e.getTextNormalize()));
-        result.addAll(e.getChildren().stream().flatMap(c -> getAllText(c).stream()).filter(s -> !s.isBlank()).collect(Collectors.toList()));
-        return result.stream().filter(Predicate.not(String::isEmpty)).toList();
-    }
-    
-    /**
-     * Gets the pid of the resoure stored as metadata self link
-     * @return the self link if it exists
-     */
-    public abstract Optional<String> getSelfLink();
-    /**
-     * Gets the name of the resource. Used as alternative title in Invenio
-     * @return the resource name if it exists
-     */
-    public abstract Optional<String> getResourceName();
-    
-    /**
-     * Gets the title of the resource. Used as the title in Invenio
-     * @return the title if it exists
-     */
-    public abstract Optional<String> getResourceTitle();
-    
-    /**
-     * Gets the resource type or class. Used as the resource type in invenio
-     * @return the resource type if it exists
-     */
-    public abstract Optional<Metadata.ResourceType> getResourceType();
-    
-    /**
-     * Gets the version. Used as version in Invenio
-     * @return the version as string if it exists
-     */
-    public abstract Optional<String> getVersion();
-    
-    /**
-     * Gets the publication date. Used as publication date in Invenio
-     * @return the publication date if it exists
-     */
-    public abstract Optional<String> getPublicationDate();
-    
-    /**
-     * Gets the legal owner of the resource. Used as the rights holder creators in Invenio
-     * @return the legal owner if it exists
-     */
-    public abstract Optional<String> getLegalOwner();
-    
-    /**
-     * Gets the location. Used as a location in Invenio
-     * @return the location if it exists
-     */
-    public abstract Optional<String> getLocation();
-    
-    /**
-     * Gets the list of creators. Used as creators in Invenio
-     * @return potentially empty list of creators
-     */
-    public abstract List<String> getCreators();
-    
-    /**
-     * Gets the list of subject languages. Used as languages in Invenio
-     * @return potentially empty list of languages
-     */
-    public abstract List<String> getSubjectLanguages();
-
-    /**
-     * Gets the list of licenses. Used as rights in Invenio
-     * @return potentially empty list of licenses
-     */
-    public abstract List<String> getLicenses();
-    
-    /**
-     * Gets the description
-     * @return the description if it exists
-     */
-    public abstract Map<String,String> getDescription();
-    
-    /**
-     * Returns the Element if it exists
-     * @param xpath the path to the element
-     * @return Either the Optional of the Element or Nothing if it doesn't exist
-     */
-    List<Element> getElementList(String xpath) {
-        return XPathFactory.instance()
-                .compile(xpath,
-                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument);
+    public Metadata map() throws SaxonApiException, IOException {
+        // Saxon magic (https://www.saxonica.com/documentation12/index.html#!using-xsl/embedding/s9api-transformation) 
+        // for transforming document using the XSLT referenced by
+        // xslStream (coming from derived classes) 
+        Processor processor = new Processor();
+        Xslt30Transformer transformer = processor.newXsltCompiler().compile(new StreamSource(xslStream)).load30();
+        // Using a stream to collect the transformation output
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        Serializer out = processor.newSerializer(outStream);
+        // Using text method instead of json method because using json leads to
+        // an error
+        out.setOutputProperty(Serializer.Property.METHOD, "text");
+        out.setOutputProperty(Serializer.Property.INDENT, "yes");
+        transformer.transform(new JDOMSource(cmdiDocument), out);
+        // Convert the json string to Metadata object
+        ObjectMapper om = new ObjectMapper().findAndRegisterModules();
+        return om.readValue(outStream.toByteArray(), Metadata.class);
     }
     
-    /**
-     * Returns the text of an Element it it exists
-     * @param xpath the path to the element
-     * @return Either the Optional of the text or Nothing if the Element doesn't exist. The String can be empty if the Element exists but has no text
-     */
-    Optional<String> getOptionalText(String xpath) {
-        return getElementList(xpath).stream()
-                .map(Element::getText).filter(Predicate.not(String::isBlank)).findAny();
-    }
-    
-    List<String> getTextList(String xpath) {
-        return XPathFactory.instance()
-                .compile(xpath,
-                new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)
-                .stream().map(e -> String.join(", ",CmdiProfileMapping.getAllText(e))).filter(Predicate.not(String::isBlank)).toList();
-    }
-    Map<String,String> getLangMap(String xpath) {
-        HashMap<String, String> descriptions = new HashMap<>();
-        for (Element e : XPathFactory.instance()
-                .compile(xpath,
-                        new ElementFilter(), new HashMap<>(), namespaces).evaluate(cmdiDocument)) {
-            // Try to find a language attribute
-            Optional<String> lang = Optional.ofNullable(e.getAttributeValue("lang", Namespace.getNamespace("xml", "http://www.w3.org/XML/1998/namespace")));
-            lang = lang.or(() -> Optional.ofNullable(e.getAttributeValue("LanguageID")));
-            String value = CmdiProfileMapping.getAllText(e).stream().collect(Collectors.joining("\n"));
-            // If language is missing, default to english
-            descriptions.compute(lang.orElse("en"), (k,v) -> v == null ? value : v + "\n" + value);
-        }
-        return descriptions;
-    }
     private static final Logger LOG = Logger.getLogger(CmdiProfileMapping.class.getName());
 }
