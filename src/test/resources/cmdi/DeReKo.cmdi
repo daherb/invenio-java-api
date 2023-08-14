@@ -1383,7 +1383,7 @@
                 <cmdp:StartYear>1965</cmdp:StartYear>
                 <cmdp:PublicationDate/>
                 <cmdp:LastUpdate>2022</cmdp:LastUpdate>
-                <cmdp:TimeCoverage>1591/</cmdp:TimeCoverage>
+                <cmdp:TimeCoverage>1591-2021</cmdp:TimeCoverage>
                 <cmdp:LegalOwner/>
                 <cmdp:Genre>divers</cmdp:Genre>
                 <cmdp:FieldOfResearch/>
@@ -1408,7 +1408,7 @@
                 </cmdp:tags>
 
                 <cmdp:ModalityInfo>
-                    <cmdp:Modalities Referenz="https://gnd.dnb.org/08/15" >spoken</cmdp:Modalities>
+                    <cmdp:Modalities>spoken</cmdp:Modalities>
                     <cmdp:Modalities>written</cmdp:Modalities>
                     <cmdp:Modalities>multimodal</cmdp:Modalities>
                     <cmdp:Modalities>transcribed</cmdp:Modalities>
@@ -1419,21 +1419,21 @@
                     <cmdp:Organisation>
                         <cmdp:name>Leibniz-Institut für Deutsche Sprache (IDS)</cmdp:name>
                         <cmdp:Location>
-                            <cmdp:AuthoritativeIDs>
-                                <cmdp:AuthoritativeID>
-                                    <cmdp:id>118318106X</cmdp:id>
-                                    <cmdp:issuingAuthority>GND</cmdp:issuingAuthority>
+                        <cmdp:AuthoritativeIDs>
+                            <cmdp:AuthoritativeID>
+                                <cmdp:id>118318106X</cmdp:id>
+                                <cmdp:issuingAuthority>GND</cmdp:issuingAuthority>
 
-                                </cmdp:AuthoritativeID>
-                                <cmdp:AuthoritativeID>
-                                    <cmdp:id>156585213</cmdp:id>
-                                    <cmdp:issuingAuthority>VIAF</cmdp:issuingAuthority>
-                                </cmdp:AuthoritativeID>
-                                <cmdp:AuthoritativeID>
-                                    <cmdp:id>n80067129</cmdp:id>
-                                    <cmdp:issuingAuthority>LCCN</cmdp:issuingAuthority>
-                                </cmdp:AuthoritativeID>
-                            </cmdp:AuthoritativeIDs>
+                            </cmdp:AuthoritativeID>
+                            <cmdp:AuthoritativeID>
+                                <cmdp:id>156585213</cmdp:id>
+                                <cmdp:issuingAuthority>VIAF</cmdp:issuingAuthority>
+                            </cmdp:AuthoritativeID>
+                            <cmdp:AuthoritativeID>
+                                <cmdp:id>n80067129</cmdp:id>
+                                <cmdp:issuingAuthority>LCCN</cmdp:issuingAuthority>
+                            </cmdp:AuthoritativeID>
+                        </cmdp:AuthoritativeIDs>
                         </cmdp:Location>
                     </cmdp:Organisation>
                     <cmdp:Descriptions>
@@ -1447,24 +1447,23 @@
                         <cmdp:containsLicense>CC-BY</cmdp:containsLicense>
                         <cmdp:containsLicense>CC-BY-NC</cmdp:containsLicense>
                         <cmdp:containsLicense>CC-0</cmdp:containsLicense>
-                        <cmdp:containsLicense>Proprietory</cmdp:containsLicense>
                         <cmdp:containsLicense>Restricted</cmdp:containsLicense>
-                        <cmdp:containsLicense>Other</cmdp:containsLicense>
                     </cmdp:containsLicenses>
                 </cmdp:Licenses>
+                
                 <cmdp:Contact>
                     <cmdp:firstname>Marc</cmdp:firstname>
                     <cmdp:lastname>Kupietz</cmdp:lastname>
-                    <cmdp:email>corpora@ids-mannheim.de</cmdp:email>
+                    <cmdp:email>korpuslinguistik@ids-mannheim.de</cmdp:email>
                     <cmdp:role/>
                     <cmdp:Address>
-                        <cmdp:street>>R5</cmdp:street>
-                        <cmdp:ZIPCode/>
+                        <cmdp:street>R5, 6-13</cmdp:street>
+                        <cmdp:ZIPCode>68161</cmdp:ZIPCode>
                         <cmdp:city>Mannheim</cmdp:city>
                     </cmdp:Address>
                 </cmdp:Contact>
 
-
+        
                 <cmdp:SubjectLanguage>
                     <cmdp:Language>
                         <cmdp:LanguageName/>
