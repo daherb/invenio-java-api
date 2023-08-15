@@ -277,6 +277,6 @@ public class InvenioAPITools {
      */
     public Metadata readMetadata(File cmdiFile) throws IOException, JDOMException, IllegalArgumentException, SaxonApiException {
         // Read the CMDI file
-        return CMDI.readCmdiMetadata(cmdiFile);
+        return CMDI.convertCmdiMetadata(CMDI.readCmdiFile(cmdiFile));
     }
 }
