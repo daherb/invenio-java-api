@@ -686,9 +686,11 @@ public class Metadata {
             if (startMonth.isEmpty())
                 throw new IllegalArgumentException
                     ("Start month has to be present before adding start day");
-            if (!startDay.matches("\\d{2}"))
+            
+            if (!startDay.matches("\\d{2}(T.*)?"))
                 throw new IllegalArgumentException("Illegal day: " + startDay);
-            this.startDay = Optional.of(startDay);
+            // Truncate time and timezone stuff if present
+            this.startDay = Optional.of(startDay.replaceAll("(\\d{2})(T.*)?", "$1"));
             return this;
         }
         
@@ -716,7 +718,10 @@ public class Metadata {
             if (endMonth.isEmpty())
                 throw new IllegalArgumentException
                     ("End month has to be present before adding end day");
-            this.endDay = Optional.of(endDay);
+            if (!endDay.matches("\\d{2}(T.*)?"))
+                throw new IllegalArgumentException("Illegal day: " + endDay);
+            // Truncate time and timezone stuff if present
+            this.endDay = Optional.of(endDay.replaceAll("(\\d{2})(T.*)?", "$1"));
             return this;
         }
 
