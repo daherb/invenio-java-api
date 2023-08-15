@@ -207,7 +207,7 @@ public class InvenioAPITools {
      * @throws NoSuchAlgorithmException
      * @throws KeyManagementException
      */
-    private boolean isDraft(String id) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+    public boolean isDraft(String id) throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         if (draftList.isEmpty()) {
             updateDraftList();
         }
