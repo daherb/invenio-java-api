@@ -5,12 +5,6 @@
 package de.idsmannheim.lza.inveniojavaapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import de.idsmannheim.lza.inveniojavaapi.cmdi.CmdiProfileMapping;
-import de.idsmannheim.lza.inveniojavaapi.cmdi.CollectionProfileMapper;
-import de.idsmannheim.lza.inveniojavaapi.cmdi.SpeechCorpusProfileMapper;
-import de.idsmannheim.lza.inveniojavaapi.cmdi.TextCorpusProfileMapper;
-import de.idsmannheim.lza.xmlmagic.MimeType;
-import de.idsmannheim.lza.xmlmagic.XmlMagic;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,8 +25,6 @@ import java.util.logging.Logger;
 import org.jdom2.JDOMException;
 import javax.xml.bind.DatatypeConverter;
 import net.sf.saxon.s9api.SaxonApiException;
-import org.jdom2.Document;
-import org.jdom2.input.SAXBuilder;
 
 
 /**
