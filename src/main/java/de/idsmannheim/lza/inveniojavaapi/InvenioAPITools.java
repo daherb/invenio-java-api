@@ -7,7 +7,6 @@ package de.idsmannheim.lza.inveniojavaapi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import de.idsmannheim.lza.inveniojavaapi.cmdi.CmdiProfileMapping;
 import de.idsmannheim.lza.inveniojavaapi.cmdi.CollectionProfileMapper;
-import de.idsmannheim.lza.inveniojavaapi.cmdi.OLACDcmiTermsMapper;
 import de.idsmannheim.lza.inveniojavaapi.cmdi.SpeechCorpusProfileMapper;
 import de.idsmannheim.lza.inveniojavaapi.cmdi.TextCorpusProfileMapper;
 import de.idsmannheim.lza.xmlmagic.MimeType;
@@ -31,6 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jdom2.JDOMException;
 import javax.xml.bind.DatatypeConverter;
+import net.sf.saxon.s9api.SaxonApiException;
 import org.jdom2.Document;
 import org.jdom2.input.SAXBuilder;
 
@@ -270,48 +270,13 @@ public class InvenioAPITools {
     
     /**
      * Read the Invenio metadata from a CMDI file
-     * @param metadataMapping the metadata file
+     * @param cmdiFile the CMDI metadata file
      * @return the Invenio metadata
      * @throws IOException
      * @throws JDOMException
      */
-    public Metadata readMetadata(CmdiProfileMapping metadataMapping) throws IOException, JDOMException {
+    public Metadata readMetadata(File cmdiFile) throws IOException, JDOMException, IllegalArgumentException, SaxonApiException {
         // Read the CMDI file
-        return CMDI.readCmdiMetadata(metadataMapping);
-    }
-    
-    /**
-     * Create a CMDI metadata mapping suitable for the metadata file
-     * @param metadataFile the file to be mapped
-     * @return the CMDI metadata mapping
-     * @throws JDOMException
-     * @throws IOException 
-     */
-    public CmdiProfileMapping createCmdiProfileMapping(File metadataFile) throws JDOMException, IOException {
-        // Read the CMDI file
-        Document document = new SAXBuilder().build(metadataFile);
-        XmlMagic magic = new XmlMagic(document);
-        for (MimeType mt : magic.getMimeTypes()) {
-            // Find the CMDI mime type
-            if (mt.getSubtype().equals("x-cmdi")) {
-                
-                switch (mt.getParameters().get("profile")) {
-                    // Speech corpus profile
-                    case "clarin.eu:cr1:p_1527668176128":
-                        return new SpeechCorpusProfileMapper(document);
-                    // Text corpus profile
-                    case "clarin.eu:cr1:p_1559563375778":
-                        return new TextCorpusProfileMapper(document);
-                    // OLAC DCMI terms
-                    case "clarin.eu:cr1:p_1366895758244":
-                        return new OLACDcmiTermsMapper(document);
-                    case "clarin.eu:cr1:p_1659015263839":
-                        return new CollectionProfileMapper(document);
-                    default:
-                        throw new IOException("Unsupported CMDI profile " + mt.getParameters().get("profile"));
-                }
-            }
-        }
-        throw new IOException("Unrecognized CMDI file or profile");
+        return CMDI.readCmdiMetadata(cmdiFile);
     }
 }
