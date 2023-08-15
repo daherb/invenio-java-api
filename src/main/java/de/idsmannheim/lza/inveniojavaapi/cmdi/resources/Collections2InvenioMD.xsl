@@ -205,8 +205,9 @@
         <xsl:text>"dates": [</xsl:text>
         
         <!-- <xsl:if test=".//cmdp:GeneralInfo/cmdp:StartYear/text()">  --> 
-        <xsl:if test="normalize-space(.//cmdp:GeneralInfo/cmdp:StartYear/text()) != ''">
-            <xsl:text>{"date": "</xsl:text><xsl:value-of select="normalize-space(.//cmdp:GeneralInfo/cmdp:StartYear/text())"/><xsl:text>",
+        <xsl:variable name="start_year" select="normalize-space(.//cmdp:GeneralInfo/cmdp:StartYear/text())" />
+        <xsl:if test="start_year">
+            <xsl:text>{"date": "</xsl:text><xsl:value-of select="start_year"/><xsl:text>",
             "type": {
             "id": "other",
             "title": {
@@ -216,9 +217,12 @@
             "description": "Start year"}</xsl:text>
         </xsl:if>
         
-        <xsl:if test="normalize-space(.//cmdp:GeneralInfo/cmdp:PublicationDate/text())">
-            <xsl:text>,</xsl:text>
-            <xsl:text>{"date": "</xsl:text><xsl:value-of select="normalize-space(.//cmdp:GeneralInfo/cmdp:PublicationDate/text())"/><xsl:text>",
+        <xsl:variable name="publication_date" select="normalize-space(.//cmdp:GeneralInfo/cmdp:PublicationDate/text())" />
+        <xsl:if test="publication_date">
+            <xsl:if test="start_date">
+                <xsl:text>,</xsl:text>
+            </xsl:if>
+            <xsl:text>{"date": "</xsl:text><xsl:value-of select="publication_date"/><xsl:text>",
             "type": {
             "id": "other",
             "title": {
@@ -227,10 +231,12 @@
             },
             "description": "Publication date"}</xsl:text>
         </xsl:if>
-        
-        <xsl:if test="normalize-space(.//cmdp:GeneralInfo/cmdp:LastUpdate/text())">
-            <xsl:text>,</xsl:text>
-            <xsl:text>{"date": "</xsl:text><xsl:value-of select="normalize-space(.//cmdp:GeneralInfo/cmdp:LastUpdate/text())"/><xsl:text>",
+        <xsl:variable name="last_updated" select="normalize-space(.//cmdp:GeneralInfo/cmdp:LastUpdate/text())" />
+        <xsl:if test="last_updated">
+            <xsl:if test="start_date || publication_date">
+                <xsl:text>,</xsl:text>
+            </xsl:if>
+            <xsl:text>{"date": "</xsl:text><xsl:value-of select="last_updated"/><xsl:text>",
             "type": {
             "id": "updated",
             "title": {
@@ -240,9 +246,12 @@
             "description": "Last update"}</xsl:text>
         </xsl:if>
         
-        <xsl:if test="normalize-space(.//cmdp:GeneralInfo/cmdp:TimeCoverage/text())">  
-            <xsl:text>,</xsl:text>
-            <xsl:text>{"date": "</xsl:text><xsl:value-of select="replace(.//cmdp:GeneralInfo/cmdp:TimeCoverage/text(), '-', '/')"/><xsl:text>",
+        <xsl:variable name="time_coverage" select=".//cmdp:GeneralInfo/cmdp:TimeCoverage/text()" />
+        <xsl:if test="normalize-space(time_coverage)">  
+            <xsl:if test="start_date || publication_date || last_updated">
+                <xsl:text>,</xsl:text>
+            </xsl:if>
+            <xsl:text>{"date": "</xsl:text><xsl:value-of select="replace(time_coverage, '-', '/')"/><xsl:text>",
             "type": {
             "id": "other",
             "title": {

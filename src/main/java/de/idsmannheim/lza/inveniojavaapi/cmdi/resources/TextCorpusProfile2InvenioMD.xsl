@@ -44,19 +44,22 @@
         
         <!-- PUBLICATION DATE -->
         <!-- in case the value of cmdp:PublicationDate is empty take the value of cmdp:LastUpdate -->
-        <xsl:text>"publication_date": "</xsl:text>
-        <xsl:choose>
-            <xsl:when
-                test="normalize-space(.//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate) != ''">
-                <xsl:value-of
-                    select=".//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select=".//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LastUpdate"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:text>",</xsl:text>
-        
+        <xsl:variable name="publication_date" select=".//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate || .//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LastUpdate" />
+        <xsl:if test="publication_date">
+            <xsl:text>"publication_date": "</xsl:text>
+            <xsl:value-of select="publication_date" />
+            <!--        <xsl:choose>
+                <xsl:when
+                    test="normalize-space(.//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate) != ''">
+                    <xsl:value-of
+                        select=".//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select=".//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LastUpdate"/>
+                </xsl:otherwise>
+            </xsl:choose>-->
+            <xsl:text>",</xsl:text>
+        </xsl:if>
         <!-- ADDITIONAL TITLES -->
         <xsl:text>
         "additional_titles": [{
@@ -174,37 +177,45 @@
         
         <!-- SUBJECTS -->
         
+        <xsl:variable name="language" select=".//cmdp:TextCorpusProfile/cmdp:TextCorpusContext/cmdp:SubjectLanguages/cmdp:SubjectLanguage/cmdp:Language/cmdp:ISO639/cmdp:iso-639-3-code" />
+        <xsl:if test="language">
         <!-- LANGUAGES -->
         <xsl:text>"languages": [{"id": "</xsl:text><xsl:value-of
-            select=".//cmdp:TextCorpusProfile/cmdp:TextCorpusContext/cmdp:SubjectLanguages/cmdp:SubjectLanguage/cmdp:Language/cmdp:ISO639/cmdp:iso-639-3-code"/><xsl:text>"}],</xsl:text>
-        
+            select="language" /><xsl:text>"}],</xsl:text>
+        </xsl:if>
         
         <!-- DATES -->
-        <xsl:text>"dates": [</xsl:text>
-        <xsl:if test="normalize-space(.//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate/text())">
-            <xsl:text>{"date": "</xsl:text><xsl:value-of select="normalize-space(.//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate/text())"/>
-            <xsl:text>",
-            "type": {
-            "id": "other",
-            "title": {
-            "en": "Other"
-            }
-            },
-            "description": "Publication date"}</xsl:text>
+        <xsl:variable name="publication_date" select="normalize-space(.//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:PublicationDate/text())" />
+        <xsl:variable name="last_updated" select="normalize-space(.//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LastUpdate/text())" />
+        <xsl:if test="publication_date || last_updated">
+            <xsl:text>"dates": [</xsl:text>
+            <xsl:if test="publication_date">
+                <xsl:text>{"date": "</xsl:text>
+                <xsl:value-of select="publication_date"/>
+                <xsl:text>",
+                    "type": {
+                    "id": "other",
+                    "title": {
+                    "en": "Other"
+                    }
+                    },
+                    "description": "Publication date"}</xsl:text>
+            </xsl:if>
+            <xsl:if test="last_updated">
+                <xsl:text>,</xsl:text>
+                <xsl:text>{"date": "</xsl:text>
+                <xsl:value-of select="last_updated"/>
+                <xsl:text>",
+                    "type": {
+                    "id": "updated",
+                    "title": {
+                    "en": "Updated"
+                    }
+                    },
+                    "description": "Last update"}</xsl:text>
+            </xsl:if>
+            <xsl:text>],</xsl:text>
         </xsl:if>
-        <xsl:if test="normalize-space(.//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LastUpdate/text())">
-            <xsl:text>,</xsl:text>
-            <xsl:text>{"date": "</xsl:text><xsl:value-of select="normalize-space(.//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:LastUpdate/text())"/><xsl:text>",
-            "type": {
-            "id": "updated",
-            "title": {
-            "en": "Updated"
-            }
-            },
-            "description": "Last update"}</xsl:text>
-        </xsl:if>
-        <xsl:text>],</xsl:text>
-        
         <!-- VERSION -->
         <xsl:if test="normalize-space(.//cmdp:TextCorpusProfile/cmdp:GeneralInfo/cmdp:Version/text())">  
             <xsl:text>"version": "</xsl:text><xsl:value-of
