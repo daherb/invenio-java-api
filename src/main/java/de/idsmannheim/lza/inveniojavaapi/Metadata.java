@@ -88,7 +88,7 @@ public class Metadata {
     @JsonProperty("publisher")
     Optional<String> publisher = Optional.empty();
     @JsonProperty("identifiers")
-    final ArrayList<AlternateIdentifier> alternateIdentifiers = new ArrayList<>();
+    ArrayList<AlternateIdentifier> alternateIdentifiers = new ArrayList<>();
     @JsonProperty("related_identifiers")
     ArrayList<RelatedIdentifier> relatedIdentifiers = new ArrayList<>();
     @JsonProperty("sizes")
@@ -3349,6 +3349,31 @@ public class Metadata {
              */
             List<AlternateIdentifier> alternateIdentifiers) {
         this.alternateIdentifiers.addAll(alternateIdentifiers);
+        return this;
+    }
+    
+    public Metadata setAlternateIdentifiers(
+            /**
+             * Alternate identifiers (0-n) (https://inveniordm.docs.cern.ch/reference/metadata/#alternate-identifiers-0-n)
+             * 
+             * Persistent identifiers for the resource other than the ones 
+             * registered as system-managed internal or external persistent 
+             * identifiers.
+             * 
+             * This field is compatible with 11. Alternate Identifiers in 
+             * DataCite.
+             * 
+             * The main difference between the system-managed identifiers and 
+             * this field, is that system-managed identifiers are fully 
+             * controlled and managed by InvenioRDM, while identifiers listed
+             * here are used solely for display purposes. For instance, a DOI
+             * registered in the system-managed identifiers will prevent
+             * another record with the same DOI from being created. A DOI
+             * included in this field, will not prevent another record from
+             * including the same DOI in this field.
+             */
+            List<AlternateIdentifier> alternateIdentifiers) {
+        this.alternateIdentifiers = new ArrayList<>(alternateIdentifiers);
         return this;
     }
     
