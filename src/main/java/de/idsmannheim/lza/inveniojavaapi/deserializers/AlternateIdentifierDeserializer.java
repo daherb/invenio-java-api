@@ -30,7 +30,11 @@ public class AlternateIdentifierDeserializer extends StdDeserializer<Metadata.Al
     @Override
     public Metadata.AlternateIdentifier deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         JsonNode node = p.getCodec().readTree(p);
-        String identifier = node.get("identifier").asText();
+        // Minimal string valid as a DOI
+        String identifier = "10.0/NOTYET";
+        if (node.has("identifier") && !node.get("identifier").asText().isBlank()) {
+            identifier = node.get("identifier").asText();
+        }
         ControlledVocabulary.RecordIdentifierScheme scheme = 
                 new ControlledVocabulary.RecordIdentifierScheme(node.get("scheme").asText());
         return new Metadata.AlternateIdentifier(identifier, scheme);
