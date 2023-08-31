@@ -64,7 +64,7 @@ public class InvenioAPITools {
     public List<String> listDraftRecords() throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
         // First list records to get the number of all records
         Records records = api.listUserRecords(Optional.empty(),Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
-        // Now list all the records
+        // Now list all the records, i.e. use the number of records from the previous query
         records = api.listUserRecords(Optional.empty(),Optional.empty(), Optional.of(records.getHits().getTotal()), Optional.empty(), Optional.empty());
         // Get all record ids
         ArrayList<String> ids = new ArrayList<>();
