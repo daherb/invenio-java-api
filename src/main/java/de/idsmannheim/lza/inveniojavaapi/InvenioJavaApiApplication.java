@@ -38,7 +38,7 @@ public class InvenioJavaApiApplication {
      * @throws java.security.KeyManagementException
      * @throws java.lang.InterruptedException
      */
-    public static void createTestData(API api) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
+    public static void createTestData(InvenioAPI api) throws UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException, IOException, InterruptedException {
         ObjectMapper om = new ObjectMapper();
         om.findAndRegisterModules();
         om.enable(SerializationFeature.INDENT_OUTPUT);
