@@ -53,6 +53,24 @@ public class InvenioAPITools {
     }
     
     /**
+     * Lists all current user's records
+     * @return the list of draft record ids
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
+     * @throws java.net.URISyntaxException
+     * @throws java.security.KeyManagementException
+     * @throws java.security.NoSuchAlgorithmException
+     */
+    public Records listAllUserRecords() throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+        // First list records to get the number of all records
+        Records records = api.listUserRecords(Optional.empty(),Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        // Now list all the records, i.e. use the number of records from the previous query
+        records = api.listUserRecords(Optional.empty(),Optional.empty(), Optional.of(records.getHits().getTotal()), Optional.empty(), Optional.empty());
+        return records;
+    }
+    
+    
+    /**
      * Lists the id of all of the current users draft records
      * @return the list of draft record ids
      * @throws java.io.IOException
@@ -62,10 +80,7 @@ public class InvenioAPITools {
      * @throws java.security.NoSuchAlgorithmException
      */
     public List<String> listDraftRecords() throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
-        // First list records to get the number of all records
-        Records records = api.listUserRecords(Optional.empty(),Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
-        // Now list all the records, i.e. use the number of records from the previous query
-        records = api.listUserRecords(Optional.empty(),Optional.empty(), Optional.of(records.getHits().getTotal()), Optional.empty(), Optional.empty());
+        Records records = listAllUserRecords();
         // Get all record ids
         ArrayList<String> ids = new ArrayList<>();
         Records.Hits hits = records.getHits();
@@ -74,6 +89,48 @@ public class InvenioAPITools {
             // Check if it is unpublished -> draft
             if (!hit.isPublished()) {
                 ids.add(hit.getId());
+            }
+        }
+        return ids;
+    }
+    
+    /**
+     * Lists the id of all of the current users edited records, i.e. either drafts
+     * or records with updated metadata
+     * @return the list of draft record ids
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
+     * @throws java.net.URISyntaxException
+     * @throws java.security.KeyManagementException
+     * @throws java.security.NoSuchAlgorithmException
+     */
+    public List<String> listEditedRecords() throws IOException, InterruptedException, URISyntaxException, NoSuchAlgorithmException, KeyManagementException {
+        Records records = listAllUserRecords();
+        // Get all record ids
+        ArrayList<String> ids = new ArrayList<>();
+        Records.Hits hits = records.getHits();
+        // Only filter unpublished ones
+        for (Record hit : hits.getHits()) {
+            // Check if it is unpublished -> draft
+            if (!hit.isPublished()) {
+                ids.add(hit.getId());
+            }
+            // Check if the metadata has changed between record and draft
+            else {
+                try {
+                    // Trying to get both a publidhsed and a draft record from the same id
+                    Record record = api.getRecord(hit.getId());
+                    DraftRecord draft = api.getDraftRecord(hit.getId());
+                    // If one of the two previous lines fails with an exception
+                    // then the following code is skipped
+                    // Check if the draft and record are different. If yes, mark for republishing
+                    if (!record.metadata.equals(draft.metadata)) {
+                        ids.add(hit.getId());
+                    }
+                }
+                catch (IOException e) {
+                    
+                }
             }
         }
         return ids;
