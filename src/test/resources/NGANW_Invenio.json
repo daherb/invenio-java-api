@@ -1,0 +1,34 @@
+{
+            "resource_type": {              
+            "id": "publication-annotationcollection"},"creators": [{
+              "person_or_org": {
+                "name": "Institut für Deutsche Sprache","type": "organizational"}}],"title": "Newsgroup: de.comp.os.ms-windows.anwendungssoftware","publication_date": "2016",
+        "additional_titles": [{
+        "title": "NGANW",
+        "type": {"id": "alternative-title",
+        "title": {"de": "Alternativer Titel", "en" : "Alternative title"}},
+        "lang": {"id": "deu"}
+        }],"description": "Title: Usenet-Newsgroup","rights": [{"title": {"en": "QAO-NC-LOC:ids"},"description": {"en": "academic, non-commercial, query-and-analysis only (i.e. accessible only via COSMAS-II) use, only at the site of the IDS"}}],    
+            "contributors": [{
+              "person_or_org": {
+                "name": "Kupietz, Marc","type": "personal","given_name": "Marc","family_name": "Kupietz"},
+              "role": {"id": "datacurator"},
+              "affiliations": [{
+                "name": "Leibniz-Institut für Deutsche Sprache (IDS)"}]}],"languages": [{"id": "deu"}],"dates": [{"date": "2016",
+            "type": {
+            "id": "other",
+            "title": {
+            "en": "Other"
+            }
+            },
+            "description": "Publication date"},{"date": "2016-04-27",
+            "type": {
+            "id": "updated",
+            "title": {
+            "en": "Updated"
+            }
+            },
+            "description": "Last update"}],"version": "1.0","publisher": "Leibniz-Institut für Deutsche Sprache (IDS)","identifiers": [{
+        "identifier": "",
+        "scheme": "doi"
+        }]}
