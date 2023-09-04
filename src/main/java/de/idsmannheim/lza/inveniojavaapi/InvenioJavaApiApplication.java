@@ -1,11 +1,7 @@
 package de.idsmannheim.lza.inveniojavaapi;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
-import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -67,20 +63,20 @@ public class InvenioJavaApiApplication {
         
     }
     
-    private String generateSchema() throws JsonMappingException, JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
-        mapper.acceptJsonFormatVisitor(Metadata.class, visitor);
-        JsonSchema schema = visitor.finalSchema();
-        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(schema);
-    }
-    
-    
-    private String generateSchema4() {
-        SchemaMapper schemaMapper = new SchemaMapper();
-        JSONObject jsonObject = schemaMapper.toJsonSchema4(Metadata.class, true);
-        return jsonObject.toString(4);
-    }
+//    private String generateSchema() throws JsonMappingException, JsonProcessingException {
+//        ObjectMapper mapper = new ObjectMapper();
+//        SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
+//        mapper.acceptJsonFormatVisitor(Metadata.class, visitor);
+//        JsonSchema schema = visitor.finalSchema();
+//        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(schema);
+//    }
+//    
+//    
+//    private String generateSchema4() {
+//        SchemaMapper schemaMapper = new SchemaMapper();
+//        JSONObject jsonObject = schemaMapper.toJsonSchema4(Metadata.class, true);
+//        return jsonObject.toString(4);
+//    }
     
     private static final Logger LOG = Logger.getLogger(InvenioJavaApiApplication.class.getName());
     
