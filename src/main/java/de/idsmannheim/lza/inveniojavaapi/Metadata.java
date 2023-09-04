@@ -2028,6 +2028,10 @@ public class Metadata {
         public String toString() {
             return "AlternateIdentifier{" + "identifier=" + identifier + ", scheme=" + scheme + '}';
         }
+
+        public void setIdentifier(String identifier) {
+            this.identifier = identifier;
+        }
         
         
     }
