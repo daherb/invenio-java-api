@@ -240,7 +240,18 @@ public class InvenioAPITools {
         // Match the digest algorithm with the one specified in the beginning of the provided checksum
         MessageDigest md = MessageDigest.getInstance(parts[0]);
         md.reset();
-        md.update(new FileInputStream(file).readAllBytes());
+        FileInputStream fs = new FileInputStream(file);
+        // Read file 1024 bytes at a time and compute checksum
+        boolean done = false;
+        byte[] buffer = new byte[1024];
+        while (!done) {
+            int count = fs.read(buffer);
+            if (count > 0) {
+                md.update(buffer, 0, count);
+            }
+            // We are done if we read less than 1024 bytes
+            done = count < 1024 ;
+        }
         String newSum = parts[0]+":" + DatatypeConverter.printHexBinary(md.digest());
         return newSum.equalsIgnoreCase(checksum);
     }
