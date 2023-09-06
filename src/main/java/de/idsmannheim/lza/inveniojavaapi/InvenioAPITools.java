@@ -65,7 +65,9 @@ public class InvenioAPITools {
         // First list records to get the number of all records
         Records records = api.listUserRecords(Optional.empty(),Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         // Now list all the records, i.e. use the number of records from the previous query
-        records = api.listUserRecords(Optional.empty(),Optional.empty(), Optional.of(records.getHits().getTotal()), Optional.empty(), Optional.empty());
+        if (records.getHits().getTotal()>0) {
+            records = api.listUserRecords(Optional.empty(),Optional.empty(), Optional.of(records.getHits().getTotal()), Optional.empty(), Optional.empty());
+        }
         return records;
     }
     
