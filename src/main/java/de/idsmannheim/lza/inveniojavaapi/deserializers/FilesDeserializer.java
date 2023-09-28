@@ -109,8 +109,9 @@ public class FilesDeserializer extends StdDeserializer<Files> {
         ObjectMapper om = new ObjectMapper()
                 .registerModule(new Jdk8Module());
         boolean enabled = false;
-        if (node.has("enabled"))
+        if (node.has("enabled")) {
             enabled = node.get("enabled").asBoolean();
+        }
         Files files = new Files(enabled);
         if (node.has("entries")) {
             if (node.get("entries").isArray()) {
