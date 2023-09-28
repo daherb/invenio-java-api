@@ -120,7 +120,7 @@ public class FilesDeserializer extends StdDeserializer<Files> {
                 files.addEntriesMap((HashMap < String, Files.FileEntry >) om.readerForMapOf(Files.FileEntry.class).readValue(node.get("entries").toString()));
             }
         }
-        if (node.has("default_preview") && node.get("default_preview") != null) {
+        if (node.has("default_preview") && node.get("default_preview") != null && !node.get("default_preview").asText().equals("null")) {
             files.setDefaultPreview(node.get("default_preview").asText());
         }
         return files;
