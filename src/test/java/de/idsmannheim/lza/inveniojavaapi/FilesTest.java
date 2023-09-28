@@ -37,7 +37,7 @@ public class FilesTest {
     @Test
     public void filesTest() throws JsonProcessingException, ParseException, URISyntaxException {
         // Taken from https://inveniordm.docs.cern.ch/reference/metadata/#entries-0-n
-        String tombstoneStringText = "{\n" +
+        String filesStringText = "{\n" +
                 "  \"enabled\": \"true\",\n" +
                 "  \"entries\": {\n" +
                 "    \"paper.pdf\": {\n" +
@@ -88,7 +88,7 @@ public class FilesTest {
                         .addLinks(link)
                         .addMetadata(metadata))));
         files.setDefaultPreview("paper.pdf");
-        Files f2 = om.readValue(tombstoneStringText, Files.class);
+        Files f2 = om.readValue(filesStringText, Files.class);
         Files f3 = om.readValue(om.writeValueAsString(files), Files.class);
         Assertions.assertEquals(files,f2);
         Assertions.assertEquals(files,f3);
