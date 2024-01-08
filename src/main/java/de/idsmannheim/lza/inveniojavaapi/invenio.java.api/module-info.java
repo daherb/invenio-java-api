@@ -3,7 +3,7 @@ module invenio.java.api {
     requires java.net.http;
     requires java.xml;
     requires java.xml.bind;
-    requires java.activation;
+//    requires java.activation;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.datatype.jdk8;
